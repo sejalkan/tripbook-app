@@ -61,12 +61,14 @@ Open the `server` and `client` in separate VSCode workspaces or open the combine
 
 ### Purpose
 
-2-5 sentences describing what the system does
+A travel blog style social media platform that allows interested users to sign up and share the experiences of their travels with other users that may be looking for recommendations on travel destinations and/or anyone interested in seeing someone else’s take on a specific place or point of interest (POI). Specific locations and POI’s can also sign up and share information and content that they think would be informative as well as engaging for their target audience. In addition, the same way users can follow other users and engage with each other's content, they also have the ability to follow locations of interest and review them according to their personal experience.
 
 ### Pages
 
-* Home: 1-3 sentences describing what the page displays and what a user can do
-* Shopping cart: ...
+* Landing Page - A call to action (CTA) page where users are first greeted, where they are able to sign up for an account or login to an existing one.
+* Home - This will be where the majority of user time is spent, it’s where their feed lives, the search function, horizontal navigation bar and post filtering options. 
+* Profile - Displays user posts, could be used as a curated feed. Also shows information such as followers and followings, short personal biography, and interests. Users are also able to edit their profile as well as delete it altogether.
+
 
 ### Entity-Relationship (ER) Diagram
 
