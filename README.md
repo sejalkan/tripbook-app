@@ -72,7 +72,7 @@ A travel blog style social media platform that allows interested users to sign u
 
 ### Entity-Relationship (ER) Diagram
 
-![ER Diagram](./images/er_diagram.png)
+![ER Diagram](./images/ER_updated.png)
 
 ## Teaser (MS3)
 
