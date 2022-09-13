@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 var express = require('express');
 var mongoose = require('mongoose');
 var morgan = require('morgan');
@@ -6,7 +7,7 @@ var cors = require('cors');
 var history = require('connect-history-api-fallback');
 
 // Variables
-var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/animalDevelopmentDB';
+var mongoURI = process.env.MONGODB_URI || 'mongodb+srv://group34:<Group344>@cluster0.jxpgx9q.mongodb.net/?retryWrites=true&w=majority';
 var port = process.env.PORT || 3000;
 
 // Connect to MongoDB
