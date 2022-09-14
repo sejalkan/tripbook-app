@@ -6,8 +6,8 @@ var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
 
-var reviewsController = require("./controllers/reviews");
-var postsController = require("./controllers/posts");
+var reviewsController = require('./controllers/reviews');
+var postsController = require('./controllers/posts');
 
 // Variables
 var mongoURI = process.env.MONGODB_URI || 'mongodb+srv://user1:B71xmFD3aA6gVTLp@cluster0.5ezjys5.mongodb.net/?retryWrites=true&w=majority';
