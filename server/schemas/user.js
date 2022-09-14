@@ -7,7 +7,8 @@ const userSchema = new Schema({
     email_address: String,
     password: String,
     bio: String,
-    followers: [{ type: Schema.Types.ObjectId, ref: 'User'}],
+    followers: [{ type: Schema.Types.ObjectId, ref: 'userModel'}],
+    posts: [{type: Schema.Types.ObjectId, ref:'posts'}],
 });
-
-module.exports = mongoose.model('users', userSchema);
+const userModel = mongoose.model('users', userSchema);
+module.exports = userModel;
