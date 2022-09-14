@@ -4,9 +4,9 @@ const Schema = mongoose.Schema;
 const reviewSchema = new Schema({
     rating: Number,
     text: String,
-    review_id: String,
-    user: Schema.Types.ObjectId, ref: "user"
+    //_id: String,
+    user: {type: Schema.Types.ObjectId, ref: "users"}
 
 });
 
-module.exports = mongoose.model("review", reviewSchema);
+module.exports = mongoose.model("reviews", reviewSchema);
