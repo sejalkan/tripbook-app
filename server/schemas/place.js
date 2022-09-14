@@ -8,7 +8,7 @@ const Place = new Schema({
     bio: String,
     place_id: String,
     placeName: String,
-    address: String,
+    address: [{StreetName: String, city: String, country: String}]
 });
 
 module.exports = mongoose.model('Place', Place);
