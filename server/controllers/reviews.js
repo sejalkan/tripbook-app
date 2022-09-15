@@ -13,7 +13,9 @@ router.post('/reviews', function(req, res, next) {
 
 //read all reviews
 router.get('/reviews', function(req, res, next) {
-    Review.find(function(err, reviews){
+    const query = Review.find();
+    query.sort({ rating: 1});
+    query.exec((err, reviews) => {
         if (err) { return next(err); }
         res.json({'reviews':reviews});
     });
@@ -68,19 +70,20 @@ router.put('/reviews/:id', function(req, res, next) {
 
 });
 
+/*
 //filtering by review rating
 
 router.get('/reviews', function(req, res, next){
     var filter = req.query.filter; // {"filter" : 5}
-    console.log("finding");
+    console.log('finding');
     Review.find({filter}).exec(function(err, reviews){
         if(err){
             return res.status(500).send(err);
-        }console.log("success");
+        }console.log('success');
         return res.status(200).json(reviews);
     });
 });
-
+*/
 
 /*
 router.get('/reviews', function(req, res, next){

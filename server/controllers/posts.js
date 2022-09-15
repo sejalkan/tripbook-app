@@ -95,7 +95,7 @@ router.post('/posts/:id/reviews', function(req, res, next) {
         var review = new Review(req.body);
         review.save(function (err){
             if (err) { return next (err); }
-            console.log(review)
+            console.log(review);
         });
         post.reviews.push(review);
         post.save();
@@ -136,12 +136,12 @@ router.delete('/posts/:id/reviews/:r_id', function (req, res, next) {
         if (review == null) {
             return res.status(404).json({'message': 'Review not found'});
         }
-    Post.findByIdAndUpdate({_id: req.params.id}, {$pull: {reviews: req.params.r_id}}, function (err, post) {
-        if (err) {
-            return next(err);
-        }
-        return res.status(200).json(post.reviews)
-    });
+        Post.findByIdAndUpdate({_id: req.params.id}, {$pull: {reviews: req.params.r_id}}, function (err, post) {
+            if (err) {
+                return next(err);
+            }
+            return res.status(200).json(post.reviews);
+        });
     });
 });
 
