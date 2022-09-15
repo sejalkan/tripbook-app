@@ -38,6 +38,9 @@ app.get('/api', function(req, res) {
 var users = require('./controllers/users');
 app.use(users);
 
+var myPlaces = require('./controller/places');
+app.use(myPlaces);
+
 // Catch all non-error handler for api (i.e., 404 Not Found)
 app.use('/api/*', function (req, res) {
     res.status(404).json({ 'message': 'Not Found' });
