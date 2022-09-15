@@ -68,6 +68,42 @@ router.put('/reviews/:id', function(req, res, next) {
 
 });
 
+//filtering by review rating
+
+router.get('/reviews', function(req, res, next){
+    var filter = req.query.filter; // {"filter" : 5}
+    console.log("finding");
+    Review.find({filter}).exec(function(err, reviews){
+        if(err){
+            return res.status(500).send(err);
+        }console.log("success");
+        return res.status(200).json(reviews);
+    });
+});
+
+
+/*
+router.get('/reviews', function(req, res, next){
+    console.log("finding");
+    var filtering = req.query.filtering;
+    if(filtering != null){
+        Review.find({rating : filtering}, function(err, reviews){
+            if(err){
+                return next(err);
+            }
+            res.json({"reviews" : reviews})
+        });
+    }else{
+        Review.find(function(err, reviews){
+            if(err){
+                return next(err);
+            }
+            res.json({"reviews": reviews})
+        });
+    }
+});
+*/
+
 module.exports = router;    
 
 /*
