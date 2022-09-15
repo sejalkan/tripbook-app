@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Review = require('../schemas/review.js');
 
-//create reviews
+//create review
 router.post('/reviews', function(req, res, next) {
     var review = new Review(req.body);
     review.save(function(err) {
@@ -71,11 +71,11 @@ router.put('/reviews/:id', function(req, res, next) {
 module.exports = router;    
 
 /*
-(a) POST /camels
-(b) GET /camels
-(c) DELETE /camels
-(d) GET /camels/:id
-(e) PUT /camels/:id
-(f) PATCH /camels/:id (X)
-(g) DELETE /camels/:id
+✔️(a) POST /camels
+✔️(b) GET /camels
+✔️(c) DELETE /camels
+✔️(d) GET /camels/:id
+✔️(e) PUT /camels/:id
+(f) PATCH /camels/:id 
+✔️(g) DELETE /camels/:id
 */

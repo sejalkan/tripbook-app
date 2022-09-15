@@ -7,6 +7,286 @@
 	},
 	"item": [
 		{
+			"name": "reviews",
+			"item": [
+				{
+					"name": "POST /reviews",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/reviews",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /reviews",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/reviews",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT /reviews/:id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/reviews/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"reviews",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /reviews/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/reviews/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"reviews",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /reviews",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/reviews",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /reviews/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/reviews/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"reviews",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "posts",
+			"item": [
+				{
+					"name": "POST /posts",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/posts",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /posts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/posts",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /posts/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/posts/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"posts",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT /posts/:id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/posts/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"posts",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH /posts/:id",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/posts/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"posts",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /posts",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/posts",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /posts/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/posts/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"posts",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "GET /api",
 			"event": [
 				{
@@ -41,57 +321,24 @@
 			"response": []
 		},
 		{
-			"name": "POST /reviews",
+			"name": "POST /posts/:id/reviews",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/reviews",
+					"raw": "{{host}}/posts/:id/reviews",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"posts",
+						":id",
 						"reviews"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GET /reviews",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{host}}/reviews",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"reviews"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "PUT /api/reviews/:id",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"url": {
-					"raw": "{{host}}/reviews/:id",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"reviews",
-						":id"
 					],
 					"variable": [
 						{
 							"key": "id",
-							"value": ""
+							"value": null
 						}
 					]
 				}
@@ -99,16 +346,43 @@
 			"response": []
 		},
 		{
-			"name": "GET /api/reviews/:id",
+			"name": "GET /posts/:id/reviews",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/reviews/:id",
+					"raw": "{{host}}/posts/:id/reviews",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"posts",
+						":id",
+						"reviews"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "632276fcf57d8b84789d13be"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /posts/:id/reviews/:id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/posts/:id/reviews/:id",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"posts",
+						":id",
 						"reviews",
 						":id"
 					],
@@ -123,33 +397,18 @@
 			"response": []
 		},
 		{
-			"name": "DELETE /reviews",
+			"name": "DELETE /posts/:id/reviews/:id",
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/reviews",
+					"raw": "{{host}}/posts/:id/reviews/:id",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
-						"reviews"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "DELETE /reviews/:id",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "{{host}}/reviews/:id",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
+						"posts",
+						":id",
 						"reviews",
 						":id"
 					],
