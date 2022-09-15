@@ -8,7 +8,12 @@ const Place = new Schema({
     bio: String,
     place_id: String,
     placeName: String,
-    address: [{StreetName: String, city: String, country: String}]
-});
+    address: [{StreetName: String, city: String, country: String}],
+    // followers: [{ type: Schema.Types.ObjectId, ref: 'placeModel'}],
+    // posts: [{type: Schema.Types.ObjectId, ref:'posts'}],
 
-module.exports = mongoose.model('Place', Place);
+});
+const placeModel = mongoose.model('Place', Place);
+module.exports = placeModel;
+
+
