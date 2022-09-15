@@ -8,6 +8,8 @@ var history = require('connect-history-api-fallback');
 
 var reviewsController = require('./controllers/reviews');
 var postsController = require('./controllers/posts');
+var usersController = require('./controllers/users');
+var placesController = require('./controllers/places');
 
 // Variables
 var mongoURI = process.env.MONGODB_URI || 'mongodb+srv://user1:B71xmFD3aA6gVTLp@cluster0.5ezjys5.mongodb.net/?retryWrites=true&w=majority';
@@ -41,6 +43,8 @@ app.get('/api', function(req, res) {
 
 app.use(reviewsController);
 app.use(postsController);
+app.use(usersController);
+app.use(placesController);
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
 app.use('/api/*', function (req, res) {
