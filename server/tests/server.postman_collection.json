@@ -363,7 +363,7 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "632276fcf57d8b84789d13be"
+							"value": ""
 						}
 					]
 				}
@@ -371,12 +371,12 @@
 			"response": []
 		},
 		{
-			"name": "GET /posts/:id/reviews/:id",
+			"name": "GET /posts/:id/reviews/:r_id",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/posts/:id/reviews/:id",
+					"raw": "{{host}}/posts/:id/reviews/:r_id",
 					"host": [
 						"{{host}}"
 					],
@@ -384,11 +384,15 @@
 						"posts",
 						":id",
 						"reviews",
-						":id"
+						":r_id"
 					],
 					"variable": [
 						{
 							"key": "id",
+							"value": null
+						},
+						{
+							"key": "r_id",
 							"value": null
 						}
 					]
@@ -397,12 +401,12 @@
 			"response": []
 		},
 		{
-			"name": "DELETE /posts/:id/reviews/:id",
+			"name": "DELETE /posts/:id/reviews/:r_id",
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/posts/:id/reviews/:id",
+					"raw": "{{host}}/posts/:id/reviews/:r_id",
 					"host": [
 						"{{host}}"
 					],
@@ -410,11 +414,15 @@
 						"posts",
 						":id",
 						"reviews",
-						":id"
+						":r_id"
 					],
 					"variable": [
 						{
 							"key": "id",
+							"value": null
+						},
+						{
+							"key": "r_id",
 							"value": null
 						}
 					]
