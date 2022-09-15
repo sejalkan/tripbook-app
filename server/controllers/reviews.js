@@ -12,7 +12,7 @@ router.post('/reviews', function(req, res, next) {
 });
 
 //read all reviews sorted
-router.get('/reviews', function(req, res, next) {
+router.get('/sortedReviews', function(req, res, next) {
     const query = Review.find();
     query.sort({ rating: 1});
     query.exec((err, reviews) => {
