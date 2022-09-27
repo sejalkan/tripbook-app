@@ -1,6 +1,4 @@
 <template>
-    <div class="page">
-        <h1>TripBook</h1>
         <div class="form">
         <form>
             <h2> Create Organisation Account </h2> <br>
@@ -25,17 +23,11 @@
 
         <label for="username">Username </label>
         <input type="text" id="username" name="username" v-model="username"><br> <br>
-        <a href="/">Are you a user?</a> <br> <br> <br>
+        <a href="/startpage/UserAccount" v-on:click=changeToUser>Are you a user?</a> <br> <br> <br>
         <input type="button" class="submitBtn" name="submit" value="Submit" v-on:click="createPlace"> <br>
             </p>
         </form>
         </div>
-        <img src="C:\Users\Sejal\Desktop\DIT342 Web Dev\Group34\group-34-web\images\logo.png" class="logo">
-        <p class="intro">
-            TripBook helps you find the <br> best places around the town. <br>
-            Bon Voyage!
-            </p>
-    </div>
 </template>
 
 <script>
@@ -59,20 +51,15 @@ export default {
         .catch(error => {
           this.message = error
         })
+    },
+    changeToUser() {
+      this.$emit('change-to-user')
     }
   }
 }
 </script>
 
 <style scoped>
-    h2{
-        text-align: center;
-    }
-    .page{
-        height: 600px;
-        background-color: #f6eef0;
-    }
-
     .form{
         height: 500px;
         width: 30%;
@@ -85,23 +72,6 @@ export default {
         right: 200px;
         border: 3px solid #c8b4d0;
 
-    }
-    .info{
-        text-align: left;
-    }
-    .logo{
-        height: 30%;
-        width: 30%;
-    }
-    .intro{
-        left: 100px;
-        text-align: left;
-        font-size: 30px;
-        padding: 30px
-    }
-    h1{
-        font-family: Inter;
-        font-style: italic;
     }
     .submitBtn{
         background-color:#c8b4d0;

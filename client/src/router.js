@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import UserAccount from './Components/UserAccount.vue'
-import PlaceAccount from './Components/PlaceAccount.vue'
+import Home from './views/Home.vue'
+import StartPage from './views/StartPage.vue'
 
 Vue.use(Router)
 
@@ -11,13 +11,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'userAccount',
-      component: UserAccount
+      name: 'home',
+      component: Home
     },
     {
-      path: '/placeAccount',
-      name: 'placeAccount',
-      component: PlaceAccount
+      path: '/startpage',
+      name: 'startpage',
+      component: StartPage
     }
   ]
 })
