@@ -3,25 +3,15 @@
         <form>
             <h2> Create User Account </h2> <br>
             <p class="info">
-        <label for="username">Username </label>
-        <input type="text" id="username" name="username"><br>
-
-        <label for="emailID">Email Address </label>
-        <input type="text" id="emailID" name="emailID" v-model="emailID"><br>
-
-        <label for="password">Password </label>
-        <input type="password" id="password" name="password" minlength="8" v-model="password"><br>
-
-        <label for="bio">My Bio </label>
-        <input type="text" id="bio" name="bio" size="12" v-model="bio"><br>
-
+        <button id="link" v-on:click=changeToPlace>Are you an organisation?</button>
+        <input type="text" id="username" name="username" placeholder="Username">
+        <input type="text" id="emailID" name="emailID" v-model="emailID" placeholder="Email address">
+        <input type="password" id="password" name="password" minlength="8" v-model="password" placeholder="Password">
+        <input type="text" id="bio" name="bio" size="12" v-model="bio" placeholder="Bio.."><br>
         <label for="profilePicture">Profile Picture </label>
         <input type="file" id="profilePicture" name="profilePicture" accept="image/*"><br>
-
-        <label for="username">Username </label>
-        <input type="text" id="username" name="username" v-model="username"><br> <br>
-        <a href="/startpage/placeAccount" v-on:click=changeToPlace>Are you an organisation?</a> <br> <br> <br>
-        <input type="button" class="submitBtn" name="submit" value="Submit" v-on:click="createUser"> <br>
+         <input type="button" class="btn" name="submit" value="Submit" v-on:click="createUser">
+          <input type="button" class="btn" name="cancel" value="Sign in" v-on:click=changeToLogin>
             </p>
         </form>
         </div>
@@ -51,6 +41,9 @@ export default {
     },
     changeToPlace() {
       this.$emit('change-to-place')
+    },
+    changeToLogin() {
+      this.$emit('change-to-login')
     }
   }
 }
@@ -58,35 +51,52 @@ export default {
 
 <style scoped>
     .form{
-        height: 500px;
+      height: 550px;
         width: 30%;
         float: right;
         padding: 25px;
+        padding-top: 50px;
         background-color: #ffffff;
         text-align: right;
-        position: fixed;
-        bottom: 175px;
+        position: absolute;
         right: 200px;
+        overflow-y: hidden;
     }
-    .submitBtn{
+     ::placeholder{
+        font-size:11px;
+        padding: 10px;
+        color: gray;
+    }
+    .btn{
         background-color:#c8b4d0;
         border: none;
         height: 50px;
         width: 100px;
-    }
-    .cancelBtn{
-        background-color: #c8b4d0;
-        border: none;
+        font-family: inter;
+        font-size: 16px;
+        float: left;
+        margin-right: 20px;
     }
     input{
+        margin: 10px;
         border-color: #f6eef0;
         border-style: double;
+        width: 80%;
     }
     label{
+       margin-left: 10px;
+       margin-bottom: -10px;
         font-family: Inter;
         font-size: 16px;
     }
     h2{
         font-family: Inter;
+    }
+    #link{
+      margin-left: 10px;
+      background-color: white;
+      border: 0px;
+      color: blue;
+      text-decoration: underline;
     }
 </style>

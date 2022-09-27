@@ -1,26 +1,25 @@
 <template>
   <div class="page">
-        <div class="form">
-            <place-account v-if="place" @change-to-user="isUSer"> </place-account>
-            <user-account v-else-if="user" @change-to-place="isPlace"></user-account>
-            <log-in/>
-        </div>
-        <div class="ImageLogo">
+     <div class="ImageLogo">
         <img src="@/assests/logo.png" class="logo">
-         <br> <br>
-        <p class="intro">
+        <div class="intro">
             We help you find the <br> best places around the town. <br>
             <img src="@/assests/followSign.png" alt="lets goo!">
             Bon Voyage!
-         </p>
+        </div>
          </div>
-    </div>
+        <div class="form">
+          <log-in v-if="login" @change-to-signup=isUSer> </log-in>
+          <user-account v-if="user" @change-to-place=isPlace @change-to-login=loggingIn> </user-account>
+          <place-account v-if="place" @change-to-user=isUSer  @change-to-login=loggingIn> </place-account>
+            </div>
+        </div>
 </template>
 
 <script>
-import PlaceAccount from '@/Components/PlaceAccount.vue'
-import UserAccount from '@/Components/UserAccount.vue'
-import LogIn from '@/Components/LogIn.vue'
+import PlaceAccount from '@/components/PlaceAccount.vue'
+import UserAccount from '@/components/UserAccount.vue'
+import LogIn from '@/components/LogIn.vue'
 
 export default {
   components: {
@@ -32,19 +31,26 @@ export default {
   data() {
     return {
       message: 'none',
-      user: true,
+      user: false,
       place: false,
-      login: false,
-      signUp: true,
-      currentComponent: null
+      login: true
     }
   },
   methods: {
     isUSer() {
-      this.currentComponent = UserAccount
+      this.login = false
+      this.user = true
+      this.place = false
     },
-    isPlace(newComponent) {
-      this.currentComponent = newComponent
+    isPlace() {
+      this.user = false
+      this.place = true
+      this.login = false
+    },
+    loggingIn() {
+      this.user = false
+      this.login = true
+      this.place = false
     }
   }
 }
@@ -55,8 +61,9 @@ export default {
     }
 .page{
         height: 100vh;
-        overflow-x: hidden;
+        overflow-y: hidden;
         background-color: #f6eef0;
+        padding-top: 90px;
     }
      .info{
         text-align: left;
@@ -69,7 +76,8 @@ export default {
     .intro{
         text-align: left;
         font-size: 30px;
-        padding: 25px
+        padding-left: 25%;
+        font-family: inter;
     }
     h1{
         font-family: Inter;
