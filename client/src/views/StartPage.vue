@@ -1,6 +1,5 @@
 <template>
   <div class="page">
-        <h1>TripBook</h1>
         <div class="form">
             <place-account v-if="place" @change-to-user="isUSer"> </place-account>
             <user-account v-else-if="user" @change-to-place="isPlace"></user-account>
@@ -8,12 +7,13 @@
         </div>
         <div class="ImageLogo">
         <img src="@/assests/logo.png" class="logo">
-        </div>
+         <br> <br>
         <p class="intro">
             We help you find the <br> best places around the town. <br>
             <img src="@/assests/followSign.png" alt="lets goo!">
             Bon Voyage!
          </p>
+         </div>
     </div>
 </template>
 
@@ -62,8 +62,9 @@ export default {
         text-align: left;
     }
     .logo{
-        height: 50%;
-        width: 40%;
+        height: 90%;
+        width: 80%;
+        align-content: left;
     }
     .intro{
         text-align: left;
@@ -74,11 +75,13 @@ export default {
         font-family: Inter;
         font-style: italic;
         text-align: left;
-        padding: 3%;
+        padding: 5%;
     }
     .ImageLogo{
       top: 100px;
       left: 100px;
+      float: left;
+      padding: 3%;
     }
 
 </style>
