@@ -3,10 +3,13 @@
         <h1>TripBook</h1>
         <div class="form">
         <form>
-            <h2> Create User Account </h2> <br>
+            <h2> Create Organisation Account </h2> <br>
             <p class="info">
         <label for="username">Username </label>
         <input type="text" id="username" name="username"><br>
+
+        <label for="name">Organisation name </label>
+        <input type="text" id="name" name="name" v-model="placeName"><br>
 
         <label for="emailID">Email Address </label>
         <input type="text" id="emailID" name="emailID" v-model="emailID"><br>
@@ -22,8 +25,8 @@
 
         <label for="username">Username </label>
         <input type="text" id="username" name="username" v-model="username"><br> <br>
-        <a href="/placeAccount">Are you an organisation?</a> <br> <br> <br>
-        <input type="button" class="submitBtn" name="submit" value="Submit" v-on:click="createUser"> <br>
+        <a href="/">Are you a user?</a> <br> <br> <br>
+        <input type="button" class="submitBtn" name="submit" value="Submit" v-on:click="createPlace"> <br>
             </p>
         </form>
         </div>
@@ -40,16 +43,16 @@
 import { Api } from '@/Api'
 
 export default {
-  name: 'userAccount',
+  name: 'placeAccount',
   data() {
     return {
-      users: { username: '', password: '', bio: '', emailID: '' },
+      users: { username: '', password: '', bio: '', emailID: '', placeName: '' },
       show: true
     }
   },
   methods: {
-    createUser() {
-      Api.post('/users')
+    createPlace() {
+      Api.post('/places')
         .then(response => {
           this.message = response.data.message
         })
@@ -91,6 +94,7 @@ export default {
         width: 30%;
     }
     .intro{
+        left: 100px;
         text-align: left;
         font-size: 30px;
         padding: 30px

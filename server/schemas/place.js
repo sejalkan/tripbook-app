@@ -9,8 +9,8 @@ const Place = new Schema({
     place_id: String,
     placeName: String,
     address: [{StreetName: String, city: String, country: String}],
-    // followers: [{ type: Schema.Types.ObjectId, ref: 'placeModel'}],
-    // posts: [{type: Schema.Types.ObjectId, ref:'posts'}],
+    followers: [{ type: Schema.Types.ObjectId, ref: 'placeModel'}],
+    posts: [{type: Schema.Types.ObjectId, ref:'posts'}],
 
 });
 const placeModel = mongoose.model('Place', Place);
