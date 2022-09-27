@@ -1,19 +1,22 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link>
-    </div>
+  <div id="app" :style="{ 'margin-left' : sidebarWidth }">
+    <Sidebar />
     <!-- Render the content of the current page view -->
     <router-view/>
   </div>
 </template>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+import Sidebar from './components/sidebar/Sidebar.vue'
+import { sidebarWidth } from './components/sidebar/state'
+export default {
+  components: { Sidebar },
+  setup() {
+    return { sidebarWidth }
+  }
 }
+</script>
+
+<style>
+
 </style>
