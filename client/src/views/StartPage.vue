@@ -4,23 +4,29 @@
         <div class="form">
             <place-account v-if="place" @change-to-user="isUSer"> </place-account>
             <user-account v-else-if="user" @change-to-place="isPlace"></user-account>
+            <log-in/>
         </div>
-        <img src="client\src\assests\Mitt projekt.png" class="logo">
+        <div class="ImageLogo">
+        <img src="@/assests/logo.png" class="logo">
+        </div>
         <p class="intro">
-            TripBook helps you find the <br> best places around the town. <br>
+            We help you find the <br> best places around the town. <br>
+            <img src="@/assests/followSign.png" alt="lets goo!">
             Bon Voyage!
          </p>
     </div>
 </template>
 
 <script>
-import PlaceAccount from '@/components/PlaceAccount.vue'
-import UserAccount from '@/components/UserAccount.vue'
+import PlaceAccount from '@/Components/PlaceAccount.vue'
+import UserAccount from '@/Components/UserAccount.vue'
+import LogIn from '@/Components/LogIn.vue'
 
 export default {
   components: {
     PlaceAccount,
-    UserAccount
+    UserAccount,
+    LogIn
   },
   name: 'start page',
   data() {
@@ -56,17 +62,23 @@ export default {
         text-align: left;
     }
     .logo{
-        height: 30%;
-        width: 30%;
+        height: 50%;
+        width: 40%;
     }
     .intro{
         text-align: left;
         font-size: 30px;
-        padding: 30px
+        padding: 25px
     }
     h1{
         font-family: Inter;
         font-style: italic;
+        text-align: left;
+        padding: 3%;
+    }
+    .ImageLogo{
+      top: 100px;
+      left: 100px;
     }
 
 </style>

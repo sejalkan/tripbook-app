@@ -67,8 +67,6 @@ export default {
         position: fixed;
         bottom: 175px;
         right: 200px;
-        border: 3px solid #c8b4d0;
-
     }
     .submitBtn{
         background-color:#c8b4d0;
