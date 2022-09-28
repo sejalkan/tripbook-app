@@ -4,7 +4,7 @@
             <h2> Sign In </h2> <br>
         <div class="info">
         <input type="text" id="username" name="username" placeholder="Email or username">
-        <input type="password" id="password" name="password" minlength="8" v-model="password" placeholder="Password">
+        <input type="password" id="password" name="password" minlength="8" placeholder="Password">
         <input type="button" class="Btn" name="logIn" value="Check in">
          <div id="checkIn">
              <button class="Btn" v-on:click=changeToSignUp> Sign up </button>

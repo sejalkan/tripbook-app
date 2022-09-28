@@ -1,16 +1,16 @@
 <template>
         <div class="form">
-        <form>
+        <form class="userFrom">
             <h2> Create User Account </h2> <br>
             <p class="info">
         <button id="link" v-on:click=changeToPlace>Are you an organisation?</button>
-        <input type="text" id="username" name="username" placeholder="Username">
-        <input type="text" id="emailID" name="emailID" v-model="emailID" placeholder="Email address">
+        <input type="text" id="username" name="username" placeholder="Username" v-model="username">
+        <input type="text" id="email_address" name="emailID" v-model="email_address" placeholder="Email address">
         <input type="password" id="password" name="password" minlength="8" v-model="password" placeholder="Password">
         <input type="text" id="bio" name="bio" size="12" v-model="bio" placeholder="Bio.."><br>
         <label for="profilePicture">Profile Picture </label>
         <input type="file" id="profilePicture" name="profilePicture" accept="image/*"><br>
-         <input type="button" class="btn" name="submit" value="Submit" v-on:click="createUser">
+         <input type="button" class="btn" name="submit" value="Submit" v-on:click="postUser">
           <input type="button" class="btn" name="cancel" value="Sign in" v-on:click=changeToLogin>
             </p>
         </form>
@@ -25,25 +25,41 @@ export default {
   name: 'userAccount',
   data() {
     return {
-      users: { username: '', password: '', bio: '', emailID: '' },
+      username: '',
+      email_address: '',
+      password: '',
+      bio: '',
       show: true
     }
   },
   methods: {
-    createUser() {
-      Api.post('/users')
-        .then(response => {
-          this.message = response.data.message
-        })
-        .catch(error => {
-          this.message = error
-        })
-    },
     changeToPlace() {
       this.$emit('change-to-place')
     },
     changeToLogin() {
       this.$emit('change-to-login')
+    },
+    postUser() {
+      const newUser = {
+        username: this.username,
+        email_address: this.email_address,
+        password: this.password,
+        bio: this.bio
+      }
+      this.username = null
+      this.email_address = null
+      this.password = null
+      this.bio = null
+
+      Api.post('/users', newUser)
+        .then((response) => {
+          this.newUser = response.data
+          console.log(response.data)
+          alert('success')
+        })
+        .catch(function (error) {
+          this.newUser = error
+        })
     }
   }
 }
@@ -98,5 +114,9 @@ export default {
       border: 0px;
       color: blue;
       text-decoration: underline;
+    }
+    label{
+        font-size:11px;
+        color: gray;
     }
 </style>

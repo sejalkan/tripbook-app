@@ -11,7 +11,7 @@
         <div class="form">
           <log-in v-if="login" @change-to-signup=isUSer> </log-in>
           <user-account v-if="user" @change-to-place=isPlace @change-to-login=loggingIn> </user-account>
-          <place-account v-if="place" @change-to-user=isUSer  @change-to-login=loggingIn> </place-account>
+          <place-account v-if="place" @change-to-user=isUSer  @change-to-login=loggingIn @users=postUser> </place-account>
             </div>
         </div>
 </template>
@@ -27,7 +27,7 @@ export default {
     UserAccount,
     LogIn
   },
-  name: 'start page',
+  name: 'startpage',
   data() {
     return {
       message: 'none',
