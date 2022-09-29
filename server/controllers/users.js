@@ -18,7 +18,7 @@ router.post('/users', function(req, res, next) {
             var newUser = new User ({
                 email_address: req.body.email_address,
                 username: req.body.username,
-                // password: bcrypt.hashSync(req.body.password, 10),
+                //password: bcrypt.hashSync(req.body.password, 10),
                 password: req.body.password,
                 bio : req.body.bio,
                 followers : req.body.followers,
@@ -103,7 +103,7 @@ router.post('/login', (req, res, next) => {
             });
         }
         //incorrect password
-        if (!bcrypt.compareSync(req.body.password, user.password)) {
+        if (req.body.password === user.password) {
             return res.status(401).json({
                 tite: 'login failed',
                 error: 'invalid credentials'
