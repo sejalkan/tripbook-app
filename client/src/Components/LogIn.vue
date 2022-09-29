@@ -3,12 +3,12 @@
         <form>
             <h2> Sign In </h2> <br>
         <div class="info">
-        <input type="text" id="username" name="username" placeholder="Username" v-model="username">
-        <input type="password" id="password" name="password" minlength="8" placeholder="Password" v-model="password">
-        <input type="button" class="Btn" name="logIn" value="Check in" v-on:click="loggingIn">
-         <div id="checkIn">
-             <button class="Btn" v-on:click=changeToSignUp> Sign up </button>
-         </div>
+        <input type="text" name="username" class="inputs" placeholder="Username" v-model="username">
+        <input type="password" name="password" minlength="8" class="inputs" placeholder="Password" v-model="password"> <br>
+         <p> Check the box if you are an organisation</p>
+         <input type="checkbox" class="checkbox" v-model="checkb" v-on:click=checking> <br>
+        <input type="button" id="Btn" class="inputs" name="logIn" value="Check in" v-on:click="loggingIn">
+        <button id="Btn" class="inputs" v-on:click=changeToSignUp> Sign up </button>
         </div>
         </form>
         </div>
@@ -22,7 +22,10 @@ export default {
   data() {
     return {
       username: '',
-      password: ''
+      password: '',
+      checkb: '',
+      errors: [],
+      check: false
     }
   },
   methods: {
@@ -30,21 +33,40 @@ export default {
       this.$emit('change-to-signup')
     },
     loggingIn() {
-      const user = {
-        username: this.username,
-        password: this.password
+      if (this.username && this.password) {
+        const user = {
+          username: this.username,
+          password: this.password
+        }
+        let route = '/userLogin'
+        if (this.check === true) {
+          route = '/placeLogin'
+        }
+        Api.post(route, user)
+          .then(res => {
+            if (res.status === 200) {
+              localStorage.setItem('token', res.data.token)
+              console.log('success')
+              alert('success')
+              this.$router.push('/')
+            }
+          }, err => {
+            alert(err + '\n Invalid credentials')
+            this.error = err.response.data.error
+          })
+      } else {
+        this.errors.length = 0
+        if (!this.username) this.errors.push('Username is empty \n')
+        if (!this.password) this.errors.push('Password is empty \n')
+        alert('Please fix the following problem(s): \n' + this.errors)
       }
-      Api.post('/login', user)
-        .then(res => {
-          if (res.status === 200) {
-            localStorage.setItem('token', res.data.token)
-            alert('success')
-            this.$router.push('/')
-          }
-        }, err => {
-          console.log(err.response)
-          this.error = err.response.data.error
-        })
+    },
+    checking() {
+      if (this.check === false) {
+        this.check = true
+      } else {
+        this.check = false
+      }
     }
   }
 }
@@ -52,23 +74,19 @@ export default {
 
 <style scoped>
     .form{
-        height: 500px;
+        height: 460px;
         width: 30%;
-        float: right;
         padding: 25px;
         padding-top: 50px;
         background-color: #ffffff;
-        text-align: right;
-        position: absolute;
-        right: 200px;
-        overflow-y: hidden;
+        float: left;
     }
     ::placeholder{
         font-size:11px;
         padding: 10px;
         color: gray;
     }
-    .Btn{
+    #Btn{
         background-color:#c8b4d0;
         border: none;
         height: 50px;
@@ -76,16 +94,19 @@ export default {
         font-family: inter;
         font-size: 16px;
     }
-    #checkIn {
-        margin-top: 25px;
-        padding: 20px;
-        text-align: center;
-    }
-    input{
+    .inputs {
         margin: 20px;
         border-color: #f6eef0;
         border-style: double;
         width: 80%;
+    }
+    p {
+      margin-left: 20px;
+      font-size: 12px;
+      text-decoration: underline;
+    }
+    .checkbox {
+      margin-left: 20px;
     }
     h2{
         font-family: inter;

@@ -93,28 +93,30 @@ router.delete('/users/:id', function(req, res, next) {
         res.json(user);
     });
 });
-router.post('/login', (req, res, next) => {
-    User.findOne({ email: req.body.email }, (err, user) => {
-        if(err) {return next(err);}
-        if (!user) {
+router.post('/userLogin', (req, res, next) => {
+    User.findOne({ username: req.body.username }, (err, user) => {
+        if(err) {return next(err);} 
+        if (user) {
+            //incorrect password
+            if (!req.body.password === user.password) {
+                return res.status(401).json({
+                    tite: 'login failed',
+                    error: 'invalid credentials'
+                });
+            }
+            let token = jwt.sign({ userId: user.id}, 'secretkey');
+            return res.status(200).json({
+                title: 'login sucess',
+                token: token
+            });
+        }
+        //IF ALL IS GOOD create a token and send to frontend
+        else {
             return res.status(401).json({
                 title: 'user not found',
                 error: 'invalid credentials'
             });
         }
-        //incorrect password
-        if (req.body.password === user.password) {
-            return res.status(401).json({
-                tite: 'login failed',
-                error: 'invalid credentials'
-            });
-        }
-        //IF ALL IS GOOD create a token and send to frontend
-        let token = jwt.sign({ userId: user._id}, 'secretkey');
-        return res.status(200).json({
-            title: 'login sucess',
-            token: token
-        });
     });
 });
 

@@ -60,14 +60,6 @@ export default {
             address: this.address,
             username: this.username
           }
-          this.username = null
-          this.email_address = null
-          this.password = null
-          this.bio = null
-          this.placeType = null
-          this.placename = null
-          this.address = null
-
           Api.post('/places', newPlace)
             .then((response) => {
               this.newPlace = response.data
@@ -76,7 +68,15 @@ export default {
             })
             .catch(function (error) {
               this.newPlace = error
+              alert(error.response)
             })
+          this.username = null
+          this.email_address = null
+          this.password = null
+          this.bio = null
+          this.placeType = null
+          this.placename = null
+          this.address = null
         }
       } else {
         this.errors.length = 0
@@ -93,16 +93,12 @@ export default {
 
 <style scoped>
     .form{
-      height: 580px;
+        height: 580px;
         width: 30%;
-        float: right;
         padding: 25px;
         padding-top: 50px;
         background-color: #ffffff;
-        text-align: right;
-        position: absolute;
-        right: 200px;
-        overflow-y: hidden;
+        float: left;
     }
      ::placeholder{
         font-size:11px;

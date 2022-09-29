@@ -1,6 +1,7 @@
 var express = require('express');
 const Place = require('../schemas/place.js');
 var router = express.Router();
+const jwt = require('jsonwebtoken');
 
 //create new place
 router.post('/places', function(req, res, next) {
@@ -83,6 +84,32 @@ router.put('/places/:id', function(req, res, next) {
         res.json(place);
     });
 
+});
+router.post('/placeLogin', (req, res, next) => {
+    Place.findOne({ username: req.body.username }, (err, place) => {
+        if(err) {return next(err);}
+        if (place) {
+            //incorrect password
+            if (!req.body.password === place.password) {
+                return res.status(401).json({
+                    title: 'login failed',
+                    error: 'invalid credentials'
+                });
+            }
+            let token = jwt.sign({ placeId: place.id}, 'secretkey');
+            return res.status(200).json({
+                title: 'login sucess',
+                token: token
+            });
+        }
+        else {
+        //IF ALL IS GOOD create a token and send to frontend
+            return res.status(401).json({
+                title: 'user not found',
+                error: 'invalid credentials'
+            });
+        }
+    });
 });
 
 module.exports = router;

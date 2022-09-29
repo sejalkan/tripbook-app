@@ -87,10 +87,7 @@ export default {
         padding: 25px;
         padding-top: 50px;
         background-color: #ffffff;
-        text-align: right;
-        position: absolute;
-        right: 200px;
-        overflow-y: hidden;
+        float: left;
     }
      ::placeholder{
         font-size:11px;
@@ -116,8 +113,8 @@ export default {
     label{
        margin-left: 10px;
        margin-bottom: -10px;
-        font-family: Inter;
-        font-size: 16px;
+      font-family: Inter;
+      font-size: 16px;
     }
     h2{
         font-family: Inter;
