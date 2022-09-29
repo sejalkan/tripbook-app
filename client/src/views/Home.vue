@@ -1,40 +1,69 @@
 <template>
   <div>
-    <b-jumbotron header="DIT342 Frontend" lead="Welcome to your DIT342 Frontend Vue.js App">
-      <b-button class="btn_message" variant="primary" v-on:click="getMessage()" >Get Message from Server</b-button>
-      <p>Message from the server:<br/>
-      {{ message }}</p>
-    </b-jumbotron>
+    <p> Posts from people and places you follow </p>
+    <div class="row justify-content-center" style="padding: 2rem" v-for="post in posts" v-bind:key="post._id">
+      <b-card style="card" header-tag="header" footer-tag="footer">
+      <template #header>
+        <h6 class="mb-0">{{post._id}}</h6>
+      </template>
+      <img src='@/assets/sepehr-moradian-XdtUEWzdU0A-unsplash.jpg' />
+      <template #footer>
+        <em><Post v-bind:post='post'/></em>
+      </template>
+      </b-card>
+      <p></p>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
+import Post from '../components/Post.vue'
 import { Api } from '@/Api'
-
 export default {
-  name: 'home',
+  name: 'posts',
+  components: { Post },
+  mounted() {
+    Api.get('/posts')
+      .then(response => {
+        console.log(response.data)
+        this.posts = response.data.posts
+      })
+      .catch(error => {
+        console.error(error)
+        this.post = []
+        // display error
+      })
+      .then(() => {
+        console.log('This runs every time after success or error.')
+      })
+  },
   data() {
     return {
-      message: 'none'
-    }
-  },
-  methods: {
-    getMessage() {
-      Api.get('/')
-        .then(response => {
-          this.message = response.data.message
-        })
-        .catch(error => {
-          this.message = error
-        })
+      posts: []
     }
   }
 }
 </script>
 
-<style>
-.btn_message {
-  margin-bottom: 1em;
+<style scoped>
+.header {
+  text-align: center;
+  font-weight: bold;
+  border-top: 0ch;
+}
+
+p {
+  font-weight: bold;
+  text-align: center;
+}
+
+img {
+  max-height: 600px;
+  max-width: 800px;
+}
+
+.card {
+  min-width: 800px;
+  min-height: 600px;
 }
 </style>
