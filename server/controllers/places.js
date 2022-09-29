@@ -4,11 +4,24 @@ var router = express.Router();
 
 //create new place
 router.post('/places', function(req, res, next) {
-    var place = new Place(req.body);
-    place.save(function(err) {
-        if (err) { return next(err); }
-        res.status(201).json(place);
+    Place.findOne({username: req.body.username}, (err, place) => {
+        if (err) return res.status(500).json({
+            title: 'server error',
+            error: err
+        });
+        else if(place) return res.status(400).json({
+            title: 'username already used',
+        });
+        else {
+            var newPlace = new Place(req.body);
+            console.log(newPlace);
+            newPlace.save(function(err) {
+                if (err) { return next(err); }
+                res.status(201).json(newPlace);
+            });
+        }
     });
+   
 });
 
 //get all places

@@ -3,9 +3,9 @@
         <form>
             <h2> Sign In </h2> <br>
         <div class="info">
-        <input type="text" id="username" name="username" placeholder="Email or username">
-        <input type="password" id="password" name="password" minlength="8" placeholder="Password">
-        <input type="button" class="Btn" name="logIn" value="Check in">
+        <input type="text" id="username" name="username" placeholder="Username" v-model="username">
+        <input type="password" id="password" name="password" minlength="8" placeholder="Password" v-model="password">
+        <input type="button" class="Btn" name="logIn" value="Check in" v-on:click="loggingIn">
          <div id="checkIn">
              <button class="Btn" v-on:click=changeToSignUp> Sign up </button>
          </div>
@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { Api } from '@/Api'
 
 export default {
   name: 'logIn',
@@ -26,6 +27,23 @@ export default {
   methods: {
     changeToSignUp() {
       this.$emit('change-to-signup')
+    },
+    loggingIn() {
+      const user = {
+        username: this.username,
+        password: this.password
+      }
+      Api.post('/login', user)
+        .then(res => {
+          if (res.status === 200) {
+            localStorage.setItem('token', res.data.token)
+            alert('success')
+            this.$router.push('/')
+          }
+        }, err => {
+          console.log(err.response)
+          this.error = err.response.data.error
+        })
     }
   }
 }

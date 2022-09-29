@@ -50,7 +50,6 @@ export default {
       this.email_address = null
       this.password = null
       this.bio = null
-
       Api.post('/users', newUser)
         .then((response) => {
           this.newUser = response.data

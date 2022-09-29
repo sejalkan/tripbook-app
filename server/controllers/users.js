@@ -3,29 +3,32 @@ var express = require('express');
 var router = express.Router();
 var User = require('../schemas/user');
 var bcrypt = require('bcrypt');
-//const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 router.post('/users', function(req, res, next) {
-    var user = new User ({
-      email_address: req.body.email_address,
-      username: req.body.username,
-      password: bcrypt.hashSync(req.body.password, 10),
-      bio : req.body.bio,
-      followers : req.body.followers,
-      posts : req.body.posts});
-
-      console.log(user);
-  
-    user.save(function(err) {
-        if(err) {return next(err)
-        res.status(400).json(user).json({
-          title: 'error',
-          error: 'email already in use'
-        })
-      }return res.status(200).json({
-        title: 'signup success'
-      })
+    User.findOne({ username: req.body.username}, (err, user) => {
+        if (err) return res.status(500).json({
+            title: 'server error',
+            error: err
+        });
+        else if(user) return res.status(400).json({
+            title: 'username already used',
+        }); 
+        else {
+            var newUser = new User ({
+                email_address: req.body.email_address,
+                username: req.body.username,
+                password: bcrypt.hashSync(req.body.password, 10),
+                bio : req.body.bio,
+                followers : req.body.followers,
+                posts : req.body.posts});
+            console.log(newUser);
+            newUser.save(function(err) {
+                if (err) { return next(err); }
+                res.status(201).json(newUser);
+            }); }
     });
+
 });
 
 router.get('/users', function(req, res, next) {
@@ -89,33 +92,29 @@ router.delete('/users/:id', function(req, res, next) {
         res.json(user);
     });
 });
+router.post('/login', (req, res, next) => {
+    User.findOne({ email: req.body.email }, (err, user) => {
+        if(err) {return next(err);}
+        if (!user) {
+            return res.status(401).json({
+                title: 'user not found',
+                error: 'invalid credentials'
+            });
+        }
+        //incorrect password
+        if (!bcrypt.compareSync(req.body.password, user.password)) {
+            return res.status(401).json({
+                tite: 'login failed',
+                error: 'invalid credentials'
+            });
+        }
+        //IF ALL IS GOOD create a token and send to frontend
+        let token = jwt.sign({ userId: user._id}, 'secretkey');
+        return res.status(200).json({
+            title: 'login sucess',
+            token: token
+        });
+    });
+});
 
-  // app.post('/login', (req, res, next) => {
-  //   User.findOne({ email: req.body.email }, (err, user) => {
-  //     if (err) return res.status(500).json({
-  //       title: 'server error',
-  //       error: err
-  //     })
-  //     if (!user) {
-  //       return res.status(401).json({
-  //         title: 'user not found',
-  //         error: 'invalid credentials'
-  //       })
-  //     }
-  //     //incorrect password
-  //     if (!bcrypt.compareSync(req.body.password, user.password)) {
-  //       return res.status(401).json({
-  //         tite: 'login failed',
-  //         error: 'invalid credentials'
-  //       })
-  //     }
-  //     //IF ALL IS GOOD create a token and send to frontend
-  //     let token = jwt.sign({ userId: user._id}, 'secretkey');
-  //     return res.status(200).json({
-  //       title: 'login sucess',
-  //       token: token
-  //     })
-  //   })
-  // })
-
-module.exports = router; 
+module.exports = router;
