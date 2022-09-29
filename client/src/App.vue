@@ -1,7 +1,6 @@
 <template>
   <div id="app" :style="{ 'margin-left' : sidebarWidth }">
-    <h1 class="border" style="padding-bottom: 0.5rem"> Trip Book </h1>
-      <router-link to="/startpage"> Login </router-link>
+    <h1 class="border"> Trip Book </h1>
     <Sidebar />
     <!-- Render the content of the current page view -->
     <router-view/>
@@ -20,9 +19,12 @@ export default {
 </script>
 
 <style>
-h1 {
+.border {
+  font-family: sans-serif;
   text-align: center;
   font-weight: bold;
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
 }
 
 </style>
