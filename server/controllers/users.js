@@ -1,15 +1,35 @@
 /* eslint-disable linebreak-style */
 var express = require('express');
 var router = express.Router();
-
 var User = require('../schemas/user');
+//var bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 router.post('/users', function(req, res, next) {
-    var user = new User(req.body);
-    user.save(function(err) {
-        if(err) {return next(err); }
-        res.status(201).json(user);
+    User.findOne({ username: req.body.username}, (err, user) => {
+        if (err) return res.status(500).json({
+            title: 'server error',
+            error: err
+        });
+        else if(user) return res.status(400).json({
+            title: 'username already used',
+        }); 
+        else {
+            var newUser = new User ({
+                email_address: req.body.email_address,
+                username: req.body.username,
+                //password: bcrypt.hashSync(req.body.password, 10),
+                password: req.body.password,
+                bio : req.body.bio,
+                followers : req.body.followers,
+                posts : req.body.posts});
+            console.log(newUser);
+            newUser.save(function(err) {
+                if (err) { return next(err); }
+                res.status(201).json(newUser);
+            }); }
     });
+
 });
 
 router.get('/users', function(req, res, next) {
@@ -73,5 +93,31 @@ router.delete('/users/:id', function(req, res, next) {
         res.json(user);
     });
 });
+router.post('/userLogin', (req, res, next) => {
+    User.findOne({ username: req.body.username }, (err, user) => {
+        if(err) {return next(err);} 
+        if (user) {
+            //incorrect password
+            if (!req.body.password === user.password) {
+                return res.status(401).json({
+                    tite: 'login failed',
+                    error: 'invalid credentials'
+                });
+            }
+            let token = jwt.sign({ userId: user.id}, 'secretkey');
+            return res.status(200).json({
+                title: 'login sucess',
+                token: token
+            });
+        }
+        //IF ALL IS GOOD create a token and send to frontend
+        else {
+            return res.status(401).json({
+                title: 'user not found',
+                error: 'invalid credentials'
+            });
+        }
+    });
+});
 
-module.exports = router; 
+module.exports = router;
