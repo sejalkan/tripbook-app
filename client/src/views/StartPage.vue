@@ -64,6 +64,7 @@ export default {
         overflow-y: hidden;
         background-color: #f6eef0;
         padding-top: 90px;
+        float: left;
     }
      .info{
         text-align: left;
