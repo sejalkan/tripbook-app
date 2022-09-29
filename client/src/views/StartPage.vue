@@ -1,10 +1,10 @@
 <template>
   <div class="page">
      <div class="ImageLogo">
-        <img src="@/assests/logo.png" class="logo">
+        <img src="@/assets/logo.png" class="logo">
         <div class="intro">
             We help you find the <br> best places around the town. <br>
-            <img src="@/assests/followSign.png" alt="lets goo!">
+            <img src="@/assets/followSign.png" alt="lets goo!">
             Bon Voyage!
         </div>
          </div>
