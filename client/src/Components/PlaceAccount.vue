@@ -4,14 +4,14 @@
             <h2> Create Organisation Account </h2> <br>
             <p class="info">
               <button id="link" v-on:click=changeToUser>Are you a user?</button>
-        <input type="text" id="username" name="username" placeholder="Username">
-        <input type="text" id="name" name="name" v-model="placeName" placeholder="Organisation name">
-        <input type="text" id="emailID" name="emailID" v-model="emailID" placeholder="Email Address">
+        <input type="text" id="username" name="username" v-model="username" placeholder="Username">
+        <input type="text" id="name" name="name" v-model="placename" placeholder="Organisation name">
+        <input type="text" id="emailID" name="emailID" v-model="email_address" placeholder="Email Address">
         <input type="password" id="password" name="password" minlength="8" v-model="password" placeholder="Password">
         <input type="text" id="bio" name="bio" size="12" v-model="bio" placeholder="Bio.."><br>
         <label for="profilePicture">Profile Picture </label>
         <input type="file" id="profilePicture" name="profilePicture" accept="image/*"><br>
-        <input type="button" class="btn" name="submit" value="Submit" v-on:click="createPlace">
+        <input type="button" class="btn" name="submit" value="Submit" v-on:click="postPlace">
         <input type="button" class="btn" name="cancel" value="Sign in" v-on:click=changeToLogin>
             </p>
         </form>
@@ -26,25 +26,50 @@ export default {
   name: 'placeAccount',
   data() {
     return {
-      users: { username: '', password: '', bio: '', emailID: '', placeName: '' },
+      username: '',
+      email_address: '',
+      password: '',
+      bio: '',
+      placeType: '',
+      address: '',
+      placename: '',
       show: true
     }
   },
   methods: {
-    createPlace() {
-      Api.post('/places')
-        .then(response => {
-          this.message = response.data.message
-        })
-        .catch(error => {
-          this.message = error
-        })
-    },
     changeToUser() {
       this.$emit('change-to-user')
     },
     changeToLogin() {
       this.$emit('change-to-login')
+    },
+    postPlace() {
+      const newPlace = {
+        placename: this.placename,
+        email_address: this.email_address,
+        password: this.password,
+        bio: this.bio,
+        placeType: this.placeType,
+        address: this.address,
+        username: this.username
+      }
+      this.username = null
+      this.email_address = null
+      this.password = null
+      this.bio = null
+      this.placeType = null
+      this.placename = null
+      this.address = null
+
+      Api.post('/places', newPlace)
+        .then((response) => {
+          this.newPlace = response.data
+          console.log(response.data)
+          alert('success')
+        })
+        .catch(function (error) {
+          this.newPlace = error
+        })
     }
   }
 }
