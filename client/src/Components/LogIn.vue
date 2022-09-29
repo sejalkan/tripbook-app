@@ -21,7 +21,8 @@ export default {
   name: 'logIn',
   data() {
     return {
-      message: 'none'
+      username: '',
+      password: ''
     }
   },
   methods: {
