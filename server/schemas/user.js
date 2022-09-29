@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-    username: String,
-    email_address: String,
+    username: {type: String, unique: true},
+    email_address: {type: String, unique: true},
     password: String,
     bio: String,
     followers: [{ type: Schema.Types.ObjectId, ref: 'userModel'}],

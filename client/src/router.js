@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import StartPage from './views/StartPage.vue'
 import Explore from './views/Explore.vue'
 import NewPost from './views/NewPost.vue'
 import Profile from './views/Profile.vue'
@@ -15,6 +16,11 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/startpage',
+      name: 'startpage',
+      component: StartPage
     },
 
     {

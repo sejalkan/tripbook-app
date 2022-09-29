@@ -1,6 +1,7 @@
 <template>
   <div id="app" :style="{ 'margin-left' : sidebarWidth }">
     <h1 class="border" style="padding-bottom: 0.5rem"> Trip Book </h1>
+      <router-link to="/startpage"> Login </router-link>
     <Sidebar />
     <!-- Render the content of the current page view -->
     <router-view/>
