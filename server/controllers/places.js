@@ -3,7 +3,7 @@ const Place = require('../schemas/place.js');
 var router = express.Router();
 
 //create new place
-router.post("/places", function(req, res, next) {
+router.post('/places', function(req, res, next) {
     var place = new Place(req.body);
     place.save(function(err) {
         if (err) { return next(err); }
@@ -12,27 +12,27 @@ router.post("/places", function(req, res, next) {
 });
 
 //get all places
-router.get("/places", function(req, res, next) {
+router.get('/places', function(req, res, next) {
     Place.find(function(err, places){
         if (err) { return next(err); }
-        res.json({"places":places});
+        res.json({'places':places});
     });
 });
 
 //get place by ID
-router.get("/places/:id", function(req, res, next){
+router.get('/places/:id', function(req, res, next){
     var id = req.params.id;
     Place.findById({_id: id}, function(err, place){
         if (err) { return next(err); }
         if (place == null) {
-            return res.status(404).json({"message":"Place not found"});
+            return res.status(404).json({'message':'Place not found'});
         }
         res.json(place);
     });
 });
 
 //delete multiple place
-router.delete("/places", function(req, res, next) {
+router.delete('/places', function(req, res, next) {
     Place.deleteMany(function(err, place){
         if (err) { return next(err); }
         res.json(place);
@@ -40,24 +40,24 @@ router.delete("/places", function(req, res, next) {
 });
 
 //delete place by ID
-router.delete("/places/:id", function(req, res, next) {
+router.delete('/places/:id', function(req, res, next) {
     var id = req.params.id;
     Place.findOneAndDelete(id, function (err, place) {
         if (err) { return next (err); }
         if (place == null) {
-            return res.status(404).json({"message":"Place not found"});
+            return res.status(404).json({'message':'Place not found'});
         }
         res.json(place);
     });
 });
 
 //Update place by id
-router.put("/places/:id", function(req, res, next) {
+router.put('/places/:id', function(req, res, next) {
     var id = req.params.id;
     Place.findById(id, function(err, place){
         if (err) { return next(err); }
         if (place == null) {
-            return res.status(404).json({"message":"Place not found"});
+            return res.status(404).json({'message':'Place not found'});
         }
         place.placeType = req.body.placeType;
         place.email_address = req.body.email_address;
