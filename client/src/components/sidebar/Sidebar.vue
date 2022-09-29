@@ -3,10 +3,12 @@
       <h1>
         <span v-if="collapsed">
           <div class="logo">
-            <img src="@/assets/Mitt_projekt_cropped_bw.png" />
+            <img src="@/assets/Mitt_projekt_cropped_p.png" />
           </div>
         </span>
-        <span class="header" v-else>Trip Book</span>
+        <span class="header" v-else>
+          <img src="@/assets/Mitt_projekt_p.png" />
+        </span>
       </h1>
 
       <SidebarLink to='/' icon='fa-solid fa-house'> Home </SidebarLink>
@@ -50,8 +52,7 @@ export default {
 .header {
   display: flex;
   flex-direction: column;
-  margin-bottom: 6rem;
-  width: 2rem;
+  margin-bottom: 7rem;
 }
 .logo {
   display: flex;

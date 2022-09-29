@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const postSchema = new Schema({
+    img: {
+        data: Buffer,
+        contentType: String
+    },
     likes: Number,
     description: String,
     reviews: [{type: Schema.Types.ObjectId, ref: 'reviews'}],

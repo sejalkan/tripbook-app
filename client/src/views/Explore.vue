@@ -1,12 +1,15 @@
 <template>
-  <div>
-    <b-jumbotron header='Search for inspiration' lead='Leads to bare travel' />
+  <div style="padding: 2rem">
+    <AddGoogleMap />
   </div>
 </template>
 
 <script>
-export default {
+import AddGoogleMap from '../components/AddGoogleMap.vue'
 
+export default {
+  name: 'Map',
+  components: { AddGoogleMap }
 }
 </script>
 
