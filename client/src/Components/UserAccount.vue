@@ -4,9 +4,9 @@
             <h2> Create User Account </h2> <br>
             <p class="info">
         <button id="link" v-on:click=changeToPlace>Are you an organisation?</button>
-        <input type="text" id="username" name="username" placeholder="Username" v-model="username">
-        <input type="text" id="email_address" name="emailID" v-model="email_address" placeholder="Email address">
-        <input type="password" id="password" name="password" minlength="8" v-model="password" placeholder="Password">
+        <input type="text" id="username" name="username" placeholder="Username" v-model="username" required="required">
+        <input type="text" id="email_address" name="emailID" v-model="email_address" placeholder="Email address" required="required">
+        <input type="password" id="password" name="password" minlength="8" v-model="password" placeholder="Password" required="required">
         <input type="text" id="bio" name="bio" size="12" v-model="bio" placeholder="Bio.."><br>
         <label for="profilePicture">Profile Picture </label>
         <input type="file" id="profilePicture" name="profilePicture" accept="image/*"><br>
@@ -29,7 +29,8 @@ export default {
       email_address: '',
       password: '',
       bio: '',
-      show: true
+      show: true,
+      errors: []
     }
   },
   methods: {
@@ -40,25 +41,39 @@ export default {
       this.$emit('change-to-login')
     },
     postUser() {
-      const newUser = {
-        username: this.username,
-        email_address: this.email_address,
-        password: this.password,
-        bio: this.bio
+      if (this.username && this.email_address && this.password) {
+        if (this.password.length < 8) {
+          this.errors.length = 0
+          this.errors.push('Password must be at least 8 characters \n')
+          alert('Fix the following problem(s): \n' + this.errors)
+        } else {
+          const newUser = {
+            username: this.username,
+            email_address: this.email_address,
+            password: this.password,
+            bio: this.bio
+          }
+          Api.post('/users', newUser)
+            .then((response) => {
+              this.newUser = response.data
+              console.log(response.data)
+              alert('success')
+            })
+            .catch(function (error) {
+              this.newUser = error
+            })
+          this.username = null
+          this.email_address = null
+          this.password = null
+          this.bio = null
+        }
+      } else {
+        this.errors.length = 0
+        if (!this.username) this.errors.push('Username required \n')
+        if (!this.email_address) this.errors.push('Email address required \n')
+        if (!this.password) this.errors.push('Password required \n')
+        alert('Please fix the following problem(s): \n' + this.errors)
       }
-      this.username = null
-      this.email_address = null
-      this.password = null
-      this.bio = null
-      Api.post('/users', newUser)
-        .then((response) => {
-          this.newUser = response.data
-          console.log(response.data)
-          alert('success')
-        })
-        .catch(function (error) {
-          this.newUser = error
-        })
     }
   }
 }
