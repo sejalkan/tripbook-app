@@ -2,7 +2,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../schemas/user');
-var bcrypt = require('bcrypt');
+//var bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 router.post('/users', function(req, res, next) {
@@ -18,7 +18,8 @@ router.post('/users', function(req, res, next) {
             var newUser = new User ({
                 email_address: req.body.email_address,
                 username: req.body.username,
-                password: bcrypt.hashSync(req.body.password, 10),
+                // password: bcrypt.hashSync(req.body.password, 10),
+                password: req.body.password,
                 bio : req.body.bio,
                 followers : req.body.followers,
                 posts : req.body.posts});
