@@ -36,10 +36,16 @@
 import { Api } from '@/Api'
 export default {
   name: 'NewPost',
+  props: { currentUser: Object },
   data() {
     return {
       selectedFile: null,
       url: null
+    }
+  },
+  created() {
+    if (localStorage.getItem('token') === null) {
+      this.$router.push('/startpage')
     }
   },
   methods: {

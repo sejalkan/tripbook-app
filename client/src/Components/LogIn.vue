@@ -25,7 +25,8 @@ export default {
       password: '',
       checkb: '',
       errors: [],
-      check: false
+      check: false,
+      user: ''
     }
   },
   methods: {
@@ -46,13 +47,15 @@ export default {
           .then(res => {
             if (res.status === 200) {
               localStorage.setItem('token', res.data.token)
-              console.log('success')
+              this.user = res.data.user
+              console.log(this.user)
               alert('success')
+              this.$emit('loggedIn', true)
               this.$router.push('/')
             }
           }, err => {
             alert(err + '\n Invalid credentials')
-            this.error = err.response.data.error
+            this.error = err.res.data.error
           })
       } else {
         this.errors.length = 0
@@ -67,6 +70,9 @@ export default {
       } else {
         this.check = false
       }
+    },
+    returnUser() {
+      return this.user
     }
   }
 }

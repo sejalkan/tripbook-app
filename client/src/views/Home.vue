@@ -22,6 +22,12 @@ import { Api } from '@/Api'
 export default {
   name: 'posts',
   components: { Post },
+  props: { currentUser: Object },
+  created() {
+    if (localStorage.getItem('token') === null) {
+      this.$router.push('/startpage')
+    }
+  },
   mounted() {
     Api.get('/posts')
       .then(response => {
