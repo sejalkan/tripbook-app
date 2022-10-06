@@ -1,18 +1,118 @@
 <template>
-  <div class="page" style="body">
-    <b-jumbotron header='Profile Page' lead='Nothing Yet' />
+  <div style="padding: 2rem">
+    <h1 class="row justify-content-center">Username: {{currentUser.username}}</h1>
+    <h1 class="row justify-content-center"> Email: {{currentUser.email}}</h1>
+    <div style="padding: 2.5rem">
+      <b-tabs content-class="mt-3" align="center">
+        <b-tab title="Posts"><p>Your Posts</p>
+
+        <div class="row justify-content-center" style="padding: 2rem" v-for="post in posts" v-bind:key="post._id">
+      <b-card style="card" header-tag="header" footer-tag="footer" no-body>
+        <b-tabs card>
+          <template #tabs-start>
+            <li role="presentation" class="nav-item align-self-center"> @{{currentUser.username}} </li>
+          </template>
+        <b-tab title="Post">
+          <img src='@/assets/sepehr-moradian-XdtUEWzdU0A-unsplash.jpg' />
+        </b-tab>
+        <b-tab title="Reviews">
+          <b-card-text> <Post v-bind:post='post'/> </b-card-text>
+        </b-tab>
+        </b-tabs>
+        <template #footer>
+        Description
+      </template>
+      </b-card>
+      <p></p>
+    </div>
+
+        </b-tab>
+        <b-tab title="Followers"><p>Your Followers</p></b-tab>
+        <b-tab title="Following"><p>Your Following</p></b-tab>
+
+      </b-tabs>
+    </div>
   </div>
 </template>
 
 <script>
-export default {
+import Post from '../components/Post.vue'
+import { Api } from '@/Api'
 
+export default {
+  components: { Post },
+  props: { currentUser: Object },
+  created() {
+    if (localStorage.getItem('token') === null) {
+      this.$router.push('/startpage')
+    }
+  },
+  mounted() {
+    if (localStorage.getItem('token')) {
+      console.log(this.currentUser)
+    }
+
+    Api.get('/posts')
+      .then(response => {
+        console.log(response.data)
+        this.posts = response.data.posts
+      })
+      .catch(error => {
+        console.error(error)
+        this.post = []
+      })
+      .then(() => {
+        console.log('This runs every time after success or error.')
+      })
+  },
+
+  data() {
+    return {
+      posts: []
+    }
+  }
 }
+
 </script>
 
 <style scoped>
-body {
-    background: black;
+.header {
+  text-align: center;
+  font-weight: bold;
+  border-top: 0ch;
 }
 
+p {
+  font-weight: bold;
+  text-align: center;
+}
+
+img {
+  max-height: 600px;
+  max-width: 800px;
+}
+
+.card {
+  min-width: 800px;
+  min-height: 680px;
+}
+
+li {
+  padding-right: 1.5rem;
+  padding-left: 0.5rem;
+  font-weight: bold;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+h1 {
+  padding: 1rem;
+  padding-bottom: 1rem;
+  font-family:monospace;
+  font-style: normal;
+}
 </style>

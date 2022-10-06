@@ -16,7 +16,6 @@
       <SidebarLink to='/newPost' icon='fa-regular fa-square-plus'> New Post </SidebarLink>
       <SidebarLink to='/myTripBook' icon='fa-solid fa-book-open'> My Trip Book </SidebarLink>
       <SidebarLink to='/profile' icon='fa-solid fa-user'> Profile </SidebarLink>
-      <SidebarLink to='/startpage' icon='fa-solid fa-right-to-bracket'> Login </SidebarLink>
 
       <span
         class='collapse-icon'

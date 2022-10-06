@@ -1,19 +1,54 @@
 <template>
-  <div id="app" :style="{ 'margin-left' : sidebarWidth }">
-    <h1 class="border"> Trip Book </h1>
-    <Sidebar />
+  <div id="app">
+    <div v-if="loggedIn" :style="{ 'margin-left' : sidebarWidth }">
+      <Sidebar />
+       <h1 class="border"> Hello  {{ currentUser.username }} !</h1>
     <!-- Render the content of the current page view -->
-    <router-view/>
+    <router-view v-bind:currentUser="currentUser" />
+    </div>
+    <div v-else>
+      <start-page @loggedIn=handleLogin()> </start-page>
+    </div>
   </div>
 </template>
 
 <script>
+import { Api } from '@/Api'
 import Sidebar from './components/sidebar/Sidebar.vue'
 import { sidebarWidth } from './components/sidebar/state'
+import StartPage from './views/StartPage.vue'
 export default {
-  components: { Sidebar },
+  components: { Sidebar, StartPage },
   setup() {
     return { sidebarWidth }
+  },
+  data() {
+    return {
+      loggedIn: true,
+      currentUser: ''
+    }
+  },
+  mounted() {
+    if (localStorage.getItem('token') === null) {
+      this.loggedIn = false
+      this.$router.push('/login')
+    } else {
+      this.loggedIn = true
+      this.getCurrentUser()
+    }
+  },
+  methods: {
+    getCurrentUser() {
+      Api.get('/LoggedInUser', {
+        headers: { token: localStorage.getItem('token') }
+      }).then((res) => {
+        this.currentUser = res.data.user
+      })
+    },
+    handleLogin() {
+      this.loggedIn = true
+      this.getCurrentUser()
+    }
   }
 }
 </script>

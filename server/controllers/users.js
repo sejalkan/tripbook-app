@@ -100,23 +100,47 @@ router.post('/userLogin', (req, res, next) => {
             //incorrect password
             if (!req.body.password === user.password) {
                 return res.status(401).json({
-                    tite: 'login failed',
-                    error: 'invalid credentials'
+                    title: 'login failed',
+                    error: 'invalid credentials'    
                 });
             }
-            let token = jwt.sign({ userId: user.id}, 'secretkey');
+            let token = jwt.sign({ userId: user._id}, 'secretkey');
             return res.status(200).json({
                 title: 'login sucess',
-                token: token
+                token: token,
+                user: user,
+                userId : user._id
             });
-        }
-        //IF ALL IS GOOD create a token and send to frontend
-        else {
+        } else {
             return res.status(401).json({
                 title: 'user not found',
                 error: 'invalid credentials'
             });
         }
+    });
+});
+
+router.get('/LoggedInUser', (req, res) => {
+    let token = req.headers.token;
+    jwt.verify(token, 'secretkey', (err, decoded) => {
+        if (err) return res.status(401).json({
+            title: 'unauthorized'
+        });
+        //token is valid
+        User.findOne({ _id: decoded.userId }, (err, user) => {
+            if (err) return console.log(err);
+            return res.status(200).json({
+                title: 'user grabbed',
+                user: {
+                    username: user.username,
+                    email: user.email_address,
+                    followers: user.followers,
+                    posts: user.posts,
+                    bio: user.bio
+                }
+            });
+        });
+  
     });
 });
 

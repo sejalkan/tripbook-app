@@ -2,13 +2,20 @@
   <div>
     <p> Posts from people and places you follow </p>
     <div class="row justify-content-center" style="padding: 2rem" v-for="post in posts" v-bind:key="post._id">
-      <b-card style="card" header-tag="header" footer-tag="footer">
-      <template #header>
-        <h6 class="mb-0">{{post._id}}</h6>
-      </template>
-      <img src='@/assets/sepehr-moradian-XdtUEWzdU0A-unsplash.jpg' />
-      <template #footer>
-        <em><Post v-bind:post='post'/></em>
+      <b-card style="card" header-tag="header" footer-tag="footer" no-body>
+        <b-tabs card>
+          <template #tabs-start>
+            <li role="presentation" class="nav-item align-self-center"> @{{currentUser.username}} </li>
+          </template>
+        <b-tab title="Post">
+          <img src='@/assets/sepehr-moradian-XdtUEWzdU0A-unsplash.jpg' />
+        </b-tab>
+        <b-tab title="Reviews">
+          <b-card-text> <Post v-bind:post='post'/> </b-card-text>
+        </b-tab>
+        </b-tabs>
+        <template #footer>
+        Description
       </template>
       </b-card>
       <p></p>
@@ -22,6 +29,14 @@ import { Api } from '@/Api'
 export default {
   name: 'posts',
   components: { Post },
+  props: { currentUser: Object },
+
+  created() {
+    if (localStorage.getItem('token') === null) {
+      this.$router.push('/startpage')
+    }
+  },
+
   mounted() {
     Api.get('/posts')
       .then(response => {
@@ -31,12 +46,12 @@ export default {
       .catch(error => {
         console.error(error)
         this.post = []
-        // display error
       })
       .then(() => {
         console.log('This runs every time after success or error.')
       })
   },
+
   data() {
     return {
       posts: []
@@ -60,10 +75,23 @@ p {
 img {
   max-height: 600px;
   max-width: 800px;
+  position: relative;
 }
 
 .card {
   min-width: 800px;
-  min-height: 600px;
+  min-height: 680px;
+}
+
+li {
+  padding-right: 1.5rem;
+  padding-left: 0.5rem;
+  font-weight: bold;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 </style>
