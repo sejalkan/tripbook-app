@@ -7,7 +7,7 @@
     <router-view v-bind:currentUser="currentUser" />
     </div>
     <div v-else>
-      <start-page @loggedIn=handleLogin()> </start-page>
+      <start-page @userLoggedIn=handleUserLogin() @placeLoggedIn=handlePlaceLogin()> </start-page>
     </div>
   </div>
 </template>
@@ -45,9 +45,20 @@ export default {
         this.currentUser = res.data.user
       })
     },
-    handleLogin() {
+    getCurrentPlace() {
+      Api.get('/LoggedInPlace', {
+        headers: { token: localStorage.getItem('token') }
+      }).then((res) => {
+        this.currentUser = res.data.place
+      })
+    },
+    handleUserLogin() {
       this.loggedIn = true
       this.getCurrentUser()
+    },
+    handlePlaceLogin() {
+      this.loggedIn = true
+      this.getCurrentPlace()
     }
   }
 }

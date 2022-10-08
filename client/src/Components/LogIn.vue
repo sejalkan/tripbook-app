@@ -1,6 +1,5 @@
 <template>
      <div class="form">
-        <form>
             <h2> Sign In </h2> <br>
         <div class="info">
         <input type="text" name="username" class="inputs" placeholder="Username" v-model="username">
@@ -10,7 +9,6 @@
         <input type="button" id="Btn" class="inputs" name="logIn" value="Check in" v-on:click="loggingIn">
         <button id="Btn" class="inputs" v-on:click=changeToSignUp> Sign up </button>
         </div>
-        </form>
         </div>
 </template>
 
@@ -50,12 +48,15 @@ export default {
               this.user = res.data.user
               console.log(this.user)
               alert('success')
-              this.$emit('loggedIn', true)
+              if (this.check === true) {
+                this.$emit('placeLoggedIn', true)
+              } else {
+                this.$emit('userLoggedIn', true)
+              }
               this.$router.push('/')
             }
           }, err => {
             alert(err + '\n Invalid credentials')
-            this.error = err.res.data.error
           })
       } else {
         this.errors.length = 0

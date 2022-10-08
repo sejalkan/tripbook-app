@@ -96,7 +96,7 @@ router.post('/placeLogin', (req, res, next) => {
                     error: 'invalid credentials'
                 });
             }
-            let token = jwt.sign({ placeId: place.id}, 'secretkey');
+            let token = jwt.sign({ placeId: place._id}, 'secretkey');
             return res.status(200).json({
                 title: 'login sucess',
                 token: token
@@ -109,6 +109,32 @@ router.post('/placeLogin', (req, res, next) => {
                 error: 'invalid credentials'
             });
         }
+    });
+});
+router.get('/LoggedInPlace', (req, res) => {
+    let token = req.headers.token;
+    jwt.verify(token, 'secretkey', (err, decoded) => {
+        if (err) return res.status(401).json({
+            title: 'unauthorized'
+        });
+        //token is valid
+        Place.findOne({ _id: decoded.placeId }, (err, place) => {
+            if (err) return console.log(err);
+            return res.status(200).json({
+                title: 'place grabbed',
+                place: {
+                    username: place.username,
+                    email: place.email_address,
+                    followers: place.followers,
+                    posts: place.posts,
+                    bio: place.bio,
+                    placeType: place.placeType,
+                    placeName : place.placename,
+                    address: place.address
+                }    
+            });
+        });
+  
     });
 });
 
