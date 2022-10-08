@@ -2,7 +2,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../schemas/user');
-//var bcrypt = require('bcrypt');
+var bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 router.post('/users', function(req, res, next) {
@@ -18,8 +18,7 @@ router.post('/users', function(req, res, next) {
             var newUser = new User ({
                 email_address: req.body.email_address,
                 username: req.body.username,
-                //password: bcrypt.hashSync(req.body.password, 10),
-                password: req.body.password,
+                password: bcrypt.hashSync(req.body.password, 10),
                 bio : req.body.bio,
                 followers : req.body.followers,
                 posts : req.body.posts});
@@ -98,10 +97,10 @@ router.post('/userLogin', (req, res, next) => {
         if(err) {return next(err);} 
         if (user) {
             //incorrect password
-            if (!req.body.password === user.password) {
+            if (!bcrypt.compareSync(req.body.password, user.password))  {
                 return res.status(401).json({
-                    title: 'login failed',
-                    error: 'invalid credentials'
+                    title: 'Wrong password',
+                    error: 'Wrong password'
                 });
             }
             let token = jwt.sign({ userId: user._id}, 'secretkey');
@@ -115,7 +114,7 @@ router.post('/userLogin', (req, res, next) => {
         else {
             return res.status(401).json({
                 title: 'user not found',
-                error: 'invalid credentials'
+                error: 'incorrect username'
             });
         }
     });

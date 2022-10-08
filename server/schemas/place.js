@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const Place = new Schema({
     placeType: String,
-    email_address: {type: String},
+    email_address: String,
     password: String,
     bio: String,
     placename: String,

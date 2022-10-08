@@ -56,7 +56,7 @@ export default {
               this.$router.push('/')
             }
           }, err => {
-            alert(err + '\n Invalid credentials')
+            alert(err + '\n invalid credentials')
           })
       } else {
         this.errors.length = 0

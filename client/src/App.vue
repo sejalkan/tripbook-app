@@ -4,7 +4,7 @@
       <Sidebar />
        <h1 class="border"> Hello  {{ currentUser.username }} !</h1>>
     <!-- Render the content of the current page view -->
-    <router-view v-bind:currentUser="currentUser" />
+    <router-view v-bind:currentUser="currentUser"/>
     </div>
     <div v-else>
       <start-page @userLoggedIn=handleUserLogin() @placeLoggedIn=handlePlaceLogin()> </start-page>
@@ -28,13 +28,24 @@ export default {
       currentUser: ''
     }
   },
+  created() {
+    if (localStorage.getItem('user')) {
+      this.getCurrentUser()
+    } else if (localStorage.getItem('place')) {
+      this.getCurrentPlace()
+    }
+  },
   mounted() {
     if (localStorage.getItem('token') === null) {
       this.loggedIn = false
       this.$router.push('/login')
     } else {
       this.loggedIn = true
-      this.getCurrentUser()
+    }
+  },
+  updated() {
+    if (localStorage.getItem('token') === null) {
+      this.loggedIn = false
     }
   },
   methods: {
@@ -43,6 +54,7 @@ export default {
         headers: { token: localStorage.getItem('token') }
       }).then((res) => {
         this.currentUser = res.data.user
+        localStorage.setItem('user', res.data.user)
       })
     },
     getCurrentPlace() {
@@ -50,6 +62,7 @@ export default {
         headers: { token: localStorage.getItem('token') }
       }).then((res) => {
         this.currentUser = res.data.place
+        localStorage.setItem('place', res.data.place)
       })
     },
     handleUserLogin() {

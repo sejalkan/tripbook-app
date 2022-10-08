@@ -1,6 +1,7 @@
 var express = require('express');
 const Place = require('../schemas/place.js');
 var router = express.Router();
+var bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 //create new place
@@ -14,7 +15,15 @@ router.post('/places', function(req, res, next) {
             title: 'username already used',
         });
         else {
-            var newPlace = new Place(req.body);
+            var newPlace = new Place({
+                placeType: req.body.placeType,
+                email_address: req.body.email_address,
+                password: bcrypt.hashSync(req.body.password, 10),
+                bio: req.body.bio,
+                placename: req.body.placeName,
+                username: req.body.username,
+                address: req.body.address
+            });
             console.log(newPlace);
             newPlace.save(function(err) {
                 if (err) { return next(err); }
@@ -75,7 +84,7 @@ router.put('/places/:id', function(req, res, next) {
         }
         place.placeType = req.body.placeType;
         place.email_address = req.body.email_address;
-        place.password = req.body.password;
+        place.password = bcrypt.hashSync(req.body.password, 10),
         place.bio = req.body.bio;
         place.place_id = req.body.place_id;
         place.placeName = req.body.placeName;
@@ -90,10 +99,10 @@ router.post('/placeLogin', (req, res, next) => {
         if(err) {return next(err);}
         if (place) {
             //incorrect password
-            if (!req.body.password === place.password) {
+            if (!bcrypt.compareSync(req.body.password, place.password)) {
                 return res.status(401).json({
-                    title: 'login failed',
-                    error: 'invalid credentials'
+                    title: 'Wrong password',
+                    error: 'Wrong password'
                 });
             }
             let token = jwt.sign({ placeId: place._id}, 'secretkey');
@@ -106,7 +115,7 @@ router.post('/placeLogin', (req, res, next) => {
         //IF ALL IS GOOD create a token and send to frontend
             return res.status(401).json({
                 title: 'user not found',
-                error: 'invalid credentials'
+                error: 'Username incorrent'
             });
         }
     });

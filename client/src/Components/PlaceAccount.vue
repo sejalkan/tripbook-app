@@ -65,6 +65,7 @@ export default {
               this.newPlace = response.data
               console.log(response.data)
               alert('success')
+              this.$router.push('/startpage')
             })
             .catch(function (error) {
               this.newPlace = error
