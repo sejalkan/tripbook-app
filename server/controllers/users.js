@@ -2,7 +2,6 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../schemas/user');
-//var bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 router.post('/users', function(req, res, next) {
@@ -18,13 +17,14 @@ router.post('/users', function(req, res, next) {
             var newUser = new User ({
                 email_address: req.body.email_address,
                 username: req.body.username,
-                //password: bcrypt.hashSync(req.body.password, 10),
                 password: req.body.password,
                 bio : req.body.bio,
                 followers : req.body.followers,
-                posts : req.body.posts});
-            console.log(newUser);
-            newUser.save(function(err) {
+                posts : req.body.posts,
+                profilePicture: {data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)), 
+                contentType: 'image/png'}});
+                console.log(newUser);
+                newUser.save(function(err) {
                 if (err) { return next(err); }
                 res.status(201).json(newUser);
             }); }
@@ -140,7 +140,6 @@ router.get('/LoggedInUser', (req, res) => {
                 }
             });
         });
-  
     });
 });
 
