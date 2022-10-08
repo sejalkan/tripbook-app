@@ -21,8 +21,7 @@ router.post('/users', function(req, res, next) {
                 bio : req.body.bio,
                 followers : req.body.followers,
                 posts : req.body.posts,
-                profilePicture: {data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)), 
-                contentType: 'image/png'}});
+                profilePicture: req.body.profilePicture }) //{data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)), contentType: 'image/png'}});
                 console.log(newUser);
                 newUser.save(function(err) {
                 if (err) { return next(err); }
@@ -60,6 +59,7 @@ router.put('/users/:id', function(req, res, next) {
         user.bio = req.body.bio;
         user.followers = req.body.followers;
         user.posts = req.body.posts;
+        user.profilePicture = req.body.profilePicture;
         user.save();
         res.json(user);
     });
@@ -78,6 +78,7 @@ router.patch('/users/:id', function(req, res, next) {
         user.bio = (req.body.bio || user.bio);
         user.followers = (req.body.followers || user.followers);
         user.posts = (req.body.posts || user.posts);
+        user.profilePicture = (req.body.profilePicture || user.profilePicture);
         user.save();
         res.json(user);
     });
@@ -136,7 +137,8 @@ router.get('/LoggedInUser', (req, res) => {
                     email: user.email_address,
                     followers: user.followers,
                     posts: user.posts,
-                    bio: user.bio
+                    bio: user.bio,
+                    profilePicture: user.profilePicture
                 }
             });
         });
