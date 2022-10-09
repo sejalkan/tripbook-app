@@ -1,7 +1,6 @@
 var express = require('express');
 const Place = require('../schemas/place.js');
 var router = express.Router();
-var bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 //create new place
@@ -18,7 +17,7 @@ router.post('/places', function(req, res, next) {
             var newPlace = new Place({
                 placeType: req.body.placeType,
                 email_address: req.body.email_address,
-                password: bcrypt.hashSync(req.body.password, 10),
+                password: req.body.password,
                 bio: req.body.bio,
                 placename: req.body.placeName,
                 username: req.body.username,
@@ -84,7 +83,7 @@ router.put('/places/:id', function(req, res, next) {
         }
         place.placeType = req.body.placeType;
         place.email_address = req.body.email_address;
-        place.password = bcrypt.hashSync(req.body.password, 10),
+        place.password = req.body.password,
         place.bio = req.body.bio;
         place.place_id = req.body.place_id;
         place.placeName = req.body.placeName;
@@ -99,7 +98,7 @@ router.post('/placeLogin', (req, res, next) => {
         if(err) {return next(err);}
         if (place) {
             //incorrect password
-            if (!bcrypt.compareSync(req.body.password, place.password)) {
+            if (req.body.password !== place.password) {
                 return res.status(401).json({
                     title: 'Wrong password',
                     error: 'Wrong password'
