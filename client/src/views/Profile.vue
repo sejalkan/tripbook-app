@@ -15,7 +15,7 @@
         <b-tab title="Post">
           <img src='@/assets/sepehr-moradian-XdtUEWzdU0A-unsplash.jpg' />
         </b-tab>
-        <b-tab title="Reviews">
+        <b-tab class="scroll" title="Reviews">
           <b-card-text> <Post v-bind:post='post'/> </b-card-text>
         </b-tab>
         </b-tabs>
@@ -95,6 +95,16 @@ img {
 .card {
   min-width: 800px;
   min-height: 680px;
+}
+
+.scroll {
+  min-width: 800px;
+  min-height: 500px;
+  max-height: 500px;
+  max-width: 800px;
+  overflow-y: auto;
+  padding: 1rem;
+  margin-bottom: 3rem !important;
 }
 
 li {

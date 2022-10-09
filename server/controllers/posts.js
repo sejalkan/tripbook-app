@@ -106,9 +106,12 @@ router.post('/posts/:id/reviews', function(req, res, next) {
 //read reviews for a post by ID
 router.get('/posts/:id/reviews', function (req, res, next) {
     var id = req.params.id;
-    Post.findById(id).populate('reviews').exec(function(err,post){
+    Post.findById(id).populate("reviews").exec(function(err,post){
         if (err) {
             return next(err); 
+        }
+        if(post == null){
+            return res.status(404).json({"message" : "Post not found"})
         }
         console.log(post.reviews);
         return res.status(200).json(post.reviews);

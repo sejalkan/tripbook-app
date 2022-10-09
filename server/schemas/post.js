@@ -3,14 +3,6 @@ const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 
 const postSchema = new Schema({
-    user_id: {
-        type: ObjectId,
-        required: true
-    },
-    img: {
-        type: String,
-        required: true
-    },
     timestamp: {
         type: String,
         default: Date.now()
