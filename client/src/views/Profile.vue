@@ -1,14 +1,18 @@
 <template>
   <div class="main">
+    <div v-if="editProfile">
+      <editing-profile @change-to-profile=change> hey </editing-profile>
+       </div>
+      <div v-else>
     <div class="information">
-    <h1>{{currentUser.username}}</h1>
-    <h2> Bio: <br> {{currentUser.bio}}</h2>
-    <button class="editBtn">Edit Profile </button>
+    <h1>@{{currentUser.username}}
+      <button class="editBtn" v-on:click="isEditing">Edit Profile </button> <br>
+    </h1>
+    <p id="bio"> Bio: <br> {{currentUser.bio}}</p>
     </div>
-    <div style="padding: 2.5rem">
+    <div>
       <b-tabs content-class="mt-3" align="center">
         <b-tab title="Posts"><p>Your Posts</p>
-
         <div class="row justify-content-center" style="padding: 2rem" v-for="post in posts" v-bind:key="post._id">
       <b-card style="card" header-tag="header" footer-tag="footer" no-body>
         <b-tabs card>
@@ -35,15 +39,17 @@
 
       </b-tabs>
     </div>
+    </div>
   </div>
 </template>
 
 <script>
 import Post from '../components/Post.vue'
 import { Api } from '@/Api'
+import editingProfile from '../components/EditProfile.vue'
 
 export default {
-  components: { Post },
+  components: { Post, editingProfile },
   props: { currentUser: Object },
   created() {
     if (localStorage.getItem('token') === null) {
@@ -71,7 +77,17 @@ export default {
 
   data() {
     return {
-      posts: []
+      posts: [],
+      editProfile: ''
+    }
+  },
+  methods: {
+    isEditing() {
+      this.editProfile = true
+      console.log('je')
+    },
+    change() {
+      this.editProfile = false
     }
   }
 }
@@ -90,6 +106,10 @@ export default {
 p {
   font-weight: bold;
   text-align: center;
+}
+#bio {
+  font-family: inter;
+  text-align: left;
 }
 
 img {
@@ -127,28 +147,29 @@ footer {
 h1 {
   padding: 0rem;
   padding-bottom: 1rem;
-  font-family:monospace;
+  font-family:inter;
   font-style: normal;
-  margin: 0%;
-}
-
-h2{
-  text-align: left;
 }
 
 .information{
   text-align: left;
-  padding-left: 0%;
-  margin:0;
-  background-color: #f6eef0;
+  padding: 35px;
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-top: 25px;
+  border: 1px double gray;
+  border-top: 0px;
+  border-bottom: 0px;
 }
-
 .editBtn{
-        background-color:#c8b4d0;
+        background-color:#4c3d40;
         border: none;
-        height: 50px;
+        border-radius: 8%;
+        height: 35px;
         width: 100px;
         font-family: inter;
-        font-size: 16px;
+        font-size: 12px;
+        color: white;
+        margin-left: 50px;
     }
 </style>

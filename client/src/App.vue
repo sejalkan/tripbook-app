@@ -1,8 +1,7 @@
 <template>
   <div id="app">
     <div v-if="loggedIn" :style="{ 'margin-left' : sidebarWidth }">
-      <Sidebar />
-       <h1 class="border"> Hello  {{ currentUser.username }} !</h1>>
+      <Sidebar/>
     <!-- Render the content of the current page view -->
     <router-view v-bind:currentUser="currentUser" />
     </div>
@@ -54,12 +53,5 @@ export default {
 </script>
 
 <style>
-.border {
-  font-family: sans-serif;
-  text-align: center;
-  font-weight: bold;
-  padding-bottom: 0.5rem;
-  padding-top: 0.5rem;
-}
 
 </style>
