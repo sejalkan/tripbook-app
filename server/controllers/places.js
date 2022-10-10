@@ -14,7 +14,15 @@ router.post('/places', function(req, res, next) {
             title: 'username already used',
         });
         else {
-            var newPlace = new Place(req.body);
+            var newPlace = new Place({
+                placeType: req.body.placeType,
+                email_address: req.body.email_address,
+                password: req.body.password,
+                bio: req.body.bio,
+                placename: req.body.placeName,
+                username: req.body.username,
+                address: req.body.address
+            });
             console.log(newPlace);
             newPlace.save(function(err) {
                 if (err) { return next(err); }
@@ -75,7 +83,7 @@ router.put('/places/:id', function(req, res, next) {
         }
         place.placeType = req.body.placeType;
         place.email_address = req.body.email_address;
-        place.password = req.body.password;
+        place.password = req.body.password,
         place.bio = req.body.bio;
         place.place_id = req.body.place_id;
         place.placeName = req.body.placeName;
@@ -90,13 +98,13 @@ router.post('/placeLogin', (req, res, next) => {
         if(err) {return next(err);}
         if (place) {
             //incorrect password
-            if (!req.body.password === place.password) {
+            if (req.body.password !== place.password) {
                 return res.status(401).json({
-                    title: 'login failed',
-                    error: 'invalid credentials'
+                    title: 'Wrong password',
+                    error: 'Wrong password'
                 });
             }
-            let token = jwt.sign({ placeId: place.id}, 'secretkey');
+            let token = jwt.sign({ placeId: place._id}, 'secretkey');
             return res.status(200).json({
                 title: 'login sucess',
                 token: token
@@ -106,9 +114,35 @@ router.post('/placeLogin', (req, res, next) => {
         //IF ALL IS GOOD create a token and send to frontend
             return res.status(401).json({
                 title: 'user not found',
-                error: 'invalid credentials'
+                error: 'Username incorrent'
             });
         }
+    });
+});
+router.get('/LoggedInPlace', (req, res) => {
+    let token = req.headers.token;
+    jwt.verify(token, 'secretkey', (err, decoded) => {
+        if (err) return res.status(401).json({
+            title: 'unauthorized'
+        });
+        //token is valid
+        Place.findOne({ _id: decoded.placeId }, (err, place) => {
+            if (err) return console.log(err);
+            return res.status(200).json({
+                title: 'place grabbed',
+                place: {
+                    username: place.username,
+                    email: place.email_address,
+                    followers: place.followers,
+                    posts: place.posts,
+                    bio: place.bio,
+                    placeType: place.placeType,
+                    placeName : place.placename,
+                    address: place.address
+                }    
+            });
+        });
+  
     });
 });
 

@@ -1,6 +1,5 @@
 <template>
         <div class="form">
-        <form class="userFrom">
             <h2> Create User Account </h2> <br>
             <p class="info">
         <button id="link" v-on:click=changeToPlace>Are you an organisation?</button>
@@ -13,7 +12,6 @@
          <input type="button" class="btn" name="submit" value="Submit" v-on:click="postUser">
           <input type="button" class="btn" name="cancel" value="Sign in" v-on:click=changeToLogin>
             </p>
-        </form>
         </div>
 </template>
 
@@ -58,6 +56,7 @@ export default {
               this.newUser = response.data
               console.log(response.data)
               alert('success')
+              this.$router.push('/startpage')
             })
             .catch(function (error) {
               this.newUser = error

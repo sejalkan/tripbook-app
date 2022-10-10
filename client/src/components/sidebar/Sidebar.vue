@@ -16,7 +16,11 @@
       <SidebarLink to='/newPost' icon='fa-regular fa-square-plus'> New Post </SidebarLink>
       <SidebarLink to='/myTripBook' icon='fa-solid fa-book-open'> My Trip Book </SidebarLink>
       <SidebarLink to='/profile' icon='fa-solid fa-user'> Profile </SidebarLink>
-      <SidebarLink to='/startpage' icon='fa-solid fa-right-to-bracket'> Login </SidebarLink>
+      <button v-on:click="handleLogout" id="logoutButton">
+      <SidebarLink to='/startpage' icon='fa-solid fa-right-to-bracket'>
+      Logout
+      </SidebarLink>
+      </button>
 
       <span
         class='collapse-icon'
@@ -31,17 +35,34 @@
 <script>
 import { collapsed, toggleSidebar, sidebarWidth } from './state'
 import SidebarLink from './SidebarLink.vue'
+
 export default {
   props: {},
   components: { SidebarLink },
   setup() {
     return { collapsed, toggleSidebar, sidebarWidth }
+  },
+  methods: {
+    handleLogout() {
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+      localStorage.removeItem('place')
+      alert('Logged out!')
+      this.$router.go(0)
+    }
   }
 }
 
 </script>
 
 <style>
+#logoutButton {
+  background-color: transparent;
+  border: none;
+  color: white;
+  margin: 0;
+  padding-left: 0;
+}
 :root {
     --sidebar-bg-color: #4C3D40;
     --sidebar-item-hover: #7f6c97;
