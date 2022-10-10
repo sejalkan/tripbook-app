@@ -21,9 +21,9 @@ router.post('/users', function(req, res, next) {
                 bio : req.body.bio,
                 followers : req.body.followers,
                 posts : req.body.posts,
-                profilePicture: req.body.profilePicture }) //{data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)), contentType: 'image/png'}});
-                console.log(newUser);
-                newUser.save(function(err) {
+                profilePicture: req.body.profilePicture }); //{data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)), contentType: 'image/png'}});
+            console.log(newUser);
+            newUser.save(function(err) {
                 if (err) { return next(err); }
                 res.status(201).json(newUser);
             }); }
@@ -138,7 +138,8 @@ router.get('/LoggedInUser', (req, res) => {
                     followers: user.followers,
                     posts: user.posts,
                     bio: user.bio,
-                    profilePicture: user.profilePicture
+                    profilePicture: user.profilePicture,
+                    id: user._id
                 }
             });
         });

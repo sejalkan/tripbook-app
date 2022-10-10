@@ -86,6 +86,7 @@ export default {
         padding-top: 50px;
         background-color: #ffffff;
         float: left;
+        box-shadow: 10px 10px 8px #888888;
     }
     ::placeholder{
         font-size:11px;
@@ -117,5 +118,6 @@ export default {
     h2{
         font-family: inter;
         font-weight: 100;
+        text-shadow: 2px 2px 5px lightgray;
     }
 </style>

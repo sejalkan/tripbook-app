@@ -1,14 +1,14 @@
 <template>
   <div class="main">
     <div v-if="editProfile">
-      <editing-profile @change-to-profile=change> hey </editing-profile>
+      <editing-profile @change-to-profile=change v-bind:currentUser="currentUser"> hey </editing-profile>
        </div>
       <div v-else>
     <div class="information">
     <h1>@{{currentUser.username}}
-      <button class="editBtn" v-on:click="isEditing">Edit Profile </button> <br>
     </h1>
     <p id="bio"> Bio: <br> {{currentUser.bio}}</p>
+    <button class="editBtn" v-on:click="isEditing">Edit Profile </button> <br>
     </div>
     <div>
       <b-tabs content-class="mt-3" align="center">
@@ -84,10 +84,10 @@ export default {
   methods: {
     isEditing() {
       this.editProfile = true
-      console.log('je')
     },
     change() {
       this.editProfile = false
+      this.$router.go('/profile')
     }
   }
 }
@@ -157,9 +157,9 @@ h1 {
   margin-left: 25%;
   margin-right: 25%;
   margin-top: 25px;
-  border: 1px double gray;
-  border-top: 0px;
-  border-bottom: 0px;
+  margin-bottom: 25px;
+  box-shadow: 10px 0px 15px #888888;
+  background-color: #f6eef0;
 }
 .editBtn{
         background-color:#4c3d40;
@@ -170,6 +170,6 @@ h1 {
         font-family: inter;
         font-size: 12px;
         color: white;
-        margin-left: 50px;
+        float: right;
     }
 </style>

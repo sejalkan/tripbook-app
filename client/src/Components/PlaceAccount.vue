@@ -93,12 +93,13 @@ export default {
 
 <style scoped>
     .form{
-        height: 580px;
+        height: 600px;
         width: 30%;
         padding: 25px;
         padding-top: 50px;
         background-color: #ffffff;
         float: left;
+         box-shadow: 10px 10px 8px #888888;
     }
      ::placeholder{
         font-size:11px;
@@ -129,6 +130,7 @@ export default {
     }
     h2{
         font-family: Inter;
+        text-shadow: 2px 2px 5px lightgray;
     }
      #link{
       margin-left: 10px;
