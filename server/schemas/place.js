@@ -8,7 +8,7 @@ const Place = new Schema({
     bio: String,
     placename: String,
     username: {type: String, unique: true},
-    address: {StreetName: String, city: String, country: String},
+    address: String,
     followers: [{ type: Schema.Types.ObjectId, ref: 'placeModel'}],
     posts: [{type: Schema.Types.ObjectId, ref:'posts'}],
 

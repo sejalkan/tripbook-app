@@ -31,6 +31,27 @@ router.post('/places', function(req, res, next) {
         }
     });
    
+    router.patch('/places/:id', function(req, res, next) {
+        var id = req.params.id;
+        Place.findById(id, function(err, place) {
+            if (err) { return next(err); }
+            if (place == null) {
+                return res.status(404).json({'message': 'Place not found'});
+            }
+            place.username = (req.body.username || place.username);
+            place.email_address = (req.body.email_address || place.email_address);
+            place.password = (req.body.password || place.password);
+            place.bio = (req.body.bio || place.bio);
+            place.followers = (req.body.followers || place.followers);
+            place.posts = (req.body.posts || place.posts);
+            place.profilePicture = (req.body.profilePicture || place.profilePicture);
+            place.placename = (req.body.placename || place.placename);
+            place.address = (req.body.address || place.address);
+            console.log(place.placename);
+            place.save();
+            res.json(place);
+        });
+    });
 });
 
 //get all places
@@ -138,7 +159,8 @@ router.get('/LoggedInPlace', (req, res) => {
                     bio: place.bio,
                     placeType: place.placeType,
                     placeName : place.placename,
-                    address: place.address
+                    address: place.address,
+                    id: place._id
                 }    
             });
         });

@@ -22,7 +22,7 @@
         <button id="btn" v-on:click="checkInput"> Save changes </button>
         <button id="btn" v-on:click="deleteAccount"> Delete account </button>
         </div>
-        <div v-if="isPlace">
+        <div v-if="isPlace"  class="userInfo">
             <h1> Edit Profile </h1>
         <label class="label"> Username </label> <br>
         <label class="readOnly input" v-on:click="alerting"> {{currentUser.username}} </label> <br>
@@ -33,6 +33,8 @@
        <label class="label"> Organisation name </label> <br>
         <input type="text" class="input" v-model="organisationName"> <br>
 
+        <label class="label"> Address </label> <br>
+        <input type="text" class="input" v-model="address"> <br>
         <label class="label"> Bio </label> <br>
         <textarea type="text" class="inputBio" v-model="bio"> </textarea> <br>
 
@@ -56,12 +58,20 @@ export default {
   name: 'editingProfile',
   data() {
     return {
-      isUser: true,
+      isUser: '',
       isPlace: '',
       bio: '',
       password: '',
       confirmPassword: '',
-      organisationName: ''
+      organisationName: '',
+      address: ''
+    }
+  },
+  mounted() {
+    if (localStorage.getItem('user')) {
+      this.isUser = true
+    } else if (localStorage.getItem('place')) {
+      this.isPlace = true
     }
   },
   methods: {
@@ -80,7 +90,8 @@ export default {
         updatedUser = {
           bio: this.bio,
           password: this.password,
-          placename: this.organisationName
+          placename: this.organisationName,
+          address: this.address
         }
       }
       Api.patch(route, updatedUser)
@@ -89,7 +100,7 @@ export default {
           this.goBack()
         })
         .catch(function (error) {
-          alert(error.response)
+          alert(error)
         })
     },
     checkInput() {
@@ -97,7 +108,7 @@ export default {
         if (this.password) {
           if (!this.confirmPassword) {
             alert('Please confirm password')
-          } else if (!this.password === this.confirmPassword) {
+          } else if (this.password !== this.confirmPassword) {
             alert('Passwords do not match')
           } else {
             this.saveChanges()
@@ -148,7 +159,7 @@ export default {
     border: 1px solid black;
     margin: 25%;
     margin-top: 5%;
-    margin-bottom: 0;
+    margin-bottom: 5%;
     background-color: #f6eef0;
     box-shadow: 10px 15px 15px #888888;
 }
