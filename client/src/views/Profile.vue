@@ -1,11 +1,18 @@
 <template>
-  <div style="padding: 2rem">
-    <h1 class="row justify-content-center">Username: {{currentUser.username}}</h1>
-    <h1 class="row justify-content-center"> Email: {{currentUser.email}}</h1>
-    <div style="padding: 2.5rem">
+  <div class="main">
+    <div v-if="editProfile">
+      <editing-profile @change-to-profile=change v-bind:currentUser="currentUser"> hey </editing-profile>
+       </div>
+      <div v-else>
+    <div class="information">
+    <h1>@{{currentUser.username}}
+    </h1>
+    <p id="bio"> Bio: <br> {{currentUser.bio}}</p>
+    <button class="editBtn" v-on:click="isEditing">Edit Profile </button> <br>
+    </div>
+    <div>
       <b-tabs content-class="mt-3" align="center">
         <b-tab title="Posts"><p>Your Posts</p>
-
         <div class="row justify-content-center" style="padding: 2rem" v-for="post in posts" v-bind:key="post._id">
       <b-card style="card" header-tag="header" footer-tag="footer" no-body>
         <b-tabs card>
@@ -32,15 +39,17 @@
 
       </b-tabs>
     </div>
+    </div>
   </div>
 </template>
 
 <script>
 import Post from '../components/Post.vue'
 import { Api } from '@/Api'
+import editingProfile from '../components/EditProfile.vue'
 
 export default {
-  components: { Post },
+  components: { Post, editingProfile },
   props: { currentUser: Object },
   created() {
     if (localStorage.getItem('token') === null) {
@@ -68,7 +77,17 @@ export default {
 
   data() {
     return {
-      posts: []
+      posts: [],
+      editProfile: ''
+    }
+  },
+  methods: {
+    isEditing() {
+      this.editProfile = true
+    },
+    change() {
+      this.editProfile = false
+      this.$router.go('/profile')
     }
   }
 }
@@ -81,10 +100,16 @@ export default {
   font-weight: bold;
   border-top: 0ch;
 }
-
+.main{
+  padding-top: 0px;
+}
 p {
   font-weight: bold;
   text-align: center;
+}
+#bio {
+  font-family: inter;
+  text-align: left;
 }
 
 img {
@@ -120,9 +145,31 @@ footer {
 }
 
 h1 {
-  padding: 1rem;
+  padding: 0rem;
   padding-bottom: 1rem;
-  font-family:monospace;
+  font-family:inter;
   font-style: normal;
 }
+
+.information{
+  text-align: left;
+  padding: 35px;
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  box-shadow: 10px 0px 15px #888888;
+  background-color: #f6eef0;
+}
+.editBtn{
+        background-color:#4c3d40;
+        border: none;
+        border-radius: 8%;
+        height: 35px;
+        width: 100px;
+        font-family: inter;
+        font-size: 12px;
+        color: white;
+        float: right;
+    }
 </style>

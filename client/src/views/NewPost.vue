@@ -18,11 +18,11 @@
       <img v-if="url" :src="url" />
     </div>
 
-    <b-input-group size="lg" prepend="Description" class="mb-2">
+    <b-input-group size="lg" prepend="Description" class="mb-2" name="description">
         <b-form-input aria-label="Large text input with switch"></b-form-input>
     </b-input-group>
 
-    <b-input-group size="lg" prepend="Location" class="mb-1 ">
+    <b-input-group size="lg" prepend="Location" class="mb-1 " name="location">
         <b-form-input aria-label="Large text input with switch"></b-form-input>
     <b-input-group-append is-text @click="getLocation">
       <b-form-checkbox switch class="mr-n2" >
@@ -37,7 +37,6 @@ import { Api } from '@/Api'
 export default {
   name: 'NewPost',
   props: { currentUser: Object },
-
   data() {
     return {
       selectedFile: null,
@@ -50,11 +49,6 @@ export default {
         user: '',
         place: ''
       }
-    }
-  },
-  mounted() {
-    if (localStorage.getItem('token')) {
-      console.log(this.currentUser)
     }
   },
 
@@ -124,6 +118,9 @@ export default {
         // eslint-disable-next-line no-template-curly-in-string
         this.post.location += ', ${result.data.country}'
       }
+    },
+
+    uploadForm: function () {
     }
   }
 }

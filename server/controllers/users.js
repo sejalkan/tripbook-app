@@ -2,7 +2,6 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../schemas/user');
-//var bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 router.post('/users', function(req, res, next) {
@@ -18,18 +17,18 @@ router.post('/users', function(req, res, next) {
             var newUser = new User ({
                 email_address: req.body.email_address,
                 username: req.body.username,
-                //password: bcrypt.hashSync(req.body.password, 10),
                 password: req.body.password,
                 bio : req.body.bio,
                 followers : req.body.followers,
-                posts : req.body.posts});
+                posts : req.body.posts,
+                profilePicture: req.body.profilePicture }); //{data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)), contentType: 'image/png'}});
             console.log(newUser);
             newUser.save(function(err) {
                 if (err) { return next(err); }
                 res.status(201).json(newUser);
-            }); }
+            });
+        }
     });
-
 });
 
 router.get('/users', function(req, res, next) {
@@ -60,6 +59,7 @@ router.put('/users/:id', function(req, res, next) {
         user.bio = req.body.bio;
         user.followers = req.body.followers;
         user.posts = req.body.posts;
+        user.profilePicture = req.body.profilePicture;
         user.save();
         res.json(user);
     });
@@ -78,6 +78,7 @@ router.patch('/users/:id', function(req, res, next) {
         user.bio = (req.body.bio || user.bio);
         user.followers = (req.body.followers || user.followers);
         user.posts = (req.body.posts || user.posts);
+        user.profilePicture = (req.body.profilePicture || user.profilePicture);
         user.save();
         res.json(user);
     });
@@ -98,15 +99,15 @@ router.post('/userLogin', (req, res, next) => {
         if(err) {return next(err);} 
         if (user) {
             //incorrect password
-            if (!req.body.password === user.password) {
+            if (req.body.password !== user.password)  {
                 return res.status(401).json({
-                    title: 'login failed',
-                    error: 'invalid credentials'    
+                    title: 'Wrong password',
+                    error: 'Wrong password'
                 });
             }
             let token = jwt.sign({ userId: user._id}, 'secretkey');
             return res.status(200).json({
-                title: 'login sucess',
+                title: 'login success',
                 token: token,
                 user: user,
                 userId : user._id
@@ -114,12 +115,11 @@ router.post('/userLogin', (req, res, next) => {
         } else {
             return res.status(401).json({
                 title: 'user not found',
-                error: 'invalid credentials'
+                error: 'incorrect username'
             });
         }
     });
 });
-
 router.get('/LoggedInUser', (req, res) => {
     let token = req.headers.token;
     jwt.verify(token, 'secretkey', (err, decoded) => {
@@ -136,11 +136,12 @@ router.get('/LoggedInUser', (req, res) => {
                     email: user.email_address,
                     followers: user.followers,
                     posts: user.posts,
-                    bio: user.bio
+                    bio: user.bio,
+                    profilePicture: user.profilePicture,
+                    id: user._id
                 }
             });
         });
-  
     });
 });
 

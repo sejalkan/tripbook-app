@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1 class="border"> Hello  {{ currentUser.username }} !</h1>
     <p> Posts from people and places you follow </p>
     <div class="row justify-content-center" style="padding: 2rem" v-for="post in posts" v-bind:key="post._id">
       <b-card style="card" header-tag="header" footer-tag="footer" no-body>
@@ -30,14 +31,6 @@ import { Api } from '@/Api'
 export default {
   name: 'posts',
   components: { Post },
-  props: { currentUser: Object },
-
-  created() {
-    if (localStorage.getItem('token') === null) {
-      this.$router.push('/startpage')
-    }
-  },
-
   mounted() {
     if (localStorage.getItem('token')) {
       console.log(this.currentUser)
@@ -116,4 +109,12 @@ footer {
   padding: 1rem;
   margin-bottom: 3rem !important;
 }
+.border {
+  font-family: sans-serif;
+  text-align: center;
+  font-weight: bold;
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+}
+
 </style>

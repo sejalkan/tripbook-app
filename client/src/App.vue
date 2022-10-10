@@ -1,13 +1,12 @@
 <template>
   <div id="app">
     <div v-if="loggedIn" :style="{ 'margin-left' : sidebarWidth }">
-      <Sidebar />
-       <h1 class="border"> Hello  {{ currentUser.username }} !</h1>
+      <Sidebar/>
     <!-- Render the content of the current page view -->
-    <router-view v-bind:currentUser="currentUser" />
+    <router-view v-bind:currentUser="currentUser"/>
     </div>
     <div v-else>
-      <start-page @loggedIn=handleLogin()> </start-page>
+      <start-page @userLoggedIn=handleUserLogin() @placeLoggedIn=handlePlaceLogin()> </start-page>
     </div>
   </div>
 </template>
@@ -28,13 +27,24 @@ export default {
       currentUser: ''
     }
   },
+  created() {
+    if (localStorage.getItem('user')) {
+      this.getCurrentUser()
+    } else if (localStorage.getItem('place')) {
+      this.getCurrentPlace()
+    }
+  },
   mounted() {
     if (localStorage.getItem('token') === null) {
       this.loggedIn = false
       this.$router.push('/login')
     } else {
       this.loggedIn = true
-      this.getCurrentUser()
+    }
+  },
+  updated() {
+    if (localStorage.getItem('token') === null) {
+      this.loggedIn = false
     }
   },
   methods: {
@@ -43,23 +53,28 @@ export default {
         headers: { token: localStorage.getItem('token') }
       }).then((res) => {
         this.currentUser = res.data.user
+        localStorage.setItem('user', res.data.user)
       })
     },
-    handleLogin() {
+    getCurrentPlace() {
+      Api.get('/LoggedInPlace', {
+        headers: { token: localStorage.getItem('token') }
+      }).then((res) => {
+        this.currentUser = res.data.place
+        localStorage.setItem('place', res.data.place)
+      })
+    },
+    handleUserLogin() {
       this.loggedIn = true
       this.getCurrentUser()
+    },
+    handlePlaceLogin() {
+      this.loggedIn = true
+      this.getCurrentPlace()
     }
   }
 }
 </script>
 
 <style>
-.border {
-  font-family: sans-serif;
-  text-align: center;
-  font-weight: bold;
-  padding-bottom: 0.5rem;
-  padding-top: 0.5rem;
-}
-
 </style>
