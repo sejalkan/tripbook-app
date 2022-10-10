@@ -9,7 +9,7 @@
     <b-row >
         <b-col sm="6" md="5" offset-md="2" lg="6" offset-lg="5">
     <b-button pill variant="primary" @click='$refs.fileInput.click()'>Pick File</b-button>
-    <b-button pill variant="success" style="margin-left: 0.5rem" @click="onUpload"> Upload </b-button>
+    <b-button pill variant="success" style="margin-left: 0.5rem" @click="createPost()"> Upload </b-button>
         </b-col>
     </b-row>
     </b-container>
@@ -41,7 +41,20 @@ export default {
   data() {
     return {
       selectedFile: null,
-      url: null
+      url: null,
+      postData: {
+        description: '',
+        location: '',
+        timestamp: '',
+        reviews: '',
+        user: '',
+        place: ''
+      }
+    }
+  },
+  mounted() {
+    if (localStorage.getItem('token')) {
+      console.log(this.currentUser)
     }
   },
 
@@ -52,6 +65,20 @@ export default {
   },
 
   methods: {
+    createPost() {
+      const newPost = {
+        description: this.description,
+        location: this.location
+      }
+      Api.post(`/users/${this.currentUser._id}/posts`, newPost).then(response => {
+        console.log(response.data)
+        this.post = []
+        this.post.push(newPost)
+      })
+        .catch(error => {
+          console.log(error)
+        })
+    },
     onFileSelected(event) {
       this.selectedFile = event.target.files[0]
     },

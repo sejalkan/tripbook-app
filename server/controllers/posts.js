@@ -2,14 +2,25 @@ var express = require('express');
 var router = express.Router();
 var Post = require('../schemas/post.js');
 var Review = require('../schemas/review.js');
+var User = require('../schemas/user.js');
 
-//create post
-router.post('/posts', function(req, res, next) {
+//create post by user id
+router.post('/users/:id/posts', function(req, res, next) {
+    var id= req.params.id;
+    User.findById(id, function(err,user){
+        if(err) {return next(err);}
+        if (user == null){
+            return res.status(404).json({'message' : 'User not found'});
+        }
     var post = new Post(req.body);
     post.save(function(err) {
         if (err) { return next(err); }
-        res.status(201).json(post);
-    });
+        console.log(post);}
+    );
+    user.posts.push(post);
+    user.save;
+    return res.json(user.post)
+}); 
 });
 
 //read all posts
