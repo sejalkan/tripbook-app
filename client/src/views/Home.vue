@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1 class="border"> Hello  {{ currentUser.username }} !</h1>
     <p> Posts from people and places you follow </p>
     <div class="row justify-content-center" style="padding: 2rem" v-for="post in posts" v-bind:key="post._id">
       <b-card style="card" header-tag="header" footer-tag="footer">
@@ -72,4 +73,12 @@ img {
   min-width: 800px;
   min-height: 600px;
 }
+.border {
+  font-family: sans-serif;
+  text-align: center;
+  font-weight: bold;
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+}
+
 </style>
