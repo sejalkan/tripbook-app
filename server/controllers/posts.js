@@ -19,7 +19,8 @@ router.post('/users/:id/posts', function(req, res, next) {
     );
     user.posts.push(post);
     user.save;
-    return res.json(user.post)
+    console.log(post._id)
+    return res.json(post)
 }); 
 });
 

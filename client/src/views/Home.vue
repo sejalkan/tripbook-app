@@ -1,25 +1,36 @@
 <template>
   <div>
     <h1 class="border"> Hello  {{ currentUser.username }} !</h1>
-    <p> Posts from people and places you follow </p>
+    <p class="heading"> Posts from people and places you follow </p>
     <div class="row justify-content-center" style="padding: 2rem" v-for="post in posts" v-bind:key="post._id">
       <b-card style="card" header-tag="header" footer-tag="footer" no-body>
         <b-tabs card>
           <template #tabs-start>
             <li role="presentation" class="nav-item align-self-center"> @{{currentUser.username}} </li>
           </template>
+
         <b-tab title="Post">
           <img src='@/assets/sepehr-moradian-XdtUEWzdU0A-unsplash.jpg' />
         </b-tab>
         <b-tab title="Reviews">
           <b-card-text class="scroll"> <Post v-bind:post='post'/> </b-card-text>
         </b-tab>
+
+        <b-tab title="Write a Review">
+          <b-input-group size="lg" prepend="Text" class="mb-3" name="text">
+            <b-form-input  v-model="text"></b-form-input>
+          </b-input-group>
+          <b-form-rating size="lg" v-model="rating" class="stars"> </b-form-rating>
+          <p class="mt-2">Rating: {{ rating }} </p>
+          <b-button class="post-b" pill variant="success" @click="createReview(post)"> Post </b-button>
+
+        </b-tab>
         </b-tabs>
         <template #footer>
-        Description
+        <p class="desc">{{post.description}}</p>
+        <p>{{ post.location }}</p>
       </template>
       </b-card>
-      <p></p>
     </div>
   </div>
 </template>
@@ -30,36 +41,49 @@ import { Api } from '@/Api'
 
 export default {
   name: 'posts',
+  props: { currentUser: Object },
   components: { Post },
   mounted() {
     if (localStorage.getItem('token')) {
       console.log(this.currentUser)
     }
-    Api.get('/posts/')
+    Api.get('/posts')
       .then(response => {
         console.log(response.data)
         this.posts = response.data.posts
-        response.data.posts.forEach(function () {
-          Api.get(`/posts/${this.posts}`)
-            .then(response => {
-              this.postId = response.data._id
-            })
-            .catch(error => {
-              console.log(error)
-            })
-          response.data._id.forEach(function () {
-          })
-        })
+        console.log(this.posts)
       })
       .catch(error => {
         console.error(error)
-        this.post = []
       })
+  },
+
+  methods: {
+    createReview(post) {
+      const newReview = {
+        rating: this.rating,
+        text: this.text
+      }
+      console.log('hello')
+      console.log(post)
+      console.log(post._id)
+      console.log('hello')
+      Api.post(`/posts/${post._id}/reviews`, newReview).then(response => {
+        console.log(response.data)
+        this.review = []
+        this.review.push(newReview)
+        console.log()
+      })
+        .catch(error => {
+          console.log(error)
+        })
+    }
   },
 
   data() {
     return {
-      posts: []
+      posts: [],
+      rating: null
     }
   }
 }
@@ -72,9 +96,14 @@ export default {
   border-top: 0ch;
 }
 
-p {
+.heading {
   font-weight: bold;
   text-align: center;
+}
+
+.desc {
+  font-weight: bold;
+  margin-bottom: 8px;
 }
 
 img {
@@ -85,7 +114,7 @@ img {
 
 .card {
   min-width: 800px;
-  min-height: 680px;
+  min-height: 710px;
 }
 
 li {
@@ -98,6 +127,7 @@ footer {
   position: absolute;
   bottom: 0;
   width: 100%;
+  max-height: 80px;
 }
 
 .scroll {
@@ -109,12 +139,28 @@ footer {
   padding: 1rem;
   margin-bottom: 3rem !important;
 }
+
 .border {
   font-family: sans-serif;
   text-align: center;
   font-weight: bold;
   padding-bottom: 0.5rem;
   padding-top: 0.5rem;
+  background-color: #4C3D40;
+  color: white;
+}
+
+.mb-3 {
+  margin-top: 3rem;
+}
+
+.stars {
+  margin-top: 3rem;
+}
+
+.post-b {
+  margin-top: 2rem;
+  width: 100%;
 }
 
 </style>

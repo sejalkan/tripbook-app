@@ -14,6 +14,8 @@ export default {
   props: ['post'],
 
   mounted() {
+    console.log(this.post._id)
+    console.log(this.currentUser)
     Api.get(`/posts/${this.post._id}/reviews`).then(response => {
       console.log(response.data)
       this.reviews = response.data
@@ -43,5 +45,10 @@ export default {
   padding: 1rem;
   width: 100%;
   margin-bottom: 0.2rem;
+  border-color: #4C3D40;
+}
+
+p {
+  font-weight: bold;
 }
 </style>

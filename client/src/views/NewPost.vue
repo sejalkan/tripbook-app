@@ -19,11 +19,11 @@
     </div>
 
     <b-input-group size="lg" prepend="Description" class="mb-2" name="description">
-        <b-form-input aria-label="Large text input with switch"></b-form-input>
+        <b-form-input aria-label="Large text input with switch" v-model="description"></b-form-input>
     </b-input-group>
 
     <b-input-group size="lg" prepend="Location" class="mb-1 " name="location">
-        <b-form-input aria-label="Large text input with switch"></b-form-input>
+        <b-form-input aria-label="Large text input with switch" v-model="location"></b-form-input>
     <b-input-group-append is-text @click="getLocation">
       <b-form-checkbox switch class="mr-n2" >
       </b-form-checkbox>
@@ -37,6 +37,11 @@ import { Api } from '@/Api'
 export default {
   name: 'NewPost',
   props: { currentUser: Object },
+  mounted() {
+    if (localStorage.getItem('token')) {
+      console.log(this.currentUser)
+    }
+  },
   data() {
     return {
       selectedFile: null,
@@ -48,7 +53,8 @@ export default {
         reviews: '',
         user: '',
         place: ''
-      }
+      },
+      post: {}
     }
   },
 
@@ -64,14 +70,17 @@ export default {
         description: this.description,
         location: this.location
       }
-      Api.post(`/users/${this.currentUser._id}/posts`, newPost).then(response => {
+      console.log(this.currentUser)
+      Api.post(`/users/${this.currentUser.id}/posts`, newPost).then(response => {
         console.log(response.data)
-        this.post = []
-        this.post.push(newPost)
+        this.post = response.data
+        console.log(this.post)
       })
         .catch(error => {
           console.log(error)
         })
+      console.log(this.post)
+      console.log(newPost)
     },
     onFileSelected(event) {
       this.selectedFile = event.target.files[0]

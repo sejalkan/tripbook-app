@@ -17,9 +17,7 @@
       <SidebarLink to='/myTripBook' icon='fa-solid fa-book-open'> My Trip Book </SidebarLink>
       <SidebarLink to='/profile' icon='fa-solid fa-user'> Profile </SidebarLink>
       <button v-on:click="handleLogout" id="logoutButton">
-      <SidebarLink to='/startpage' icon='fa-solid fa-right-to-bracket'>
-      Logout
-      </SidebarLink>
+      <SidebarLink to='/startpage' icon='fa-solid fa-arrow-right-from-bracket'> Logout </SidebarLink>
       </button>
 
       <span
@@ -92,7 +90,7 @@ export default {
     top: 0;
     left: 0;
     bottom: 0;
-    padding: 1em;
+    padding: 0.9em;
 
     transition: 0.3s ease;
 
