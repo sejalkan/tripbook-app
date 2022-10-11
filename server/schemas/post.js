@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const ObjectId = Schema.ObjectId;
 
 const postSchema = new Schema({
     timestamp: {
@@ -10,7 +9,7 @@ const postSchema = new Schema({
     description: String,
     location: String,
     reviews: [{type: Schema.Types.ObjectId, ref: 'reviews'}],
-    user: {type: Schema.Types.ObjectId, ref: 'users'},
+    userName: String,
     place: {type: Schema.Types.ObjectId, referance: 'places'},
 });
 

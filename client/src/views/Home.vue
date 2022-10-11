@@ -6,7 +6,7 @@
       <b-card style="card" header-tag="header" footer-tag="footer" no-body>
         <b-tabs card>
           <template #tabs-start>
-            <li role="presentation" class="nav-item align-self-center"> @{{currentUser.username}} </li>
+            <li role="presentation" class="nav-item align-self-center"> @{{post.userName}} </li>
           </template>
 
         <b-tab title="Post">
@@ -77,6 +77,7 @@ export default {
         .catch(error => {
           console.log(error)
         })
+      this.$router.go(0)
     }
   },
 

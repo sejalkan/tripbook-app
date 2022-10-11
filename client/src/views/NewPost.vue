@@ -68,9 +68,11 @@ export default {
     createPost() {
       const newPost = {
         description: this.description,
-        location: this.location
+        location: this.location,
+        userName: this.currentUser.username
       }
       console.log(this.currentUser)
+      console.log(this.currentUser.username)
       Api.post(`/users/${this.currentUser.id}/posts`, newPost).then(response => {
         console.log(response.data)
         this.post = response.data
@@ -79,6 +81,7 @@ export default {
         .catch(error => {
           console.log(error)
         })
+      this.$router.go(0)
       console.log(this.post)
       console.log(newPost)
     },
