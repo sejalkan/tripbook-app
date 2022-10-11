@@ -9,7 +9,7 @@ const postSchema = new Schema({
     description: String,
     location: String,
     reviews: [{type: Schema.Types.ObjectId, ref: 'reviews'}],
-    userName: String,
+    user: {type: Schema.Types.ObjectId, referance: 'users'},
     place: {type: Schema.Types.ObjectId, referance: 'places'},
 });
 

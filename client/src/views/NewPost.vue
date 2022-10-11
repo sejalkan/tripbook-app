@@ -8,8 +8,8 @@
     <b-container style="margin-top: 2rem">
     <b-row >
         <b-col sm="6" md="5" offset-md="2" lg="6" offset-lg="5">
-    <b-button pill variant="primary" @click='$refs.fileInput.click()'>Pick File</b-button>
-    <b-button pill variant="success" style="margin-left: 0.5rem" @click="createPost()"> Upload </b-button>
+    <b-button id="btn" @click='$refs.fileInput.click()'>Pick File</b-button>
+    <b-button id="btn" style="margin-left: 0.5rem" @click="createPost()"> Upload </b-button>
         </b-col>
     </b-row>
     </b-container>
@@ -69,21 +69,19 @@ export default {
       const newPost = {
         description: this.description,
         location: this.location,
-        userName: this.currentUser.username
+        user: this.currentUser._id
       }
-      console.log(this.currentUser)
       console.log(this.currentUser.username)
       Api.post(`/users/${this.currentUser.id}/posts`, newPost).then(response => {
         console.log(response.data)
         this.post = response.data
-        console.log(this.post)
+        console.log(this.newPost)
       })
         .catch(error => {
           console.log(error)
         })
-      this.$router.go(0)
+      // this.$router.go(0)
       console.log(this.post)
-      console.log(newPost)
     },
     onFileSelected(event) {
       this.selectedFile = event.target.files[0]
@@ -168,5 +166,12 @@ export default {
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
-
+#btn{
+  height: 35px;
+  width: 100px;
+  font-family: inter;
+  font-size: 16x;
+  color: white;
+  background-color:#4c3d40;
+}
 </style>

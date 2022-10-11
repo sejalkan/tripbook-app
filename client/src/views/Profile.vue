@@ -13,7 +13,7 @@
     <div>
       <b-tabs content-class="mt-3" align="center">
         <b-tab title="Posts"><p>Your Posts</p>
-        <div class="row justify-content-center" style="padding: 2rem" v-for="post in posts" v-bind:key="post._id">
+        <div class="row justify-content-center" style="padding: 2rem" v-for="post in currentUser.posts" v-bind:key="post._id">
       <b-card style="card" header-tag="header" footer-tag="footer" no-body>
         <b-tabs card>
           <template #tabs-start>
