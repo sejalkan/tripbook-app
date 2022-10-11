@@ -47,7 +47,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 h2{
   text-shadow: 3px 2px 5px gray;
   font-family: inter;
