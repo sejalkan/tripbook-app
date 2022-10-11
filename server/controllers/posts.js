@@ -5,25 +5,6 @@ var Review = require('../schemas/review.js');
 var User = require('../schemas/user.js');
 
 //create post by user id
-router.post('/users/:id/posts', function(req, res, next) {
-    var id= req.params.id;
-    User.findById(id, function(err,user){
-        if(err) {return next(err);}
-        if (user == null){
-            return res.status(404).json({'message' : 'User not found'});
-        }
-        var post = new Post(req.body);
-        post.save(function(err) {
-            if (err) { return next(err); }
-            console.log(post);}
-        );
-        user.posts.push(post);
-        user.save;
-        console.log(post._id);
-        return res.json(post);
-    }); 
-});
-
 //read all posts
 router.get('/posts', function(req, res, next) {
     Post.find(function(err, posts) {

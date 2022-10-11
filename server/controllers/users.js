@@ -3,6 +3,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../schemas/user');
 const jwt = require('jsonwebtoken');
+var Post = require('../schemas/post.js');
 
 router.post('/users', function(req, res, next) {
     User.findOne({ username: req.body.username}, (err, user) => {
@@ -144,5 +145,38 @@ router.get('/LoggedInUser', (req, res) => {
         });
     });
 });
+
+router.post('/users/:id/posts', function(req, res, next) {
+    var id= req.params.id;
+    User.findById(id, function(err, user){
+        if(err) {
+            return next(err);
+        }
+        var post = new Post(req.body);
+        post.save(function (err) {
+            if (err) { return next(err); }
+            console.log(post);
+        });
+        user.posts.push(post);
+        user.save();
+        console.log(post._id);
+        return res.status(201).json(user);
+    }); 
+});
+
+router.get('/users/:id/posts', function (req, res, next) {
+    var id = req.params.id;
+    User.findById(id).populate('posts').exec(function(err,user){
+        if (err) {
+            return next(err); 
+        }
+        if(user == null){
+            return res.status(404).json({'message' : 'Post not found'});
+        }
+        console.log(user.posts);
+        return res.status(200).json(user.posts);
+    });
+});
+
 
 module.exports = router;

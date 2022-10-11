@@ -80,7 +80,7 @@ export default {
         .catch(error => {
           console.log(error)
         })
-      // this.$router.go(0)
+      this.$router.go(0)
       console.log(this.post)
     },
     onFileSelected(event) {

@@ -27,7 +27,8 @@
         </b-tab>
         </b-tabs>
         <template #footer>
-        Description
+         <p class="desc">{{post.description}}</p>
+        <p>{{ post.location }}</p>
       </template>
       </b-card>
       <p></p>
@@ -171,5 +172,9 @@ h1 {
         font-size: 12px;
         color: white;
         float: right;
-    }
+}
+.desc {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
 </style>
