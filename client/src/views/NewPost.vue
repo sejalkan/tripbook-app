@@ -69,7 +69,8 @@ export default {
       const newPost = {
         description: this.description,
         location: this.location,
-        user: this.currentUser._id
+        user: this.currentUser._id,
+        userName: this.currentUser.username
       }
       console.log(this.currentUser.username)
       Api.post(`/users/${this.currentUser.id}/posts`, newPost).then(response => {

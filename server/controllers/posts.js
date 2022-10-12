@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var Post = require('../schemas/post.js');
 var Review = require('../schemas/review.js');
-var User = require('../schemas/user.js');
 
 //create post by user id
 //read all posts
