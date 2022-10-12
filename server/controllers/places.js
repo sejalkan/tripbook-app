@@ -2,6 +2,7 @@ var express = require('express');
 const Place = require('../schemas/place.js');
 var router = express.Router();
 const jwt = require('jsonwebtoken');
+var Post = require('../schemas/post.js');
 
 //create new place
 router.post('/places', function(req, res, next) {
@@ -165,6 +166,38 @@ router.get('/LoggedInPlace', (req, res) => {
             });
         });
   
+    });
+});
+
+router.post('/places/:id/posts', function(req, res, next) {
+    var id= req.params.id;
+    Place.findById(id, function(err, place){
+        if(err) {
+            return next(err);
+        }
+        var post = new Post(req.body);
+        post.save(function (err) {
+            if (err) { return next(err); }
+            console.log(post);
+        });
+        place.posts.push(post);
+        place.save();
+        console.log(post._id);
+        return res.status(201).json(place);
+    }); 
+});
+
+router.get('/users/:id/posts', function (req, res, next) {
+    var id = req.params.id;
+    Place.findById(id).populate('posts').exec(function(err,place){
+        if (err) {
+            return next(err); 
+        }
+        if(place == null){
+            return res.status(404).json({'message' : 'Post not found'});
+        }
+        console.log(place.posts);
+        return res.status(200).json(place.posts);
     });
 });
 
