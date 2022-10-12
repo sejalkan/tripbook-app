@@ -63,11 +63,17 @@ export default {
       const newPost = {
         description: this.description,
         location: this.location,
-        user: this.currentUser._id,
+        user: this.currentUser.id,
         userName: this.currentUser.username
       }
+      const theID = this.currentUser.id
+      let route = '/users/' + theID + '/posts'
+      if (localStorage.getItem('place')) {
+        route = '/places/' + theID + '/posts'
+      }
+
       console.log(this.currentUser.username)
-      Api.post(`/users/${this.currentUser.id}/posts`, newPost).then(response => {
+      Api.post(route, newPost).then(response => {
         console.log(response.data)
         this.post = response.data
         console.log(this.newPost)
