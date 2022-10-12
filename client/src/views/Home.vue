@@ -62,7 +62,8 @@ export default {
     createReview(post) {
       const newReview = {
         rating: this.rating,
-        text: this.text
+        text: this.text,
+        userName: this.currentUser.username
       }
       console.log('hello')
       console.log(post)

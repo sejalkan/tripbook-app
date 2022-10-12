@@ -1,6 +1,7 @@
 <template>
   <div class="row justify-content-center">
     <div class="card" v-for="review in reviews" v-bind:key="review._id">
+      <p> @{{review.userName}} </p>
       <p> {{review.text}} </p>
       <p> Rating: {{review.rating}}/5</p>
     </div>
