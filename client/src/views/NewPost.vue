@@ -1,34 +1,28 @@
 <template>
   <div id="app">
+    <h1> New Post </h1>
     <input
     style="display: none"
     type="file"
     @change="onFileChange"
     ref="fileInput">
-    <b-container style="margin-top: 2rem">
-    <b-row >
-        <b-col sm="6" md="5" offset-md="2" lg="6" offset-lg="5">
-    <b-button id="btn" @click='$refs.fileInput.click()'>Pick File</b-button>
-    <b-button id="btn" style="margin-left: 0.5rem" @click="createPost()"> Upload </b-button>
-        </b-col>
-    </b-row>
-    </b-container>
-
-    <div id="preview">
-      <img v-if="url" :src="url" />
-    </div>
-
-    <b-input-group size="lg" prepend="Description" class="mb-2" name="description">
-        <b-form-input aria-label="Large text input with switch" v-model="description"></b-form-input>
-    </b-input-group>
+    <label class="label"> Description </label> <br>
+    <textarea class="mb-2" name="description" v-model="description"> </textarea>
 
     <b-input-group size="lg" prepend="Location" class="mb-1 " name="location">
-        <b-form-input aria-label="Large text input with switch" v-model="location"></b-form-input>
+    <b-form-input aria-label="Large text input with switch" v-model="location"> </b-form-input>
     <b-input-group-append is-text @click="getLocation">
       <b-form-checkbox switch class="mr-n2" >
       </b-form-checkbox>
     </b-input-group-append>
     </b-input-group>
+    <b-container style="margin-top: 2rem">
+    <b-row >
+        <b-col sm="6" md="5" offset-md="2" lg="6" offset-lg="5">
+    <b-button id="btn" @click="createPost()"> Upload Blog Post</b-button>
+        </b-col>
+    </b-row>
+    </b-container>
   </div>
 </template>
 
@@ -139,12 +133,9 @@ export default {
 
 <style>
 
-.mb-2 {
-    display: flex;
-    flex-direction: row;
-    margin-top: 2rem;
-    padding-left: 14rem;
-    padding-right: 14rem;
+h1 {
+    font-family: inter;
+    text-align: center;
 }
 
 .mb-1 {
@@ -174,5 +165,18 @@ export default {
   font-size: 16x;
   color: white;
   background-color:#4c3d40;
+}
+.label{
+  color: grey;
+  margin-left: 25%;
+  font-size: 18px;
+  text-align: center;
+}
+.mb-2{
+  margin-left: 25%;
+  margin-bottom: 15px;
+  width: 50%;
+  height: 200px;
+  padding:10px;
 }
 </style>

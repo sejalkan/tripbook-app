@@ -20,14 +20,13 @@
             <li role="presentation" class="nav-item align-self-center"> @{{currentUser.username}} </li>
           </template>
         <b-tab title="Post">
-          <img src='@/assets/sepehr-moradian-XdtUEWzdU0A-unsplash.jpg' />
+          <p class="desc">{{post.description}}</p>
         </b-tab>
         <b-tab class="scroll" title="Reviews">
           <b-card-text> <Post v-bind:post='post'/> </b-card-text>
         </b-tab>
         </b-tabs>
         <template #footer>
-         <p class="desc">{{post.description}}</p>
         <p>{{ post.location }}</p>
       </template>
       </b-card>

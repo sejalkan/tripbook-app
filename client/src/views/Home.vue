@@ -3,14 +3,14 @@
     <h1 class="border"> Hello  {{ currentUser.username }} !</h1>
     <p class="heading"> Posts from people and places you follow </p>
     <div class="row justify-content-center" style="padding: 2rem" v-for="post in posts" v-bind:key="post._id">
-      <b-card style="card" header-tag="header" footer-tag="footer" no-body>
+      <b-card style="card" header-tag="header" footer-tag="footer" class="card" no-body>
         <b-tabs card>
           <template #tabs-start>
             <li role="presentation" class="nav-item align-self-center"> @{{post.userName}} </li>
           </template>
 
         <b-tab title="Post">
-          <img src='@/assets/sepehr-moradian-XdtUEWzdU0A-unsplash.jpg' />
+          <p class="desc">{{post.description}}</p>
         </b-tab>
         <b-tab title="Reviews">
           <b-card-text class="scroll"> <Post v-bind:post='post'/> </b-card-text>
@@ -27,7 +27,6 @@
         </b-tab>
         </b-tabs>
         <template #footer>
-        <p class="desc">{{post.description}}</p>
         <p>{{ post.location }}</p>
       </template>
       </b-card>
@@ -162,6 +161,11 @@ footer {
 .post-b {
   margin-top: 2rem;
   width: 100%;
+}
+.card{
+  height: 20%;
+  width: 25%;
+
 }
 
 </style>
