@@ -2,8 +2,8 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../schemas/user');
-//var bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+var Post = require('../schemas/post.js');
 
 router.post('/users', function(req, res, next) {
     User.findOne({ username: req.body.username}, (err, user) => {
@@ -18,18 +18,18 @@ router.post('/users', function(req, res, next) {
             var newUser = new User ({
                 email_address: req.body.email_address,
                 username: req.body.username,
-                //password: bcrypt.hashSync(req.body.password, 10),
                 password: req.body.password,
                 bio : req.body.bio,
                 followers : req.body.followers,
-                posts : req.body.posts});
+                posts : req.body.posts,
+                profilePicture: req.body.profilePicture }); //{data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)), contentType: 'image/png'}});
             console.log(newUser);
             newUser.save(function(err) {
                 if (err) { return next(err); }
                 res.status(201).json(newUser);
-            }); }
+            });
+        }
     });
-
 });
 
 router.get('/users', function(req, res, next) {
@@ -60,6 +60,7 @@ router.put('/users/:id', function(req, res, next) {
         user.bio = req.body.bio;
         user.followers = req.body.followers;
         user.posts = req.body.posts;
+        user.profilePicture = req.body.profilePicture;
         user.save();
         res.json(user);
     });
@@ -78,6 +79,7 @@ router.patch('/users/:id', function(req, res, next) {
         user.bio = (req.body.bio || user.bio);
         user.followers = (req.body.followers || user.followers);
         user.posts = (req.body.posts || user.posts);
+        user.profilePicture = (req.body.profilePicture || user.profilePicture);
         user.save();
         res.json(user);
     });
@@ -98,26 +100,83 @@ router.post('/userLogin', (req, res, next) => {
         if(err) {return next(err);} 
         if (user) {
             //incorrect password
-            if (!req.body.password === user.password) {
+            if (req.body.password !== user.password)  {
                 return res.status(401).json({
-                    tite: 'login failed',
-                    error: 'invalid credentials'
+                    title: 'Wrong password',
+                    error: 'Wrong password'
                 });
             }
-            let token = jwt.sign({ userId: user.id}, 'secretkey');
+            let token = jwt.sign({ userId: user._id}, 'secretkey');
             return res.status(200).json({
-                title: 'login sucess',
-                token: token
+                title: 'login success',
+                token: token,
+                user: user,
+                userId : user._id
             });
-        }
-        //IF ALL IS GOOD create a token and send to frontend
-        else {
+        } else {
             return res.status(401).json({
                 title: 'user not found',
-                error: 'invalid credentials'
+                error: 'incorrect username'
             });
         }
     });
 });
+router.get('/LoggedInUser', (req, res) => {
+    let token = req.headers.token;
+    jwt.verify(token, 'secretkey', (err, decoded) => {
+        if (err) return res.status(401).json({
+            title: 'unauthorized'
+        });
+        //token is valid
+        User.findOne({ _id: decoded.userId }, (err, user) => {
+            if (err) return console.log(err);
+            return res.status(200).json({
+                title: 'user grabbed',
+                user: {
+                    username: user.username,
+                    email: user.email_address,
+                    followers: user.followers,
+                    posts: user.posts,
+                    bio: user.bio,
+                    profilePicture: user.profilePicture,
+                    id: user._id
+                }
+            });
+        });
+    });
+});
+
+router.post('/users/:id/posts', function(req, res, next) {
+    var id= req.params.id;
+    User.findById(id, function(err, user){
+        if(err) {
+            return next(err);
+        }
+        var post = new Post(req.body);
+        post.save(function (err) {
+            if (err) { return next(err); }
+            console.log(post);
+        });
+        user.posts.push(post);
+        user.save();
+        console.log(post._id);
+        return res.status(201).json(user);
+    }); 
+});
+
+router.get('/users/:id/posts', function (req, res, next) {
+    var id = req.params.id;
+    User.findById(id).populate('posts').exec(function(err,user){
+        if (err) {
+            return next(err); 
+        }
+        if(user == null){
+            return res.status(404).json({'message' : 'Post not found'});
+        }
+        console.log(user.posts);
+        return res.status(200).json(user.posts);
+    });
+});
+
 
 module.exports = router;

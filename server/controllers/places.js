@@ -2,6 +2,7 @@ var express = require('express');
 const Place = require('../schemas/place.js');
 var router = express.Router();
 const jwt = require('jsonwebtoken');
+var Post = require('../schemas/post.js');
 
 //create new place
 router.post('/places', function(req, res, next) {
@@ -14,7 +15,15 @@ router.post('/places', function(req, res, next) {
             title: 'username already used',
         });
         else {
-            var newPlace = new Place(req.body);
+            var newPlace = new Place({
+                placeType: req.body.placeType,
+                email_address: req.body.email_address,
+                password: req.body.password,
+                bio: req.body.bio,
+                placename: req.body.placeName,
+                username: req.body.username,
+                address: req.body.address
+            });
             console.log(newPlace);
             newPlace.save(function(err) {
                 if (err) { return next(err); }
@@ -23,6 +32,27 @@ router.post('/places', function(req, res, next) {
         }
     });
    
+    router.patch('/places/:id', function(req, res, next) {
+        var id = req.params.id;
+        Place.findById(id, function(err, place) {
+            if (err) { return next(err); }
+            if (place == null) {
+                return res.status(404).json({'message': 'Place not found'});
+            }
+            place.username = (req.body.username || place.username);
+            place.email_address = (req.body.email_address || place.email_address);
+            place.password = (req.body.password || place.password);
+            place.bio = (req.body.bio || place.bio);
+            place.followers = (req.body.followers || place.followers);
+            place.posts = (req.body.posts || place.posts);
+            place.profilePicture = (req.body.profilePicture || place.profilePicture);
+            place.placename = (req.body.placename || place.placename);
+            place.address = (req.body.address || place.address);
+            console.log(place.placename);
+            place.save();
+            res.json(place);
+        });
+    });
 });
 
 //get all places
@@ -75,7 +105,7 @@ router.put('/places/:id', function(req, res, next) {
         }
         place.placeType = req.body.placeType;
         place.email_address = req.body.email_address;
-        place.password = req.body.password;
+        place.password = req.body.password,
         place.bio = req.body.bio;
         place.place_id = req.body.place_id;
         place.placeName = req.body.placeName;
@@ -90,13 +120,13 @@ router.post('/placeLogin', (req, res, next) => {
         if(err) {return next(err);}
         if (place) {
             //incorrect password
-            if (!req.body.password === place.password) {
+            if (req.body.password !== place.password) {
                 return res.status(401).json({
-                    title: 'login failed',
-                    error: 'invalid credentials'
+                    title: 'Wrong password',
+                    error: 'Wrong password'
                 });
             }
-            let token = jwt.sign({ placeId: place.id}, 'secretkey');
+            let token = jwt.sign({ placeId: place._id}, 'secretkey');
             return res.status(200).json({
                 title: 'login sucess',
                 token: token
@@ -106,9 +136,68 @@ router.post('/placeLogin', (req, res, next) => {
         //IF ALL IS GOOD create a token and send to frontend
             return res.status(401).json({
                 title: 'user not found',
-                error: 'invalid credentials'
+                error: 'Username incorrent'
             });
         }
+    });
+});
+router.get('/LoggedInPlace', (req, res) => {
+    let token = req.headers.token;
+    jwt.verify(token, 'secretkey', (err, decoded) => {
+        if (err) return res.status(401).json({
+            title: 'unauthorized'
+        });
+        //token is valid
+        Place.findOne({ _id: decoded.placeId }, (err, place) => {
+            if (err) return console.log(err);
+            return res.status(200).json({
+                title: 'place grabbed',
+                place: {
+                    username: place.username,
+                    email: place.email_address,
+                    followers: place.followers,
+                    posts: place.posts,
+                    bio: place.bio,
+                    placeType: place.placeType,
+                    placeName : place.placename,
+                    address: place.address,
+                    id: place._id
+                }    
+            });
+        });
+  
+    });
+});
+
+router.post('/places/:id/posts', function(req, res, next) {
+    var id= req.params.id;
+    Place.findById(id, function(err, place){
+        if(err) {
+            return next(err);
+        }
+        var post = new Post(req.body);
+        post.save(function (err) {
+            if (err) { return next(err); }
+            console.log(post);
+        });
+        place.posts.push(post);
+        place.save();
+        console.log(post._id);
+        return res.status(201).json(place);
+    }); 
+});
+
+router.get('/users/:id/posts', function (req, res, next) {
+    var id = req.params.id;
+    Place.findById(id).populate('posts').exec(function(err,place){
+        if (err) {
+            return next(err); 
+        }
+        if(place == null){
+            return res.status(404).json({'message' : 'Post not found'});
+        }
+        console.log(place.posts);
+        return res.status(200).json(place.posts);
     });
 });
 

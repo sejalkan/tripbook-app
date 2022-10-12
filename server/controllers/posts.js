@@ -3,15 +3,7 @@ var router = express.Router();
 var Post = require('../schemas/post.js');
 var Review = require('../schemas/review.js');
 
-//create post
-router.post('/posts', function(req, res, next) {
-    var post = new Post(req.body);
-    post.save(function(err) {
-        if (err) { return next(err); }
-        res.status(201).json(post);
-    });
-});
-
+//create post by user id
 //read all posts
 router.get('/posts', function(req, res, next) {
     Post.find(function(err, posts) {
@@ -109,6 +101,9 @@ router.get('/posts/:id/reviews', function (req, res, next) {
     Post.findById(id).populate('reviews').exec(function(err,post){
         if (err) {
             return next(err); 
+        }
+        if(post == null){
+            return res.status(404).json({'message' : 'Post not found'});
         }
         console.log(post.reviews);
         return res.status(200).json(post.reviews);

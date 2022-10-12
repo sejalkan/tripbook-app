@@ -9,7 +9,7 @@
         </div>
          </div>
         <div class="form">
-          <log-in v-if="login" @change-to-signup=isUSer> </log-in>
+          <log-in v-if="login" @change-to-signup=isUSer @userLoggedIn=handlingUserLogin() @placeLoggedIn=handlingPlaceLogin()> </log-in>
           <user-account v-if="user" @change-to-place=isPlace @change-to-login=loggingIn> </user-account>
           <place-account v-if="place" @change-to-user=isUSer  @change-to-login=loggingIn> </place-account>
             </div>
@@ -51,17 +51,24 @@ export default {
       this.user = false
       this.login = true
       this.place = false
+    },
+    handlingUserLogin() {
+      this.$emit('userLoggedIn', true)
+    },
+    handlingPlaceLogin() {
+      this.$emit('placeLoggedIn', true)
     }
   }
 }
 </script>
+
 <style>
  h2{
         text-align: center;
     }
 .page{
         height: 100vh;
-        overflow-y: hidden;
+        /* overflow-y: hidden; */
         background-color: #f6eef0;
         padding-top: 90px;
     }

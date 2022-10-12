@@ -1,6 +1,5 @@
 <template>
      <div class="form">
-        <form>
             <h2> Sign In </h2> <br>
         <div class="info">
         <input type="text" name="username" class="inputs" placeholder="Username" v-model="username">
@@ -10,7 +9,6 @@
         <input type="button" id="Btn" class="inputs" name="logIn" value="Check in" v-on:click="loggingIn">
         <button id="Btn" class="inputs" v-on:click=changeToSignUp> Sign up </button>
         </div>
-        </form>
         </div>
 </template>
 
@@ -25,7 +23,8 @@ export default {
       password: '',
       checkb: '',
       errors: [],
-      check: false
+      check: false,
+      user: ''
     }
   },
   methods: {
@@ -46,13 +45,18 @@ export default {
           .then(res => {
             if (res.status === 200) {
               localStorage.setItem('token', res.data.token)
-              console.log('success')
+              this.user = res.data.user
+              console.log(this.user)
               alert('success')
+              if (this.check === true) {
+                this.$emit('placeLoggedIn', true)
+              } else {
+                this.$emit('userLoggedIn', true)
+              }
               this.$router.push('/')
             }
           }, err => {
-            alert(err + '\n Invalid credentials')
-            this.error = err.response.data.error
+            alert(err + '\n invalid credentials')
           })
       } else {
         this.errors.length = 0
@@ -67,6 +71,9 @@ export default {
       } else {
         this.check = false
       }
+    },
+    returnUser() {
+      return this.user
     }
   }
 }
@@ -80,6 +87,7 @@ export default {
         padding-top: 50px;
         background-color: #ffffff;
         float: left;
+        box-shadow: 10px 10px 8px #888888;
     }
     ::placeholder{
         font-size:11px;
@@ -111,5 +119,6 @@ export default {
     h2{
         font-family: inter;
         font-weight: 100;
+        text-shadow: 2px 2px 5px lightgray;
     }
 </style>

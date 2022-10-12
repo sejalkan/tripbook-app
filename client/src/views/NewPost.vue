@@ -1,34 +1,28 @@
 <template>
   <div id="app">
+    <h1> New Post </h1>
     <input
     style="display: none"
     type="file"
     @change="onFileChange"
     ref="fileInput">
-    <b-container style="margin-top: 2rem">
-    <b-row >
-        <b-col sm="6" md="5" offset-md="2" lg="6" offset-lg="5">
-    <b-button pill variant="primary" @click='$refs.fileInput.click()'>Pick File</b-button>
-    <b-button pill variant="success" style="margin-left: 0.5rem" @click="onUpload"> Upload </b-button>
-        </b-col>
-    </b-row>
-    </b-container>
+    <label class="label"> Description </label> <br>
+    <textarea class="mb-2" name="description" v-model="description"> </textarea>
 
-    <div id="preview">
-      <img v-if="url" :src="url" />
-    </div>
-
-    <b-input-group size="lg" prepend="Description" class="mb-2">
-        <b-form-input aria-label="Large text input with switch"></b-form-input>
-    </b-input-group>
-
-    <b-input-group size="lg" prepend="Location" class="mb-1 ">
-        <b-form-input aria-label="Large text input with switch"></b-form-input>
+    <b-input-group size="lg" prepend="Location" class="mb-1 " name="location">
+    <b-form-input aria-label="Large text input with switch" v-model="location"> </b-form-input>
     <b-input-group-append is-text @click="getLocation">
       <b-form-checkbox switch class="mr-n2" >
       </b-form-checkbox>
     </b-input-group-append>
     </b-input-group>
+    <b-container style="margin-top: 2rem">
+    <b-row >
+        <b-col sm="6" md="5" offset-md="2" lg="6" offset-lg="5">
+    <b-button id="btn" @click="createPost()"> Upload Blog Post</b-button>
+        </b-col>
+    </b-row>
+    </b-container>
   </div>
 </template>
 
@@ -36,13 +30,60 @@
 import { Api } from '@/Api'
 export default {
   name: 'NewPost',
+  props: { currentUser: Object },
+  mounted() {
+    if (localStorage.getItem('token')) {
+      console.log(this.currentUser)
+    }
+  },
   data() {
     return {
       selectedFile: null,
-      url: null
+      url: null,
+      postData: {
+        description: '',
+        location: '',
+        timestamp: '',
+        reviews: '',
+        user: '',
+        place: ''
+      },
+      post: {}
     }
   },
+
+  created() {
+    if (localStorage.getItem('token') === null) {
+      this.$router.push('/startpage')
+    }
+  },
+
   methods: {
+    createPost() {
+      const newPost = {
+        description: this.description,
+        location: this.location,
+        user: this.currentUser.id,
+        userName: this.currentUser.username
+      }
+      const theID = this.currentUser.id
+      let route = '/users/' + theID + '/posts'
+      if (localStorage.getItem('place')) {
+        route = '/places/' + theID + '/posts'
+      }
+
+      console.log(this.currentUser.username)
+      Api.post(route, newPost).then(response => {
+        console.log(response.data)
+        this.post = response.data
+        console.log(this.newPost)
+      })
+        .catch(error => {
+          console.log(error)
+        })
+      this.$router.go(0)
+      console.log(this.post)
+    },
     onFileSelected(event) {
       this.selectedFile = event.target.files[0]
     },
@@ -88,6 +129,9 @@ export default {
         // eslint-disable-next-line no-template-curly-in-string
         this.post.location += ', ${result.data.country}'
       }
+    },
+
+    uploadForm: function () {
     }
   }
 }
@@ -95,12 +139,9 @@ export default {
 
 <style>
 
-.mb-2 {
-    display: flex;
-    flex-direction: row;
-    margin-top: 2rem;
-    padding-left: 14rem;
-    padding-right: 14rem;
+h1 {
+    font-family: inter;
+    text-align: center;
 }
 
 .mb-1 {
@@ -123,5 +164,25 @@ export default {
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
-
+#btn{
+  height: 35px;
+  width: 100px;
+  font-family: inter;
+  font-size: 16x;
+  color: white;
+  background-color:#4c3d40;
+}
+.label{
+  color: grey;
+  margin-left: 25%;
+  font-size: 18px;
+  text-align: center;
+}
+.mb-2{
+  margin-left: 25%;
+  margin-bottom: 15px;
+  width: 50%;
+  height: 200px;
+  padding:10px;
+}
 </style>

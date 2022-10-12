@@ -1,6 +1,5 @@
 <template>
         <div class="form">
-        <form class="userFrom">
             <h2> Create User Account </h2> <br>
             <p class="info">
         <button id="link" v-on:click=changeToPlace>Are you an organisation?</button>
@@ -13,7 +12,6 @@
          <input type="button" class="btn" name="submit" value="Submit" v-on:click="postUser">
           <input type="button" class="btn" name="cancel" value="Sign in" v-on:click=changeToLogin>
             </p>
-        </form>
         </div>
 </template>
 
@@ -58,6 +56,7 @@ export default {
               this.newUser = response.data
               console.log(response.data)
               alert('success')
+              this.$router.push('/startpage')
             })
             .catch(function (error) {
               this.newUser = error
@@ -88,6 +87,7 @@ export default {
         padding-top: 50px;
         background-color: #ffffff;
         float: left;
+        box-shadow: 10px 10px 8px #888888;
     }
      ::placeholder{
         font-size:11px;
@@ -118,6 +118,7 @@ export default {
     }
     h2{
         font-family: Inter;
+        text-shadow: 2px 2px 5px lightgray;
     }
     #link{
       margin-left: 10px;
