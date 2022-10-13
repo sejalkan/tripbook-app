@@ -1,21 +1,68 @@
 <template>
-        <div class="form">
-        <form>
-            <h2> Create Organisation Account </h2> <br>
-            <p class="info">
-              <button id="link" v-on:click=changeToUser>Are you a user?</button>
-        <input type="text" id="username" name="username" v-model="username" placeholder="Username" required="required">
-        <input type="text" id="name" name="name" v-model="placename" placeholder="Organisation name" required="required">
-        <input type="text" id="emailID" name="emailID" v-model="email_address" placeholder="Email Address" required="required">
-        <input type="password" id="password" name="password" minlength="8" v-model="password" placeholder="Password" required="required">
-        <input type="text" id="bio" name="bio" size="12" v-model="bio" placeholder="Bio.."><br>
-        <label for="profilePicture">Profile Picture </label>
-        <input type="file" id="profilePicture" name="profilePicture" accept="image/*"><br>
-        <input type="button" class="btn" name="submit" value="Submit" v-on:click="postPlace">
-        <input type="button" class="btn" name="cancel" value="Sign in" v-on:click=changeToLogin>
-            </p>
-        </form>
-        </div>
+  <div class="form">
+    <form>
+      <h2>Create Organisation Account</h2>
+      <br />
+      <p class="info">
+        <button id="link" v-on:click="changeToUser">Are you a user?</button>
+        <input
+          type="text"
+          class="inputs"
+          name="username"
+          v-model="username"
+          placeholder="Username"
+          required="required"
+        />
+        <input
+          type="text"
+          class="inputs"
+          name="name"
+          v-model="placename"
+          placeholder="Organisation name"
+          required="required"
+        />
+        <input
+          type="text"
+          class="inputs"
+          name="emailID"
+          v-model="email_address"
+          placeholder="Email Address"
+          required="required"
+        />
+        <input
+          type="password"
+          class="inputs"
+          name="password"
+          minlength="8"
+          v-model="password"
+          placeholder="Password"
+          required="required"
+        />
+        <input
+          type="text"
+          class="inputs"
+          name="bio"
+          size="12"
+          v-model="bio"
+          placeholder="Bio.."
+        /><br />
+        <input
+          type="button"
+          class="btn"
+          name="submit"
+          value="Submit"
+          v-on:click="postPlace"
+        />
+        <input
+          type="button"
+          class="btn"
+          name="cancel"
+          value="Sign in"
+          v-on:click="changeToLogin"
+        />
+      </p>
+    </form>
+  </div>
 </template>
 
 <script>
@@ -45,7 +92,12 @@ export default {
       this.$emit('change-to-login')
     },
     postPlace() {
-      if (this.username && this.placename && this.email_address && this.password) {
+      if (
+        this.username &&
+        this.placename &&
+        this.email_address &&
+        this.password
+      ) {
         if (this.password.length < 8) {
           this.errors.length = 0
           this.errors.push('Password must be at least 8 characters')
@@ -93,51 +145,10 @@ export default {
 </script>
 
 <style scoped>
-    .form{
-        height: 600px;
-        width: 30%;
-        padding: 25px;
-        padding-top: 50px;
-        background-color: #ffffff;
-        float: left;
-         box-shadow: 10px 10px 8px #888888;
-    }
-     ::placeholder{
-        font-size:11px;
-        padding: 10px;
-        color: gray;
-    }
-    .btn{
-        background-color:#c8b4d0;
-        border: none;
-        height: 50px;
-        width: 100px;
-        font-family: inter;
-        font-size: 16px;
-        float: left;
-        margin-right: 20px;
-    }
-    input{
-        margin: 10px;
-        border-color: #f6eef0;
-        border-style: double;
-        width: 80%;
-    }
-    label{
-         margin-left: 10px;
-       margin-bottom: -10px;
-        font-family: Inter;
-        font-size: 16px;
-    }
-    h2{
-        font-family: Inter;
-        text-shadow: 2px 2px 5px lightgray;
-    }
-     #link{
-      margin-left: 10px;
-      background-color: white;
-      border: 0px;
-      color: blue;
-      text-decoration: underline;
-    }
+label {
+  margin-left: 10px;
+  margin-bottom: -10px;
+  font-family: Inter;
+  font-size: 16px;
+}
 </style>

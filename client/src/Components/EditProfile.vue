@@ -1,54 +1,65 @@
 <template>
-    <div style="body">
-      <div v-if="isUser" class="userInfo">
-        <h1> Edit Profile </h1>
-        <label class="label"> Username </label> <br>
-        <label class="readOnly input" v-on:click="alerting"> {{currentUser.username}} </label> <br>
+  <div style="body">
+    <div v-if="isUser" class="userInfo">
+      <h1>Edit Profile</h1>
+      <label class="label"> Username </label> <br />
+      <label class="readOnly input" v-on:click="alerting">
+        {{ currentUser.username }}
+      </label>
+      <br />
 
-        <label class="label"> Email Address </label> <br>
-        <label class="readOnly input" v-on:click="alerting"> {{currentUser.email}} </label> <br>
+      <label class="label"> Email Address </label> <br />
+      <label class="readOnly input" v-on:click="alerting">
+        {{ currentUser.email }}
+      </label>
+      <br />
 
-        <label class="label"> Bio </label> <br>
-        <textarea type="text" class="inputBio" v-model="bio"> </textarea> <br>
+      <label class="label"> Bio </label> <br />
+      <textarea type="text" class="inputBio" v-model="bio"> </textarea> <br />
 
-        <label class="label"> New Password </label> <br>
-        <input type="password" class="input" v-model="password"> <br>
+      <label class="label"> New Password </label> <br />
+      <input type="password" class="input" v-model="password" /> <br />
 
-        <label class="label"> Confirm new password </label> <br>
-        <input type="password" class="input" v-model="confirmPassword"> <br>
+      <label class="label"> Confirm new password </label> <br />
+      <input type="password" class="input" v-model="confirmPassword" /> <br />
 
-        <button v-on:click="goBack" id="btn"> Cancel </button>
-        <button id="btn" v-on:click="checkInput"> Save changes </button>
-        <button id="btn" v-on:click="deleteAccount"> Delete account </button>
-        </div>
-        <div v-if="isPlace"  class="userInfo">
-        <h1> Edit Profile </h1>
-        <label class="label"> Username </label> <br>
-        <label class="readOnly input" v-on:click="alerting"> {{currentUser.username}} </label> <br>
-
-        <label class="label"> Email Address </label> <br>
-        <label class="readOnly input" v-on:click="alerting"> {{currentUser.email}} </label> <br>
-
-        <label class="label"> Organisation name </label> <br>
-        <input type="text" class="input" v-model="organisationName"> <br>
-
-        <label class="label"> Address </label> <br>
-        <input type="text" class="input" v-model="address"> <br>
-        <label class="label"> Bio </label> <br>
-        <textarea type="text" class="inputBio" v-model="bio"> </textarea> <br>
-
-        <label class="label"> New Password </label> <br>
-        <input type="password" class="input" v-model="password"> <br>
-
-        <label class="label"> Confirm new password </label> <br>
-        <input type="password" class="input" v-model="confirmPassword"> <br>
-
-        <button v-on:click="goBack" id="btn"> Cancel
-        </button>
-        <button id="btn" v-on:click="checkInput"> Save changes </button>
-        <button id="btn" v-on:click="deleteAccount"> Delete account </button>
-        </div>
+      <button v-on:click="goBack" id="btn">Cancel</button>
+      <button id="btn" v-on:click="checkInput">Save changes</button>
+      <button id="btn" v-on:click="deleteAccount">Delete account</button>
     </div>
+    <div v-if="isPlace" class="userInfo">
+      <h1>Edit Profile</h1>
+      <label class="label"> Username </label> <br />
+      <label class="readOnly input" v-on:click="alerting">
+        {{ currentUser.username }}
+      </label>
+      <br />
+
+      <label class="label"> Email Address </label> <br />
+      <label class="readOnly input" v-on:click="alerting">
+        {{ currentUser.email }}
+      </label>
+      <br />
+
+      <label class="label"> Organisation name </label> <br />
+      <input type="text" class="input" v-model="organisationName" /> <br />
+
+      <label class="label"> Address </label> <br />
+      <input type="text" class="input" v-model="address" /> <br />
+      <label class="label"> Bio </label> <br />
+      <textarea type="text" class="inputBio" v-model="bio"> </textarea> <br />
+
+      <label class="label"> New Password </label> <br />
+      <input type="password" class="input" v-model="password" /> <br />
+
+      <label class="label"> Confirm new password </label> <br />
+      <input type="password" class="input" v-model="confirmPassword" /> <br />
+
+      <button v-on:click="goBack" id="btn">Cancel</button>
+      <button id="btn" v-on:click="checkInput">Save changes</button>
+      <button id="btn" v-on:click="deleteAccount">Delete account</button>
+    </div>
+  </div>
 </template>
 <script>
 import { Api } from '@/Api'
@@ -143,76 +154,73 @@ export default {
 }
 </script>
 <style scoped>
-.label{
+.label {
   color: grey;
   margin-left: 20px;
   font-size: 13px;
 }
 .readOnly {
-    background-color: white;
-    border: 1px solid lightgray;
-    height: 30px;
-    padding: 2px;
-    color: gray;
+  background-color: white;
+  border: 1px solid lightgray;
+  height: 30px;
+  padding: 2px;
+  color: gray;
 }
 .userInfo {
-    border: 1px solid black;
-    margin: 25px;
-    margin-top: 5px;
-    margin-bottom: 5%;
-    background-color: #f6eef0;
+  border: 1px solid black;
+  margin: 25px;
+  margin-top: 5px;
+  margin-bottom: 5%;
+  background-color: #f6eef0;
 }
-.input{
+.input {
   margin-left: 20px;
   margin-bottom: 15px;
-  width:80%;
+  width: 80%;
   padding-left: 5px;
   font-size: 13px;
 }
 h1 {
-    font-family: inter;
-     text-shadow: 2px 2px 8px #888888;
-     font-size: 20px;
+  font-family: inter;
+  text-shadow: 2px 2px 8px #888888;
+  font-size: 20px;
 }
-.inputBio{
+.inputBio {
   margin-left: 20px;
   margin-bottom: 15px;
   width: 80%;
   height: 100px;
-  padding:10px;
+  padding: 10px;
   font-size: 13px;
 }
 
-#btn{
+#btn {
   height: 30px;
   width: 100px;
   font-family: inter;
   font-size: 13px;
   color: white;
-  background-color:#4c3d40;
+  background-color: #4c3d40;
   margin-left: 20px;
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-@media only screen and (min-device-width: 768px)
-  and (max-device-width: 1600px)
-  and (-webkit-min-device-pixel-ratio: 1) {
-    h1 {
-     text-shadow: 2px 2px 8px #888888;
-     font-size: 25px;
-    }
-    .userInfo {
+@media only screen and (min-device-width: 768px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
+  h1 {
+    text-shadow: 2px 2px 8px #888888;
+    font-size: 25px;
+  }
+  .userInfo {
     margin: 30%;
     margin-top: 10px;
     margin-bottom: 10%;
-}
-  .inputBio{
-  width: 60%;
-}
-.input{
-  width:60%;
-
-}
   }
+  .inputBio {
+    width: 60%;
+  }
+  .input {
+    width: 60%;
+  }
+}
 </style>

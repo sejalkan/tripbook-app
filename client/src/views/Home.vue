@@ -1,34 +1,56 @@
 <template>
   <div>
-    <h1 class="border"> Hello  {{ currentUser.username }} !</h1>
-    <p class="heading"> Posts from people and places you follow </p>
-    <div class="row justify-content-center" style="padding: 2rem" v-for="post in posts" v-bind:key="post._id">
-      <b-card style="card" header-tag="header" footer-tag="footer" class="card" no-body>
+    <h1 class="border">Hello {{ currentUser.username }} !</h1>
+    <p class="heading">Posts from people and places you follow</p>
+    <div
+      class="row justify-content-center"
+      style="padding: 2rem"
+      v-for="post in posts"
+      v-bind:key="post._id"
+    >
+      <b-card
+        style="card"
+        header-tag="header"
+        footer-tag="footer"
+        class="card"
+        no-body
+      >
         <b-tabs card>
           <template #tabs-start>
-            <li role="presentation" class="nav-item align-self-center"> @{{post.userName}} </li>
+            <li role="presentation" class="nav-item align-self-center">
+              @{{ post.userName }}
+            </li>
           </template>
 
-        <b-tab title="Post">
-          <p class="desc">{{post.description}}</p>
-        </b-tab>
-        <b-tab title="Reviews">
-          <b-card-text class="scroll"> <Post v-bind:post='post'/> </b-card-text>
-        </b-tab>
+          <b-tab title="Post">
+            <p class="desc">{{ post.description }}</p>
+          </b-tab>
+          <b-tab title="Reviews">
+            <b-card-text class="scroll">
+              <Post v-bind:post="post" />
+            </b-card-text>
+          </b-tab>
 
-        <b-tab title="Write a Review">
-          <b-input-group size="lg" prepend="Text" class="mb-3" name="text">
-            <b-form-input  v-model="text"></b-form-input>
-          </b-input-group>
-          <b-form-rating size="lg" v-model="rating" class="stars"> </b-form-rating>
-          <p class="mt-2">Rating: {{ rating }} </p>
-          <b-button class="post-b" pill variant="success" @click="createReview(post)"> Post </b-button>
-
-        </b-tab>
+          <b-tab title="Write a Review">
+            <b-input-group size="lg" prepend="Text" class="mb-3" name="text">
+              <b-form-input v-model="text"></b-form-input>
+            </b-input-group>
+            <b-form-rating size="lg" v-model="rating" class="stars">
+            </b-form-rating>
+            <p class="mt-2">Rating: {{ rating }}</p>
+            <b-button
+              class="post-b"
+              pill
+              variant="success"
+              @click="createReview(post)"
+            >
+              Post
+            </b-button>
+          </b-tab>
         </b-tabs>
         <template #footer>
-        <p>{{ post.location }}</p>
-      </template>
+          <p>{{ post.location }}</p>
+        </template>
       </b-card>
     </div>
   </div>
@@ -47,12 +69,12 @@ export default {
       console.log(this.currentUser)
     }
     Api.get('/posts')
-      .then(response => {
+      .then((response) => {
         console.log(response.data)
         this.posts = response.data.posts
         console.log(this.posts)
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error)
       })
   },
@@ -68,13 +90,14 @@ export default {
       console.log(post)
       console.log(post._id)
       console.log('hello')
-      Api.post(`/posts/${post._id}/reviews`, newReview).then(response => {
-        console.log(response.data)
-        this.review = []
-        this.review.push(newReview)
-        console.log()
-      })
-        .catch(error => {
+      Api.post(`/posts/${post._id}/reviews`, newReview)
+        .then((response) => {
+          console.log(response.data)
+          this.review = []
+          this.review.push(newReview)
+          console.log()
+        })
+        .catch((error) => {
           console.log(error)
         })
       this.$router.go(0)
@@ -147,7 +170,7 @@ footer {
   font-weight: bold;
   padding-bottom: 0.5rem;
   padding-top: 0.5rem;
-  background-color: #4C3D40;
+  background-color: #4c3d40;
   color: white;
 }
 
@@ -163,10 +186,8 @@ footer {
   margin-top: 2rem;
   width: 100%;
 }
-.card{
+.card {
   height: 20%;
   width: 25%;
-
 }
-
 </style>
