@@ -31,7 +31,7 @@
                 lg="6"
                 sm="12"
                 style="padding: 2rem"
-                v-for="post in currentUser.posts"
+                v-for="post in posts"
                 v-bind:key="post._id"
               >
                 <b-card
@@ -89,21 +89,23 @@ export default {
     if (localStorage.getItem('token')) {
       console.log(this.currentUser)
     }
-
-    Api.get('/posts')
-      .then((response) => {
-        console.log(response.data)
-        this.posts = response.data.posts
-      })
-      .catch((error) => {
-        console.error(error)
-        this.post = []
-      })
-      .then(() => {
-        console.log('This runs every time after success or error.')
-      })
+    for (let i = 0; i < this.currentUser.posts.length; i++) {
+      const id = this.currentUser.posts[i]
+      const route = '/posts/' + id
+      Api.get(route)
+        .then((response) => {
+          this.posts.push(response.data.post)
+          console.log(this.posts)
+        })
+        .catch((error) => {
+          console.error(error)
+          this.post = []
+        })
+        .then(() => {
+          console.log('This runs every time after success or error.')
+        })
+    }
   },
-
   data() {
     return {
       posts: [],
