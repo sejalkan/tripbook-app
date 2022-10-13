@@ -20,7 +20,15 @@ router.get('/posts/:id', function(req, res, next) {
         if (post == null) {
             return res.status(404).json({'message': 'Post not found'});
         }
-        res.json(post);
+        return res.status(200).json({
+            title: 'post grabbed',
+            post: {
+                description: post.description,
+                location: post.location,
+                userName: post.userName,
+                reviews: post.reviews
+            }
+        });
     });
 });
 

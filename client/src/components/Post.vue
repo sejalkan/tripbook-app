@@ -1,11 +1,11 @@
 <template>
   <div class="row justify-content-center">
     <div class="card" v-for="review in reviews" v-bind:key="review._id">
-      <p> @{{review.userName}} </p>
-      <p> {{review.text}} </p>
-      <p> Rating: {{review.rating}}/5</p>
+      <p>@{{ review.userName }}</p>
+      <p>{{ review.text }}</p>
+      <p>Rating: {{ review.rating }}/5</p>
     </div>
-    </div>
+  </div>
 </template>
 
 <script>
@@ -17,11 +17,12 @@ export default {
   mounted() {
     console.log(this.post._id)
     console.log(this.currentUser)
-    Api.get(`/posts/${this.post._id}/reviews`).then(response => {
-      console.log(response.data)
-      this.reviews = response.data
-    })
-      .catch(error => {
+    Api.get(`/posts/${this.post._id}/reviews`)
+      .then((response) => {
+        console.log(response.data)
+        this.reviews = response.data
+      })
+      .catch((error) => {
         console.log(error)
       })
   },
@@ -31,7 +32,6 @@ export default {
       reviews: []
     }
   }
-
 }
 </script>
 
@@ -46,7 +46,7 @@ export default {
   padding: 1rem;
   width: 100%;
   margin-bottom: 0.2rem;
-  border-color: #4C3D40;
+  border-color: #4c3d40;
 }
 
 p {

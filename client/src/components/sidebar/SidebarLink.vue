@@ -24,16 +24,17 @@ export default {
     const isActive = computed(() => route.path === props.to)
     return { isActive, collapsed }
   }
-
 }
 </script>
 
 <style scoped>
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity 0.1s;
 }
 
-.fade-enter, .fade-leave-to {
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
 }
 
@@ -70,5 +71,4 @@ export default {
   width: 24px;
   margin-right: 15px;
 }
-
 </style>
