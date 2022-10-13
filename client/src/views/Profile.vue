@@ -209,5 +209,16 @@ h1 {
   height: 600px;
 }
 }
+.information{
+  text-align: left;
+  padding: 4px;
+  margin-left: 28%;
+  margin-right: 25px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  box-shadow: 5px 0px 10px #888888;
+  background-color: #f6eef0;
+  width: 40%;
+}
 
 </style>

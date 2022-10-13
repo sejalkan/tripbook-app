@@ -199,17 +199,20 @@ h1 {
   and (max-device-width: 1600px)
   and (-webkit-min-device-pixel-ratio: 1) {
     h1 {
-    font-family: inter;
      text-shadow: 2px 2px 8px #888888;
      font-size: 25px;
     }
     .userInfo {
-    border: 1px solid black;
-    margin: 25%;
+    margin: 30%;
     margin-top: 10px;
     margin-bottom: 10%;
-    background-color: #f6eef0;
 }
+  .inputBio{
+  width: 60%;
+}
+.input{
+  width:60%;
 
+}
   }
 </style>
