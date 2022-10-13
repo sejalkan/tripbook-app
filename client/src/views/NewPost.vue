@@ -7,10 +7,11 @@
       @change="onFileChange"
       ref="fileInput"
     />
+    <div class="main">
     <label class="label"> Description </label> <br />
     <textarea class="mb-2" name="description" v-model="description"> </textarea>
 
-    <b-input-group size="lg" prepend="Location" class="mb-1" name="location">
+    <b-input-group prepend="Location" class="mb-1" name="location">
       <b-form-input
         aria-label="Large text input with switch"
         v-model="location"
@@ -22,11 +23,12 @@
     </b-input-group>
     <b-container style="margin-top: 2rem">
       <b-row>
-        <b-col sm="6" md="5" offset-md="2" lg="6" offset-lg="5">
-          <b-button id="btn" @click="createPost()"> Upload Blog Post</b-button>
+        <b-col>
+          <b-button id="btn" @click="createPost()"> Upload </b-button>
         </b-col>
       </b-row>
     </b-container>
+    </div>
   </div>
 </template>
 
@@ -151,39 +153,38 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+@media only screen and (max-width: 768px){
+  #app{
+    background-color: #f6eef0;
+    height: 100vh;
+  }
+
+}
+.main{
+  display: inline-block;
+  width: 70%;
+}
+
 h1 {
   font-family: inter;
   text-align: center;
 }
 
 .mb-1 {
-  display: flex;
-  flex-direction: row;
   margin-top: 1rem;
-  padding-left: 14rem;
-  padding-right: 14rem;
+  margin-left: 25%;
+  margin-right: 30%;
 }
 
-#preview {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#preview img {
-  max-width: 100%;
-  max-height: 500px;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-}
 #btn {
   height: 35px;
   width: 100px;
   font-family: inter;
-  font-size: 16x;
+  font-size: 16px;
   color: white;
   background-color: #4c3d40;
+  margin-left: 23%;
 }
 .label {
   color: grey;
@@ -194,7 +195,7 @@ h1 {
 .mb-2 {
   margin-left: 25%;
   margin-bottom: 15px;
-  width: 50%;
+  width: 100%;
   height: 200px;
   padding: 10px;
 }
