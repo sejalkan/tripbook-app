@@ -68,7 +68,7 @@ export default {
 }
 </style>
 
-<style scoped>
+<style lang="scss" scoped>
 .header {
   display: flex;
   flex-direction: column;
@@ -100,14 +100,16 @@ export default {
 
 .collapse-icon {
   position: absolute;
-  bottom: 0;
-  padding: 0.30em;
+  top: 40px;
+  padding: 0.10em;
   color: white;
   transition: 0.2s linear;
+  cursor: pointer;
 }
 
 .rotate-180 {
   transform: rotate(180deg);
   transition: 0.2s linear;
 }
+
 </style>

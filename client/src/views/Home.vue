@@ -105,6 +105,8 @@ export default {
 .desc {
   font-weight: bold;
   margin-bottom: 8px;
+  overflow-y: auto;
+  max-height: 450px;
 }
 
 img {
@@ -114,8 +116,8 @@ img {
 }
 
 .card {
-  min-width: 800px;
-  min-height: 710px;
+  width: 650px;
+  height: 600px;
 }
 
 li {
@@ -132,10 +134,10 @@ footer {
 }
 
 .scroll {
-  min-width: 800px;
-  min-height: 520px;
-  max-height: 520px;
-  max-width: 800px;
+  min-width: 600px;
+  min-height: 430px;
+  max-height: 430px;
+  max-width: 600px;
   overflow-y: auto;
   padding: 1rem;
   margin-bottom: 3rem !important;
@@ -163,10 +165,86 @@ footer {
   margin-top: 2rem;
   width: 100%;
 }
-.card{
-  height: 20%;
-  width: 25%;
 
+@media only screen and (max-width: 575.98px) {
+  .card {
+      width: 500px;
+      height: 500px;
+    }
+    .desc {
+      margin-bottom: 8px;
+      max-height: 315px;
+    }
+    .scroll {
+      min-width: 250px;
+      min-height: 300px;
+      max-height: 300px;
+      max-width: 250px;
+    }
+}
+@media only screen and (min-width: 576px) and (max-width:767.98px) {
+    .card {
+      width: 500px;
+      height: 500px;
+    }
+    .desc {
+      margin-bottom: 8px;
+      max-height: 315px;
+    }
+    .scroll {
+      min-width: 420px;
+      min-height: 330px;
+      max-height: 330px;
+      max-width: 420px;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width:991.98px) {
+  .card {
+      width: 500px;
+      height: 500px;
+    }
+    .desc {
+      max-height: 340px;
+    }
+    .scroll {
+      min-width: 420px;
+      min-height: 330px;
+      max-height: 330px;
+      max-width: 420px;
+    }
+}
+@media only screen and (min-width: 992px) and (max-width:1199.98px) {
+  .card {
+      width: 500px;
+      height: 500px;
+    }
+    .desc {
+      margin-bottom: 8px;
+      max-height: 355px;
+    }
+    .scroll {
+      min-width: 420px;
+      min-height: 330px;
+      max-height: 330px;
+      max-width: 420px;
+    }
+}
+@media only screen and (min-width:1200px) {
+  .card {
+      width: 500px;
+      height: 500px;
+    }
+    .desc {
+      margin-bottom: 8px;
+      max-height: 355px;
+    }
+    .scroll {
+      min-width: 420px;
+      min-height: 330px;
+      max-height: 330px;
+      max-width: 420px;
+    }
 }
 
 </style>
