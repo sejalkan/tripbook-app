@@ -23,37 +23,46 @@
         <b-tabs content-class="mt-3" align="center">
           <b-tab title="Posts" class="tab"
             ><p>Your Posts</p>
-            <div
-              class="row justify-content-center"
-              style="padding: 2rem"
-              v-for="post in currentUser.posts"
-              v-bind:key="post._id"
-            >
-              <b-card
+            <b-row class="row">
+              <b-col
                 class="card"
-                header-tag="header"
-                footer-tag="footer"
-                no-body
+                cols="12"
+                md="6"
+                lg="6"
+                sm="12"
+                style="padding: 2rem"
+                v-for="post in currentUser.posts"
+                v-bind:key="post._id"
               >
-                <b-tabs card>
-                  <template #tabs-start>
-                    <li role="presentation" class="nav-item align-self-center">
-                      @{{ currentUser.username }}
-                    </li>
+                <b-card
+                  class="card"
+                  header-tag="header"
+                  footer-tag="footer"
+                  no-body
+                >
+                  <b-tabs card>
+                    <template #tabs-start>
+                      <li
+                        role="presentation"
+                        class="nav-item align-self-center"
+                      >
+                        @{{ currentUser.username }}
+                      </li>
+                    </template>
+                    <b-tab title="Post">
+                      <p class="desc">{{ post.description }}</p>
+                    </b-tab>
+                    <b-tab class="scroll" title="Reviews">
+                      <b-card-text> <Post v-bind:post="post" /> </b-card-text>
+                    </b-tab>
+                  </b-tabs>
+                  <template #footer>
+                    <p>{{ post.location }}</p>
                   </template>
-                  <b-tab title="Post">
-                    <p class="desc">{{ post.description }}</p>
-                  </b-tab>
-                  <b-tab class="scroll" title="Reviews">
-                    <b-card-text> <Post v-bind:post="post" /> </b-card-text>
-                  </b-tab>
-                </b-tabs>
-                <template #footer>
-                  <p>{{ post.location }}</p>
-                </template>
-              </b-card>
-              <p></p>
-            </div>
+                </b-card>
+                <p></p>
+              </b-col>
+            </b-row>
           </b-tab>
           <b-tab title="Followers" class="tab"><p>Your Followers</p></b-tab>
           <b-tab title="Following" class="tab"><p>Your Following</p></b-tab>
@@ -114,6 +123,7 @@ export default {
 </script>
 
 <style scoped>
+
 .tab {
   text-align: center;
   font-size: 13px;
@@ -142,7 +152,7 @@ img {
 }
 
 .card {
-  width: 300px;
+  width: 400px;
   height: 300px;
 }
 
@@ -179,62 +189,27 @@ h1 {
 
 .information {
   text-align: left;
-  padding: 3px;
-  margin-left: 25px;
-  margin-right: 25px;
+  padding: 20px;
+  margin-left: 25%;
+  margin-right: 25%;
   margin-top: 25px;
   margin-bottom: 25px;
   box-shadow: 5px 0px 10px #888888;
   background-color: #f6eef0;
-  width: 80%;
 }
 .editBtn {
   background-color: #4c3d40;
   border: none;
   border-radius: 8%;
-  height: 30px;
+  height: 35px;
   width: 100px;
   font-family: inter;
-  font-size: 13px;
+  font-size: 12px;
   color: white;
-  position: absolute;
-  top: 20%;
-  left: 60%;
+  float: right;
 }
 .desc {
   font-weight: bold;
   margin-bottom: 8px;
-}
-
-@media only screen and (min-device-width: 768px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
-  .editBtn {
-    background-color: #4c3d40;
-    border: none;
-    border-radius: 8%;
-    height: 30px;
-    width: 100px;
-    font-family: inter;
-    font-size: 13px;
-    color: white;
-    position: relative;
-    top: 11%;
-    left: 73%;
-  }
-
-  .card {
-    width: 600px;
-    height: 600px;
-  }
-}
-.information {
-  text-align: left;
-  padding: 4px;
-  margin-left: 28%;
-  margin-right: 25px;
-  margin-top: 25px;
-  margin-bottom: 25px;
-  box-shadow: 5px 0px 10px #888888;
-  background-color: #f6eef0;
-  width: 40%;
 }
 </style>

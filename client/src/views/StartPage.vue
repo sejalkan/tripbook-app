@@ -83,6 +83,7 @@ export default {
     padding: 5%;
   }
    .form {
+    height: 550px;
     margin-left: 5%;
     margin-top: 5%;
     width: 90%;
@@ -93,6 +94,7 @@ export default {
     padding: 10%;
   }
    .form {
+    height: 500px;
     margin-left: 15%;
     margin-top: 5%;
     width: 70%;
@@ -105,6 +107,7 @@ export default {
     height: 100vh;
   }
   .form {
+    height: 500px;
     float: left;
     margin-left: 10%;
     margin-top: 5%;
@@ -121,6 +124,7 @@ export default {
     height: 100vh;
   }
   .form {
+    height: 500px;
     width: 30%;
     float: left;
   }
@@ -130,7 +134,6 @@ export default {
 }
 
 .form {
-  height: 500px;
   padding: 25px;
   padding-top: 50px;
   background-color: #ffffff;
