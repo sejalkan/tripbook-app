@@ -77,4 +77,17 @@ export default {
 </script>
 
 <style>
+
+#app {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+div .menubtn {
+  font-size: 30px;
+  font-weight: bolder;
+  cursor: pointer;
+}
+
 </style>
