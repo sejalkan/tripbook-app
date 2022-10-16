@@ -125,7 +125,6 @@ export default {
 </script>
 
 <style scoped>
-
 .tab {
   text-align: center;
   font-size: 13px;

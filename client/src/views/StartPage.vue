@@ -78,29 +78,29 @@ export default {
 </script>
 
 <style>
-@media only screen and (max-width:768px) {
+@media only screen and (max-width: 768px) {
   .page {
     padding: 5%;
   }
-   .form {
+  .form {
     height: 550px;
     margin-left: 5%;
     margin-top: 5%;
     width: 90%;
   }
 }
-@media only screen and (min-width: 768px) and (max-width:945px) {
+@media only screen and (min-width: 768px) and (max-width: 945px) {
   .page {
     padding: 10%;
   }
-   .form {
+  .form {
     height: 500px;
     margin-left: 15%;
     margin-top: 5%;
     width: 70%;
   }
 }
-@media only screen and (min-width: 945px) and (max-width:1145px) {
+@media only screen and (min-width: 945px) and (max-width: 1145px) {
   .page {
     width: 100%;
     padding: 0;
@@ -113,14 +113,14 @@ export default {
     margin-top: 5%;
     width: 35%;
   }
-  .ImageLogo{
+  .ImageLogo {
     float: left;
     margin: 0%;
     width: 45%;
   }
 }
-@media only screen and (min-width:1146px) {
-  .page{
+@media only screen and (min-width: 1146px) {
+  .page {
     height: 100vh;
   }
   .form {
@@ -151,6 +151,9 @@ export default {
   margin-top: 20px;
   border-radius: 0%;
 }
+.form .btn:hover {
+  background-color: #c8b4d01e;
+}
 .form #Btn {
   background-color: #c8b4d0;
   border: none;
@@ -158,6 +161,9 @@ export default {
   width: 100px;
   font-family: inter;
   font-size: 16px;
+}
+.form #Btn:hover {
+  background-color: #c8b4d01e;
 }
 .form #link {
   margin-left: 10px;

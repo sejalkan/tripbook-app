@@ -23,7 +23,9 @@
           </template>
 
           <b-tab title="Post">
-            <p class="desc">{{ post.description }}</p>
+            <b-card-text class="scroll">
+              <p class="desc">{{ post.description }}</p>
+            </b-card-text>
           </b-tab>
           <b-tab title="Reviews">
             <b-card-text class="scroll">
@@ -50,6 +52,9 @@
         </b-tabs>
         <template #footer>
           <p>{{ post.location }}</p>
+          <b-button id="tripbooking" @click="tripBookIt(post)">
+            <i class="fa-solid fa-book-open"> </i> TripBook it!
+          </b-button>
         </template>
       </b-card>
     </div>
@@ -101,6 +106,18 @@ export default {
           console.log(error)
         })
       this.$router.go(0)
+    },
+    tripBookIt(post) {
+      const theID = this.currentUser.id
+      const route = '/favPost/' + theID
+      Api.post(route, post)
+        .then((response) => {
+          console.log(response.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+      console.log(this.currentUser.favPosts)
     }
   },
 
@@ -114,6 +131,16 @@ export default {
 </script>
 
 <style scoped>
+#tripbooking {
+  float: right;
+  background-color: #f6eef0;
+  padding: 4px;
+  border: 1px solid gray;
+  color: black;
+}
+#tripbooking:hover {
+  background-color: #f6eef073;
+}
 .header {
   text-align: center;
   font-weight: bold;
@@ -153,7 +180,7 @@ footer {
   position: absolute;
   bottom: 0;
   width: 100%;
-  max-height: 80px;
+  max-height: 100px;
 }
 
 .scroll {
@@ -191,82 +218,82 @@ footer {
 
 @media only screen and (max-width: 575.98px) {
   .card {
-      width: 500px;
-      height: 500px;
-    }
-    .desc {
-      margin-bottom: 8px;
-      max-height: 315px;
-    }
-    .scroll {
-      min-width: 250px;
-      min-height: 300px;
-      max-height: 300px;
-      max-width: 250px;
-    }
+    width: 500px;
+    height: 500px;
+  }
+  .desc {
+    margin-bottom: 8px;
+    max-height: 315px;
+  }
+  .scroll {
+    min-width: 250px;
+    min-height: 300px;
+    max-height: 300px;
+    max-width: 250px;
+  }
 }
-@media only screen and (min-width: 576px) and (max-width:767.98px) {
-    .card {
-      width: 500px;
-      height: 500px;
-    }
-    .desc {
-      margin-bottom: 8px;
-      max-height: 315px;
-    }
-    .scroll {
-      min-width: 420px;
-      min-height: 330px;
-      max-height: 330px;
-      max-width: 420px;
-    }
+@media only screen and (min-width: 576px) and (max-width: 767.98px) {
+  .card {
+    width: 500px;
+    height: 500px;
+  }
+  .desc {
+    margin-bottom: 8px;
+    max-height: 315px;
+  }
+  .scroll {
+    min-width: 420px;
+    min-height: 330px;
+    max-height: 330px;
+    max-width: 420px;
+  }
 }
 
-@media only screen and (min-width: 768px) and (max-width:991.98px) {
+@media only screen and (min-width: 768px) and (max-width: 991.98px) {
   .card {
-      width: 500px;
-      height: 500px;
-    }
-    .desc {
-      max-height: 340px;
-    }
-    .scroll {
-      min-width: 420px;
-      min-height: 330px;
-      max-height: 330px;
-      max-width: 420px;
-    }
+    width: 500px;
+    height: 500px;
+  }
+  .desc {
+    max-height: 340px;
+  }
+  .scroll {
+    min-width: 420px;
+    min-height: 330px;
+    max-height: 330px;
+    max-width: 420px;
+  }
 }
-@media only screen and (min-width: 992px) and (max-width:1199.98px) {
+@media only screen and (min-width: 992px) and (max-width: 1199.98px) {
   .card {
-      width: 500px;
-      height: 500px;
-    }
-    .desc {
-      margin-bottom: 8px;
-      max-height: 355px;
-    }
-    .scroll {
-      min-width: 420px;
-      min-height: 330px;
-      max-height: 330px;
-      max-width: 420px;
-    }
+    width: 500px;
+    height: 500px;
+  }
+  .desc {
+    margin-bottom: 8px;
+    max-height: 355px;
+  }
+  .scroll {
+    min-width: 420px;
+    min-height: 330px;
+    max-height: 330px;
+    max-width: 420px;
+  }
 }
-@media only screen and (min-width:1200px) {
+@media only screen and (min-width: 1200px) {
   .card {
-      width: 500px;
-      height: 500px;
-    }
-    .desc {
-      margin-bottom: 8px;
-      max-height: 355px;
-    }
-    .scroll {
-      min-width: 420px;
-      min-height: 330px;
-      max-height: 330px;
-      max-width: 420px;
-    }
+    width: 500px;
+    height: 500px;
+  }
+  .desc {
+    margin-bottom: 8px;
+    max-height: 355px;
+  }
+  .scroll {
+    min-width: 420px;
+    min-height: 330px;
+    max-height: 330px;
+    max-width: 420px;
+  }
 }
 </style>
