@@ -21,8 +21,8 @@
       </div>
       <div>
         <b-tabs content-class="mt-3" align="center">
-          <b-tab title="Posts" class="tab"
-            ><p>Your Posts</p>
+          <b-tab title="Posts" class="tab">
+            <p>Your Posts</p>
             <b-row class="row">
               <b-col
                 class="card"

@@ -77,7 +77,6 @@ export default {
               localStorage.setItem('token', res.data.token)
               this.user = res.data.user
               console.log(this.user)
-              alert('success')
               if (this.check === true) {
                 this.$emit('placeLoggedIn', true)
               } else {

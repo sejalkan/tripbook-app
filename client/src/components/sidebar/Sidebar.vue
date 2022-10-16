@@ -12,15 +12,9 @@
     </h1>
 
     <SidebarLink to="/" icon="fa-solid fa-house"> Home </SidebarLink>
-    <SidebarLink to="/explore" icon="fa-solid fa-magnifying-glass-location">
-      Explore
-    </SidebarLink>
-    <SidebarLink to="/newPost" icon="fa-regular fa-square-plus">
-      New Post
-    </SidebarLink>
-    <SidebarLink to="/myTripBook" icon="fa-solid fa-book-open">
-      My Trip Book
-    </SidebarLink>
+    <SidebarLink to="/explore" icon="fa-solid fa-magnifying-glass-location"> Explore </SidebarLink>
+    <SidebarLink to="/newPost" icon="fa-regular fa-square-plus"> New Post </SidebarLink>
+    <SidebarLink to="/myTripBook" icon="fa-solid fa-book-open"> My Trip Book </SidebarLink>
     <SidebarLink to="/profile" icon="fa-solid fa-user"> Profile </SidebarLink>
     <button v-on:click="handleLogout" id="logoutButton">
       <SidebarLink to="/startpage" icon="fa-solid fa-arrow-right-from-bracket">
@@ -29,11 +23,16 @@
     </button>
 
     <span
+    v-if="!isMobile()"
       class="collapse-icon"
       :class="{ 'rotate-180': collapsed }"
       @click="toggleSidebar"
     >
       <i class="fa-solid fa-angles-left" />
+    </span>
+    <span v-else
+    class="dash-icon">
+      <i class="fa-solid fa-minus" />
     </span>
   </div>
 </template>
@@ -55,6 +54,14 @@ export default {
       localStorage.removeItem('place')
       alert('Logged out!')
       this.$router.go(0)
+    },
+
+    isMobile() {
+      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        return true
+      } else {
+        return false
+      }
     }
   }
 }
@@ -103,6 +110,14 @@ export default {
 
   display: flex;
   flex-direction: column;
+}
+
+.dash-icon {
+  position: absolute;
+  top: 28px;
+  padding: 0.25em;
+  color: white;
+  transform: scale(2.5,1);
 }
 
 .collapse-icon {
