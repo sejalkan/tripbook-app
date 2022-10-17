@@ -7,8 +7,8 @@
       style="padding: 2rem"
       v-for="post in posts"
       v-bind:key="post._id"
-      v-on="removeOrAdd(post)"
     >
+      <div>{{ removeOrAdd(post._id) }}</div>
       <b-card
         style="card"
         header-tag="header"
@@ -54,7 +54,7 @@
         <template #footer>
           <p>{{ post.location }}</p>
           <b-button id="tripbooking" @click="tripBookIt(post)">
-            <i class="fa-solid fa-book-open"> </i> {{message}}
+            <i class="fa-solid fa-book-open"> </i> {{ message }}
           </b-button>
         </template>
       </b-card>
@@ -124,7 +124,7 @@ export default {
       console.log(this.currentUser.favPosts)
     },
     removeOrAdd(post) {
-      if (this.currentUser.favPosts.includes(post.id)) {
+      if (this.currentUser.favPosts.includes(post)) {
         this.message = 'Remove from tripbook'
       } else {
         this.message = 'Tripbook it!'
