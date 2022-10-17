@@ -32,7 +32,7 @@
                 sm="12"
                 style="padding: 2rem"
                 v-for="post in posts"
-                v-bind:key="post._id"
+                v-bind:key="post.id"
               >
                 <b-card
                   class="card"

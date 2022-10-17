@@ -15,9 +15,13 @@ export default {
   props: ['post'],
 
   mounted() {
-    console.log(this.post._id)
+    console.log(this.post.id)
+    let id = this.post.id
+    if (this.post._id) {
+      id = this.post._id
+    }
     console.log(this.currentUser)
-    Api.get(`/posts/${this.post._id}/reviews`)
+    Api.get(`/posts/${id}/reviews`)
       .then((response) => {
         console.log(response.data)
         this.reviews = response.data
