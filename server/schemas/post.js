@@ -12,6 +12,7 @@ const postSchema = new Schema({
     reviews: [{ type: Schema.Types.ObjectId, ref: 'reviews' }],
     user: [{ type: Schema.Types.ObjectId, referance: 'users' }],
     place: [{ type: Schema.Types.ObjectId, referance: 'places' }],
+    id: String
 });
 
 module.exports = mongoose.model('posts', postSchema);

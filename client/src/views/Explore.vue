@@ -4,7 +4,6 @@
     <b-row class="places">
       <b-col
         sm="12"
-        col="12"
         md="6"
         lg="4"
         v-for="place in places"

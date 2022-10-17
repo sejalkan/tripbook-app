@@ -98,11 +98,7 @@ export default {
           console.log(this.posts)
         })
         .catch((error) => {
-          console.error(error)
-          this.post = []
-        })
-        .then(() => {
-          console.log('This runs every time after success or error.')
+          this.post = error
         })
     }
   },

@@ -7,6 +7,7 @@
       style="padding: 2rem"
       v-for="post in posts"
       v-bind:key="post._id"
+      v-on="removeOrAdd(post)"
     >
       <b-card
         style="card"
@@ -53,7 +54,7 @@
         <template #footer>
           <p>{{ post.location }}</p>
           <b-button id="tripbooking" @click="tripBookIt(post)">
-            <i class="fa-solid fa-book-open"> </i> TripBook it!
+            <i class="fa-solid fa-book-open"> </i> {{message}}
           </b-button>
         </template>
       </b-card>
@@ -109,7 +110,10 @@ export default {
     },
     tripBookIt(post) {
       const theID = this.currentUser.id
-      const route = '/favPost/' + theID
+      let route = '/userFavPost/' + theID
+      if (localStorage.getItem('place')) {
+        route = '/placeFavPost/' + theID
+      }
       Api.post(route, post)
         .then((response) => {
           console.log(response.data)
@@ -118,13 +122,21 @@ export default {
           console.log(error)
         })
       console.log(this.currentUser.favPosts)
+    },
+    removeOrAdd(post) {
+      if (this.currentUser.favPosts.includes(post.id)) {
+        this.message = 'Remove from tripbook'
+      } else {
+        this.message = 'Tripbook it!'
+      }
     }
   },
 
   data() {
     return {
       posts: [],
-      rating: null
+      rating: null,
+      message: ''
     }
   }
 }

@@ -7,10 +7,11 @@ const Place = new Schema({
     password: String,
     bio: String,
     placename: String,
-    username: {type: String, unique: true},
+    username: { type: String, unique: true },
     address: String,
-    followers: [{ type: Schema.Types.ObjectId, ref: 'placeModel'}],
-    posts: [{type: Schema.Types.ObjectId, ref:'posts'}],
+    followers: [{ type: Schema.Types.ObjectId, ref: 'placeModel' }],
+    posts: [{ type: Schema.Types.ObjectId, ref: 'posts' }],
+    favPosts: [{ type: Schema.Types.ObjectId, ref: 'posts' }],
 
 });
 const placeModel = mongoose.model('Place', Place);

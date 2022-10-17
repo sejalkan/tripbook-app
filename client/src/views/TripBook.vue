@@ -71,7 +71,10 @@ export default {
   methods: {
     removeIt(post) {
       const theID = this.currentUser.id
-      const route = '/favPost/' + theID
+      let route = '/userFavPost/' + theID
+      if (localStorage.getItem('place')) {
+        route = '/placeFavPlace/' + theID
+      }
       Api.post(route, post)
         .then((response) => {
           console.log(response.data)
@@ -90,7 +93,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 #tripbooking {
   float: right;
   background-color: #f6eef0;

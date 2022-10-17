@@ -176,6 +176,7 @@ router.post('/places/:id/posts', function(req, res, next) {
             return next(err);
         }
         var post = new Post(req.body);
+        post.id = post._id;
         post.save(function (err) {
             if (err) { return next(err); }
             console.log(post);
@@ -187,7 +188,7 @@ router.post('/places/:id/posts', function(req, res, next) {
     }); 
 });
 
-router.get('/users/:id/posts', function (req, res, next) {
+router.get('/places/:id/posts', function (req, res, next) {
     var id = req.params.id;
     Place.findById(id).populate('posts').exec(function(err,place){
         if (err) {
@@ -200,6 +201,32 @@ router.get('/users/:id/posts', function (req, res, next) {
         return res.status(200).json(place.posts);
     });
 });
+router.post('/placeFavPost/:id', function (req, res, next) {
+    var id = req.params.id;
+    Place.findById(id, function (err, place) {
+        if (err) {
+            return next(err);
+        }
+        var post = req.body;
+        let id = post.id;
+        if (post._id) {
+            id = post._id;
+        }
+        if (place.favPosts.includes(id)) {
+            console.log('no');
+            const index = place.favPosts.indexOf(id);
+            place.favPosts.splice(index, 1);
+        } else {
+            console.log('hey');
+            place.favPosts.push(post);
+        }
+
+        place.save();
+        console.log(post.id);
+        return res.status(201).json(place);
+    });
+});
+
 
 module.exports = router;
 

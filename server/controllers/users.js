@@ -156,6 +156,7 @@ router.post('/users/:id/posts', function (req, res, next) {
             return next(err);
         }
         var post = new Post(req.body);
+        post.id = post._id;
         post.save(function (err) {
             if (err) { return next(err); }
             console.log(post);
@@ -180,24 +181,27 @@ router.get('/users/:id/posts', function (req, res, next) {
         return res.status(200).json(user.posts);
     });
 });
-router.post('/favPost/:id', function (req, res, next) {
+router.post('/userFavPost/:id', function (req, res, next) {
     var id = req.params.id;
     User.findById(id, function (err, user) {
         if (err) {
             return next(err);
         }
         var post = req.body;
-        if (user.favPosts.includes(post._id)) {
+        let id = post.id;
+        if (post._id) {
+            id = post._id;
+        }
+        if (user.favPosts.includes(id)) {
             console.log('no');
-            const index = user.favPosts.indexOf(post);
+            const index = user.favPosts.indexOf(id);
             user.favPosts.splice(index, 1);
         } else {
             console.log('hey');
             user.favPosts.push(post);
         }
-
         user.save();
-        console.log(post._id);
+        console.log(post.id);
         return res.status(201).json(user);
     });
 });
