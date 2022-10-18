@@ -62,7 +62,7 @@ export default {
     width: 100%;
   }
   h2 {
-    width: 100vw;
+    width: auto;
   }
 }
 h2 {

@@ -2,6 +2,9 @@
   <div>
     <h1 class="border">Hello {{ currentUser.username }} !</h1>
     <p class="heading">Posts from people and places you follow</p>
+    <div v-if =  "currentUser.username === 'adminbob'">
+      <b-button class="delete" @click="deletePosts()"> Delete </b-button>
+    </div>
     <div
       class="row justify-content-center"
       style="padding: 2rem"
@@ -118,6 +121,7 @@ export default {
       Api.post(route, post)
         .then((response) => {
           console.log(response.data)
+          location.reload()
         })
         .catch((error) => {
           console.log(error)
@@ -130,6 +134,15 @@ export default {
       } else {
         this.message = 'Tripbook it!'
       }
+    },
+    deletePosts() {
+      Api.delete('/posts').then((res) => {
+        this.message = 'Posts were delete'
+        location.reload()
+      })
+        .catch(error => {
+          console.error(error)
+        })
     }
   },
 
@@ -147,7 +160,7 @@ export default {
 #tripbooking {
   float: right;
   background-color: #f6eef0;
-  padding: 4px;
+  padding: 3px;
   border: 1px solid gray;
   color: black;
 }
@@ -166,8 +179,7 @@ export default {
 }
 
 .desc {
-  font-weight: bold;
-  overflow-y: auto;
+  font-weight: bold
 }
 
 .card {
@@ -185,7 +197,7 @@ footer {
   position: absolute;
   bottom: 0;
   width: 100%;
-  max-height: 65px;
+  max-height: 100px;
   font-weight: bold;
 }
 
@@ -195,7 +207,7 @@ footer {
   max-height: 430px;
   max-width: 600px;
   overflow-y: auto;
-  padding: 1rem;
+  padding: 0rem;
   margin-bottom: 3rem !important;
 }
 
@@ -220,6 +232,10 @@ footer {
 .post-b {
   margin-top: 2rem;
   width: 100%;
+}
+
+.delete {
+  margin-left: 40rem;
 }
 
 @media only screen and (max-width: 575.98px) {

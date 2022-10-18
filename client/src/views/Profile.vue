@@ -20,14 +20,11 @@
         <br />
       </div>
       <div>
-            <p class="title">Your Posts</p>
-            <b-row class="row">
-              <b-col
-                class="card"
-                cols="6"
-                v-for="post in posts"
-                v-bind:key="post.id"
-              >
+            <p class="border">Your Posts</p>
+              <div class="row justify-content-center"
+              style="padding: 2rem"
+              v-for="post in posts"
+              v-bind:key="post.id">
                 <b-card
                   class="card"
                   header-tag="header"
@@ -56,8 +53,7 @@
                   </template>
                 </b-card>
                 <p></p>
-              </b-col>
-            </b-row>
+              </div>
       </div>
     </div>
   </div>
@@ -112,6 +108,15 @@ export default {
 </script>
 
 <style scoped>
+.border {
+  font-family: sans-serif;
+  text-align: center;
+  font-weight: bold;
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+  background-color: #4c3d40;
+  color: white;
+}
 .tab {
   text-align: center;
   font-size: 13px;
@@ -128,18 +133,13 @@ export default {
 .title {
   font-weight: bold;
   text-align: center;
-  padding: 1rem;
+  padding-top: 1rem;
 }
 
 #bio {
   font-family: inter;
   text-align: left;
   font-style: normal;
-}
-
-img {
-  max-height: 600px;
-  max-width: 800px;
 }
 
 .card {
@@ -211,6 +211,87 @@ h1 {
   overflow-y: auto;
   max-height: 450px;
   padding-bottom: 4rem;
+}
+
+@media only screen and (max-width: 575.98px) {
+  .card {
+    width: 500px;
+    height: 500px;
+  }
+  .desc {
+    margin-bottom: 8px;
+    max-height: 315px;
+  }
+  .scroll {
+    min-width: 250px;
+    min-height: 300px;
+    max-height: 300px;
+    max-width: 250px;
+  }
+}
+@media only screen and (min-width: 576px) and (max-width: 767.98px) {
+  .card {
+    width: 500px;
+    height: 500px;
+  }
+  .desc {
+    margin-bottom: 8px;
+    max-height: 315px;
+  }
+  .scroll {
+    min-width: 420px;
+    min-height: 330px;
+    max-height: 330px;
+    max-width: 420px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991.98px) {
+  .card {
+    width: 500px;
+    height: 500px;
+  }
+  .desc {
+    max-height: 340px;
+  }
+  .scroll {
+    min-width: 420px;
+    min-height: 330px;
+    max-height: 330px;
+    max-width: 420px;
+  }
+}
+@media only screen and (min-width: 992px) and (max-width: 1199.98px) {
+  .card {
+    width: 500px;
+    height: 500px;
+  }
+  .desc {
+    margin-bottom: 8px;
+    max-height: 355px;
+  }
+  .scroll {
+    min-width: 420px;
+    min-height: 330px;
+    max-height: 330px;
+    max-width: 420px;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .card {
+    width: 500px;
+    height: 500px;
+  }
+  .desc {
+    margin-bottom: 8px;
+    max-height: 355px;
+  }
+  .scroll {
+    min-width: 420px;
+    min-height: 330px;
+    max-height: 330px;
+    max-width: 420px;
+  }
 }
 
 </style>
