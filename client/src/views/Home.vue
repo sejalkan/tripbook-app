@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import Post from '../components/Post.vue'
+import Post from '../components1/Post.vue'
 import { Api } from '@/Api'
 
 export default {

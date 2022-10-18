@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import AddGoogleMap from '../components/AddGoogleMap.vue'
+import AddGoogleMap from '../components1/AddGoogleMap.vue'
 import { Api } from '@/Api'
 
 export default {
