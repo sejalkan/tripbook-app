@@ -187,21 +187,20 @@ router.post('/userFavPost/:id', function (req, res, next) {
         if (err) {
             return next(err);
         }
-        var post = req.body;
-        let id = post.id;
-        if (post._id) {
-            id = post._id;
+        let postId = req.body.id;
+        if (req.body._id) {
+            postId =req.body._id;
         }
-        if (user.favPosts.includes(id)) {
+        if (user.favPosts.includes(postId)) {
             console.log('no');
-            const index = user.favPosts.indexOf(id);
+            const index = user.favPosts.indexOf(postId);
             user.favPosts.splice(index, 1);
         } else {
             console.log('hey');
-            user.favPosts.push(post);
+            user.favPosts.push(postId);
         }
         user.save();
-        console.log(post.id);
+        console.log(postId);
         return res.status(201).json(user);
     });
 });
