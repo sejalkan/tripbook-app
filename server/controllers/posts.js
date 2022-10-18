@@ -26,7 +26,8 @@ router.get('/posts/:id', function(req, res, next) {
                 description: post.description,
                 location: post.location,
                 userName: post.userName,
-                reviews: post.reviews
+                reviews: post.reviews,
+                id: post._id
             }
         });
     });

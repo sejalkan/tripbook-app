@@ -26,7 +26,7 @@
                 class="card"
                 cols="6"
                 v-for="post in posts"
-                v-bind:key="post._id"
+                v-bind:key="post.id"
               >
                 <b-card
                   class="card"
@@ -89,11 +89,7 @@ export default {
           console.log(this.posts)
         })
         .catch((error) => {
-          console.error(error)
-          this.post = []
-        })
-        .then(() => {
-          console.log('This runs every time after success or error.')
+          this.post = error
         })
     }
   },
@@ -116,7 +112,6 @@ export default {
 </script>
 
 <style scoped>
-
 .tab {
   text-align: center;
   font-size: 13px;

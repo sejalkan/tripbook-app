@@ -43,14 +43,12 @@ export default {
     return {
       selectedFile: null,
       url: null,
-      postData: {
-        description: '',
-        location: '',
-        timestamp: '',
-        reviews: '',
-        user: '',
-        place: ''
-      },
+      description: '',
+      location: '',
+      timestamp: '',
+      reviews: '',
+      user: '',
+      place: '',
       post: {}
     }
   },

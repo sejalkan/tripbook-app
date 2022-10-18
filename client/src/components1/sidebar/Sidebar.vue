@@ -12,9 +12,15 @@
     </h1>
 
     <SidebarLink to="/" icon="fa-solid fa-house"> Home </SidebarLink>
-    <SidebarLink to="/explore" icon="fa-solid fa-magnifying-glass-location"> Explore </SidebarLink>
-    <SidebarLink to="/newPost" icon="fa-regular fa-square-plus"> New Post </SidebarLink>
-    <SidebarLink to="/myTripBook" icon="fa-solid fa-book-open"> My Trip Book </SidebarLink>
+    <SidebarLink to="/explore" icon="fa-solid fa-magnifying-glass-location">
+      Explore
+    </SidebarLink>
+    <SidebarLink to="/newPost" icon="fa-regular fa-square-plus">
+      New Post
+    </SidebarLink>
+    <SidebarLink to="/tripBook" icon="fa-solid fa-book-open">
+      My Trip Book
+    </SidebarLink>
     <SidebarLink to="/profile" icon="fa-solid fa-user"> Profile </SidebarLink>
     <button v-on:click="handleLogout" id="logoutButton">
       <SidebarLink to="/startpage" icon="fa-solid fa-arrow-right-from-bracket">
@@ -123,7 +129,7 @@ export default {
 .collapse-icon {
   position: absolute;
   top: 40px;
-  padding: 0.10em;
+  padding: 0.1em;
   color: white;
   transition: 0.2s linear;
   cursor: pointer;
@@ -133,5 +139,4 @@ export default {
   transform: rotate(180deg);
   transition: 0.2s linear;
 }
-
 </style>

@@ -5,6 +5,7 @@ import StartPage from './views/StartPage.vue'
 import Explore from './views/Explore.vue'
 import NewPost from './views/NewPost.vue'
 import Profile from './views/Profile.vue'
+import TripBook from './views/TripBook.vue'
 
 Vue.use(Router)
 
@@ -39,6 +40,11 @@ export default new Router({
       path: '/profile',
       name: 'profile',
       component: Profile
+    },
+    {
+      path: '/tripbook',
+      name: 'tripBook',
+      component: TripBook
     }
   ]
 })
