@@ -73,9 +73,9 @@
 </template>
 
 <script>
-import Post from '../components/Post.vue'
+import Post from '../components1/Post.vue'
 import { Api } from '@/Api'
-import editingProfile from '../components/EditProfile.vue'
+import editingProfile from '../components1/EditProfile.vue'
 
 export default {
   components: { Post, editingProfile },
