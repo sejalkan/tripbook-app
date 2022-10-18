@@ -18,7 +18,7 @@
     <SidebarLink to="/newPost" icon="fa-regular fa-square-plus">
       New Post
     </SidebarLink>
-    <SidebarLink to="/myTripBook" icon="fa-solid fa-book-open">
+    <SidebarLink to="/tripBook" icon="fa-solid fa-book-open">
       My Trip Book
     </SidebarLink>
     <SidebarLink to="/profile" icon="fa-solid fa-user"> Profile </SidebarLink>
@@ -29,11 +29,16 @@
     </button>
 
     <span
+    v-if="!isMobile()"
       class="collapse-icon"
       :class="{ 'rotate-180': collapsed }"
       @click="toggleSidebar"
     >
       <i class="fa-solid fa-angles-left" />
+    </span>
+    <span v-else
+    class="dash-icon">
+      <i class="fa-solid fa-minus" />
     </span>
   </div>
 </template>
@@ -55,6 +60,14 @@ export default {
       localStorage.removeItem('place')
       alert('Logged out!')
       this.$router.go(0)
+    },
+
+    isMobile() {
+      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        return true
+      } else {
+        return false
+      }
     }
   }
 }
@@ -105,10 +118,18 @@ export default {
   flex-direction: column;
 }
 
+.dash-icon {
+  position: absolute;
+  top: 28px;
+  padding: 0.25em;
+  color: white;
+  transform: scale(2.5,1);
+}
+
 .collapse-icon {
   position: absolute;
   top: 40px;
-  padding: 0.10em;
+  padding: 0.1em;
   color: white;
   transition: 0.2s linear;
   cursor: pointer;
@@ -118,5 +139,4 @@ export default {
   transform: rotate(180deg);
   transition: 0.2s linear;
 }
-
 </style>

@@ -3,13 +3,13 @@
     <h2>Current places on TripBook:</h2>
     <b-row class="places">
       <b-col
-      sm="12"
-      col="12"
-      md="6"
-      lg="4"
-      v-for="place in places" v-bind:key="place._id"
+        sm="12"
+        md="6"
+        lg="4"
+        v-for="place in places"
+        v-bind:key="place._id"
       >
-      <li> {{ place.username }} in {{ place.address }} </li>
+        <li>{{ place.username }} in {{ place.address }}</li>
       </b-col>
     </b-row>
     <div style="padding: 2rem">
@@ -62,7 +62,7 @@ export default {
     width: 100%;
   }
   h2 {
-    width: 100vw;
+    width: auto;
   }
 }
 h2 {

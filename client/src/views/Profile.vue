@@ -20,20 +20,11 @@
         <br />
       </div>
       <div>
-        <b-tabs content-class="mt-3" align="center">
-          <b-tab title="Posts" class="tab"
-            ><p>Your Posts</p>
-            <b-row class="row">
-              <b-col
-                class="card"
-                cols="12"
-                md="6"
-                lg="6"
-                sm="12"
-                style="padding: 2rem"
-                v-for="post in posts"
-                v-bind:key="post._id"
-              >
+            <p class="border">Your Posts</p>
+              <div class="row justify-content-center"
+              style="padding: 2rem"
+              v-for="post in posts"
+              v-bind:key="post.id">
                 <b-card
                   class="card"
                   header-tag="header"
@@ -50,23 +41,19 @@
                       </li>
                     </template>
                     <b-tab title="Post">
-                      <p class="desc">{{ post.description }}</p>
+                      <p class="scroll">{{ post.description }}</p>
                     </b-tab>
                     <b-tab class="scroll" title="Reviews">
                       <b-card-text> <Post v-bind:post="post" /> </b-card-text>
                     </b-tab>
                   </b-tabs>
                   <template #footer>
+                    <i class="fa-solid fa-location-dot"></i>
                     <p>{{ post.location }}</p>
                   </template>
                 </b-card>
                 <p></p>
-              </b-col>
-            </b-row>
-          </b-tab>
-          <b-tab title="Followers" class="tab"><p>Your Followers</p></b-tab>
-          <b-tab title="Following" class="tab"><p>Your Following</p></b-tab>
-        </b-tabs>
+              </div>
       </div>
     </div>
   </div>
@@ -98,11 +85,7 @@ export default {
           console.log(this.posts)
         })
         .catch((error) => {
-          console.error(error)
-          this.post = []
-        })
-        .then(() => {
-          console.log('This runs every time after success or error.')
+          this.post = error
         })
     }
   },
@@ -125,7 +108,15 @@ export default {
 </script>
 
 <style scoped>
-
+.border {
+  font-family: sans-serif;
+  text-align: center;
+  font-weight: bold;
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+  background-color: #4c3d40;
+  color: white;
+}
 .tab {
   text-align: center;
   font-size: 13px;
@@ -138,34 +129,35 @@ export default {
 .main {
   padding-top: 0px;
 }
-p {
+
+.title {
   font-weight: bold;
   text-align: center;
+  padding-top: 1rem;
 }
+
 #bio {
   font-family: inter;
   text-align: left;
   font-style: normal;
 }
 
-img {
-  max-height: 600px;
-  max-width: 800px;
-}
-
 .card {
-  width: 400px;
-  height: 300px;
+  width: 650px;
+  height: 600px;
+  padding: 0;
 }
 
 .scroll {
-  min-width: 800px;
-  min-height: 500px;
-  max-height: 500px;
-  max-width: 800px;
+  min-width: 600px;
+  min-height: 430px;
+  max-height: 430px;
+  max-width: 600px;
   overflow-y: auto;
   padding: 1rem;
   margin-bottom: 3rem !important;
+  text-align: left;
+  font-weight: bold;
 }
 
 li {
@@ -178,6 +170,8 @@ footer {
   position: absolute;
   bottom: 0;
   width: 100%;
+  max-height: 80px;
+  font-weight: bold;
 }
 
 h1 {
@@ -210,8 +204,94 @@ h1 {
   color: white;
   float: right;
 }
+
 .desc {
   font-weight: bold;
-  margin-bottom: 8px;
+  margin-bottom: 2rem;
+  overflow-y: auto;
+  max-height: 450px;
+  padding-bottom: 4rem;
 }
+
+@media only screen and (max-width: 575.98px) {
+  .card {
+    width: 500px;
+    height: 500px;
+  }
+  .desc {
+    margin-bottom: 8px;
+    max-height: 315px;
+  }
+  .scroll {
+    min-width: 250px;
+    min-height: 300px;
+    max-height: 300px;
+    max-width: 250px;
+  }
+}
+@media only screen and (min-width: 576px) and (max-width: 767.98px) {
+  .card {
+    width: 500px;
+    height: 500px;
+  }
+  .desc {
+    margin-bottom: 8px;
+    max-height: 315px;
+  }
+  .scroll {
+    min-width: 420px;
+    min-height: 330px;
+    max-height: 330px;
+    max-width: 420px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991.98px) {
+  .card {
+    width: 500px;
+    height: 500px;
+  }
+  .desc {
+    max-height: 340px;
+  }
+  .scroll {
+    min-width: 420px;
+    min-height: 330px;
+    max-height: 330px;
+    max-width: 420px;
+  }
+}
+@media only screen and (min-width: 992px) and (max-width: 1199.98px) {
+  .card {
+    width: 500px;
+    height: 500px;
+  }
+  .desc {
+    margin-bottom: 8px;
+    max-height: 355px;
+  }
+  .scroll {
+    min-width: 420px;
+    min-height: 330px;
+    max-height: 330px;
+    max-width: 420px;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .card {
+    width: 500px;
+    height: 500px;
+  }
+  .desc {
+    margin-bottom: 8px;
+    max-height: 355px;
+  }
+  .scroll {
+    min-width: 420px;
+    min-height: 330px;
+    max-height: 330px;
+    max-width: 420px;
+  }
+}
+
 </style>

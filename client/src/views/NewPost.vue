@@ -17,10 +17,7 @@
         v-model="location"
       >
       </b-form-input>
-      <b-input-group-append is-text @click="getLocation">
-        <b-form-checkbox switch class="mr-n2"> </b-form-checkbox>
-      </b-input-group-append>
-    </b-input-group>
+      </b-input-group>
     <b-container style="margin-top: 2rem">
       <b-row>
         <b-col>
@@ -46,14 +43,12 @@ export default {
     return {
       selectedFile: null,
       url: null,
-      postData: {
-        description: '',
-        location: '',
-        timestamp: '',
-        reviews: '',
-        user: '',
-        place: ''
-      },
+      description: '',
+      location: '',
+      timestamp: '',
+      reviews: '',
+      user: '',
+      place: '',
       post: {}
     }
   },
@@ -114,41 +109,7 @@ export default {
       }).then((res) => {
         console.log(res)
       })
-    },
-
-    getLocation() {
-      console.log('getLocation')
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          this.getCityandCountry(position)
-        },
-        (err) => {
-          console.log('err:', err)
-        },
-        { timeout: 7000 }
-      )
-    },
-    getCityandCountry(position) {
-      // eslint-disable-next-line no-template-curly-in-string
-      const apiUrl = 'https://geocode.xyz/${position.coords.latitude},${position.coords.longitude}?json=1&auth=841776363501392779604x54275'
-      this.$axios
-        .get(apiUrl)
-        .then((result) => {
-          this.locationSuccess(result)
-        })
-        .catch((err) => {
-          console.log('err:', err)
-        })
-    },
-    locationSuccess(result) {
-      this.post.location = result.data.city
-      if (result.data.country) {
-        // eslint-disable-next-line no-template-curly-in-string
-        this.post.location += ', ${result.data.country}'
-      }
-    },
-
-    uploadForm: function () {}
+    }
   }
 }
 </script>
