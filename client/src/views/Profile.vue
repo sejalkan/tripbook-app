@@ -20,17 +20,11 @@
         <br />
       </div>
       <div>
-        <b-tabs content-class="mt-3" align="center">
-          <b-tab title="Posts" class="tab">
-            <p>Your Posts</p>
+            <p class="title">Your Posts</p>
             <b-row class="row">
               <b-col
                 class="card"
-                cols="12"
-                md="6"
-                lg="6"
-                sm="12"
-                style="padding: 2rem"
+                cols="6"
                 v-for="post in posts"
                 v-bind:key="post._id"
               >
@@ -50,23 +44,20 @@
                       </li>
                     </template>
                     <b-tab title="Post">
-                      <p class="desc">{{ post.description }}</p>
+                      <p class="scroll">{{ post.description }}</p>
                     </b-tab>
                     <b-tab class="scroll" title="Reviews">
                       <b-card-text> <Post v-bind:post="post" /> </b-card-text>
                     </b-tab>
                   </b-tabs>
                   <template #footer>
+                    <i class="fa-solid fa-location-dot"></i>
                     <p>{{ post.location }}</p>
                   </template>
                 </b-card>
                 <p></p>
               </b-col>
             </b-row>
-          </b-tab>
-          <b-tab title="Followers" class="tab"><p>Your Followers</p></b-tab>
-          <b-tab title="Following" class="tab"><p>Your Following</p></b-tab>
-        </b-tabs>
       </div>
     </div>
   </div>
@@ -138,10 +129,13 @@ export default {
 .main {
   padding-top: 0px;
 }
-p {
+
+.title {
   font-weight: bold;
   text-align: center;
+  padding: 1rem;
 }
+
 #bio {
   font-family: inter;
   text-align: left;
@@ -154,18 +148,21 @@ img {
 }
 
 .card {
-  width: 400px;
-  height: 300px;
+  width: 650px;
+  height: 600px;
+  padding: 0;
 }
 
 .scroll {
-  min-width: 800px;
-  min-height: 500px;
-  max-height: 500px;
-  max-width: 800px;
+  min-width: 600px;
+  min-height: 430px;
+  max-height: 430px;
+  max-width: 600px;
   overflow-y: auto;
   padding: 1rem;
   margin-bottom: 3rem !important;
+  text-align: left;
+  font-weight: bold;
 }
 
 li {
@@ -178,6 +175,8 @@ footer {
   position: absolute;
   bottom: 0;
   width: 100%;
+  max-height: 80px;
+  font-weight: bold;
 }
 
 h1 {
@@ -210,8 +209,13 @@ h1 {
   color: white;
   float: right;
 }
+
 .desc {
   font-weight: bold;
-  margin-bottom: 8px;
+  margin-bottom: 2rem;
+  overflow-y: auto;
+  max-height: 450px;
+  padding-bottom: 4rem;
 }
+
 </style>

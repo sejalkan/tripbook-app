@@ -49,6 +49,7 @@
           </b-tab>
         </b-tabs>
         <template #footer>
+          <i class="fa-solid fa-location-dot"></i>
           <p>{{ post.location }}</p>
         </template>
       </b-card>
@@ -127,15 +128,7 @@ export default {
 
 .desc {
   font-weight: bold;
-  margin-bottom: 8px;
   overflow-y: auto;
-  max-height: 450px;
-}
-
-img {
-  max-height: 600px;
-  max-width: 800px;
-  position: relative;
 }
 
 .card {
@@ -153,7 +146,8 @@ footer {
   position: absolute;
   bottom: 0;
   width: 100%;
-  max-height: 80px;
+  max-height: 65px;
+  font-weight: bold;
 }
 
 .scroll {
