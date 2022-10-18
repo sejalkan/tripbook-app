@@ -32,9 +32,9 @@
 </template>
 
 <script>
-import PlaceAccount from '@/components/PlaceAccount.vue'
-import UserAccount from '@/components/UserAccount.vue'
-import LogIn from '@/components/LogIn.vue'
+import PlaceAccount from '@/components1/PlaceAccount.vue'
+import UserAccount from '@/components1/UserAccount.vue'
+import LogIn from '@/components1/LogIn.vue'
 
 export default {
   components: {

@@ -13,8 +13,8 @@
 
 <script>
 import { Api } from '@/Api'
-import Sidebar from './components/sidebar/Sidebar.vue'
-import { sidebarWidth } from './components/sidebar/state'
+import Sidebar from './components1/sidebar/Sidebar.vue'
+import { sidebarWidth } from './components1/sidebar/state'
 import StartPage from './views/StartPage.vue'
 export default {
   components: { Sidebar, StartPage },
