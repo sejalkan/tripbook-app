@@ -31,12 +31,15 @@ router.get('/reviews', function(req, res, next) {
 
 //read by ID
 router.get('/reviews/:id', function(req, res, next){
-    var id = req.params._id;
-    Review.findById((id), function(err, review){
+    var id = req.params.id;
+    Review.findById(id, function(err, review){
         if (err) { return next(err); }
         if (review == null) {
             return res.status(404).json({'message':'Review not found'});
         }
+        review.rating = req.body.rating;
+        review.text = req.body.text;
+        review.save();
         res.json(review);
     });
 });
